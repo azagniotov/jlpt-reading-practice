@@ -245,11 +245,6 @@
 				align-items: flex-start;
 				gap: 1em;
 			}
-
-			body {
-				font-size: 16px;
-				line-height: 1.8;
-			}
 		}
 
 		@media (max-width: 480px) {
@@ -267,11 +262,6 @@
 
 			.sidebar li {
 				min-width: auto;
-			}
-
-			body {
-				font-size: 14px;
-				line-height: 2.2;
 			}
 		}
 
@@ -695,31 +685,35 @@
 		}
 	});
 
-	document.addEventListener('DOMContentLoaded', function () {
-		// Detect if device is touch-capable
-		const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+	document.addEventListener('DOMContentLoaded', () => {
+		// Find all ruby elements on the page
+		const rubies = document.querySelectorAll('ruby');
 
-		if (isTouchDevice) {
-			const rubies = document.querySelectorAll('.hidden-furigana ruby');
+		rubies.forEach(ruby => {
+			ruby.addEventListener('click', () => {
+				const rt = ruby.querySelector('rt');
+				if (!rt) return;
 
-			rubies.forEach(ruby => {
-				ruby.addEventListener('click', function () {
-					const rt = ruby.querySelector('rt');
-					if (!rt) return;
+				// Show furigana with inline styles (overrides CSS)
+				rt.style.setProperty('opacity', '1', 'important');
+				rt.style.setProperty('visibility', 'visible', 'important');
+				rt.style.paddingBottom = '0.2em';
+				rt.style.fontWeight = 'bold';
 
-					// Toggle manual visibility
-					if (rt.style.opacity === '1') {
-						rt.style.opacity = '0';
-						rt.style.visibility = 'hidden';
-					} else {
-						rt.style.opacity = '1';
-						rt.style.visibility = 'visible';
-						rt.style.paddingBottom = '0.2em';
-						rt.style.fontWeight = 'bold';
-					}
-				});
+				// Clear any previous hide timeout
+				if (rt._hideTimeout) {
+					clearTimeout(rt._hideTimeout);
+				}
+
+				// Hide furigana after 2 seconds
+				rt._hideTimeout = setTimeout(() => {
+					rt.style.setProperty('opacity', '0', 'important');
+					rt.style.setProperty('visibility', 'hidden', 'important');
+					rt.style.fontWeight = '';
+					rt.style.paddingBottom = '';
+				}, 2000);
 			});
-		}
+		});
 	});
 </script>
 </body>
