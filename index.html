@@ -725,11 +725,7 @@
 				rt.style.setProperty('opacity', '1', 'important');
 				rt.style.setProperty('visibility', 'visible', 'important');
 				rt.style.setProperty('font-size', '75%', 'important');
-				// rt.style.setProperty('padding-bottom', '0.2em', 'important');
-				// rt.style.setProperty('font-weight', 'bold', 'important');
-				// rt.style.paddingBottom = '0.1em';
-				// rt.style.fontSize = '75%';
-				// rt.style.fontWeight = 'bold';
+				rt.style.setProperty('font-weight', 'bold', 'important');
 
 				// Clear any previous hide timeout
 				if (rt._hideTimeout) {
@@ -740,7 +736,6 @@
 				rt._hideTimeout = setTimeout(() => {
 					rt.style.setProperty('opacity', '0', 'important');
 					rt.style.setProperty('visibility', 'hidden', 'important');
-					//rt.style.setProperty('font-weight', 'normal', 'important');
 				}, 2500);
 			});
 		});
