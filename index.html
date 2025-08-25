@@ -114,10 +114,16 @@
 			transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 		}
 
-		/* Add a class for temporarily showing furigana on mobile tap */
 		.temp-show-furigana rt {
 			opacity: 1 !important;
 			visibility: visible !important;
+			transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+		}
+
+		.temp-hide-furigana rt {
+			opacity: 0 !important;
+			visibility: hidden !important;
+			transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 		}
 
 		.kanji {
@@ -613,13 +619,19 @@
 	}
 
 	function clearAllTempFurigana() {
-		const tempFuriganaElements = document.querySelectorAll('.temp-show-furigana');
+		const tempFuriganaElements = document.querySelectorAll('.temp-show-furigana, .temp-hide-furigana');
 		tempFuriganaElements.forEach(ruby => {
-			ruby.classList.remove('temp-show-furigana');
+			ruby.classList.remove('temp-show-furigana', 'temp-hide-furigana');
 			const rt = ruby.querySelector('rt');
-			if (rt && rt._hideTimeout) {
-				clearTimeout(rt._hideTimeout);
-				delete rt._hideTimeout;
+			if (rt) {
+				if (rt._hideTimeout) {
+					clearTimeout(rt._hideTimeout);
+					delete rt._hideTimeout;
+				}
+				if (rt._fadeTimeout) {
+					clearTimeout(rt._fadeTimeout);
+					delete rt._fadeTimeout;
+				}
 			}
 		});
 	}
@@ -712,20 +724,34 @@
 					const rt = ruby.querySelector('rt');
 					if (!rt) return;
 
-					// Clear any existing timeout
+					// Clear any existing timeouts
 					if (rt._hideTimeout) {
 						clearTimeout(rt._hideTimeout);
 						delete rt._hideTimeout;
 					}
+					if (rt._fadeTimeout) {
+						clearTimeout(rt._fadeTimeout);
+						delete rt._fadeTimeout;
+					}
+
+					// Remove any existing temp classes
+					ruby.classList.remove('temp-hide-furigana');
 
 					// Add class to show furigana temporarily
 					ruby.classList.add('temp-show-furigana');
 
-					// Auto-hide after 2.5 seconds
-					rt._hideTimeout = setTimeout(() => {
+					// Start fade out after 2 seconds
+					rt._fadeTimeout = setTimeout(() => {
 						ruby.classList.remove('temp-show-furigana');
-						delete rt._hideTimeout;
-					}, 2500);
+						ruby.classList.add('temp-hide-furigana');
+
+						// Clean up after fade animation completes
+						rt._hideTimeout = setTimeout(() => {
+							ruby.classList.remove('temp-hide-furigana');
+							delete rt._fadeTimeout;
+							delete rt._hideTimeout;
+						}, 500); // Match the CSS transition duration
+					}, 2000);
 				});
 			});
 		}
