@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
     <title>ふしぎな朝</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ffffff">
 
     <style>
 		body {
@@ -237,7 +241,7 @@
 			}
 
 			.content-wrapper {
-				padding: 1em;
+				padding: 1em !important;
 			}
 
 			.controls {
@@ -246,15 +250,15 @@
 				gap: 1em;
 			}
 
-			body {
-				font-size: 18px;
-				line-height: 2.2;
+			html, body {
+				font-size: 18px !important;
+				line-height: 2.2 !important;
 			}
 		}
 
 		@media (max-width: 480px) {
 			.content-wrapper {
-				padding: 0.5em;
+				padding: 0.5em !important;
 			}
 
 			.sidebar {
@@ -269,9 +273,9 @@
 				min-width: auto;
 			}
 
-			body {
-				font-size: 18px;
-				line-height: 2.2;
+			html, body {
+				font-size: 18px !important;
+				line-height: 2.2 !important;
 			}
 		}
 
