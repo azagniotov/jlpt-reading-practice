@@ -694,8 +694,8 @@
 					// Show furigana
 					rt.style.opacity = '1';
 					rt.style.visibility = 'visible';
-					rt.style.paddingBottom = '0.2em';
-					rt.style.fontWeight = 'bold';
+					// rt.style.paddingBottom = '0.2em';
+					// rt.style.fontWeight = 'bold';
 
 					// Clear any existing hide timeout
 					if (rt._hideTimeout) {
@@ -706,40 +706,40 @@
 					rt._hideTimeout = setTimeout(() => {
 						rt.style.opacity = '0';
 						rt.style.visibility = 'hidden';
-					}, 2000);
+					}, 2500);
 				});
 			});
 		}
 	});
 
-	document.addEventListener('DOMContentLoaded', () => {
-		// Find all ruby elements on the page
-		const rubies = document.querySelectorAll('ruby');
-
-		rubies.forEach(ruby => {
-			ruby.addEventListener('click', () => {
-				const rt = ruby.querySelector('rt');
-				if (!rt) return;
-
-				// Show furigana with inline styles (overrides CSS)
-				rt.style.setProperty('opacity', '1', 'important');
-				rt.style.setProperty('visibility', 'visible', 'important');
-				rt.style.setProperty('font-size', '75%', 'important');
-				rt.style.setProperty('font-weight', 'bold', 'important');
-
-				// Clear any previous hide timeout
-				if (rt._hideTimeout) {
-					clearTimeout(rt._hideTimeout);
-				}
-
-				// Hide furigana after 2 seconds
-				rt._hideTimeout = setTimeout(() => {
-					rt.style.setProperty('opacity', '0');
-					rt.style.setProperty('visibility', 'hidden');
-				}, 2500);
-			});
-		});
-	});
+	// document.addEventListener('DOMContentLoaded', () => {
+	// 	// Find all ruby elements on the page
+	// 	const rubies = document.querySelectorAll('ruby');
+    //
+	// 	rubies.forEach(ruby => {
+	// 		ruby.addEventListener('click', () => {
+	// 			const rt = ruby.querySelector('rt');
+	// 			if (!rt) return;
+    //
+	// 			// Show furigana with inline styles (overrides CSS)
+	// 			rt.style.setProperty('opacity', '1', 'important');
+	// 			rt.style.setProperty('visibility', 'visible', 'important');
+	// 			rt.style.setProperty('font-size', '75%', 'important');
+	// 			rt.style.setProperty('font-weight', 'bold', 'important');
+    //
+	// 			// Clear any previous hide timeout
+	// 			if (rt._hideTimeout) {
+	// 				clearTimeout(rt._hideTimeout);
+	// 			}
+    //
+	// 			// Hide furigana after 2 seconds
+	// 			rt._hideTimeout = setTimeout(() => {
+	// 				rt.style.setProperty('opacity', '0');
+	// 				rt.style.setProperty('visibility', 'hidden');
+	// 			}, 2500);
+	// 		});
+	// 	});
+	// });
 </script>
 </body>
 </html>
