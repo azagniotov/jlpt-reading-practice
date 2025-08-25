@@ -251,7 +251,7 @@
 			}
 
 			html, body {
-				font-size: 18px !important;
+				font-size: 20px !important;
 				line-height: 2.2 !important;
 			}
 		}
@@ -274,7 +274,7 @@
 			}
 
 			html, body {
-				font-size: 18px !important;
+				font-size: 20px !important;
 				line-height: 2.2 !important;
 			}
 		}
@@ -711,8 +711,11 @@
 				// Show furigana with inline styles (overrides CSS)
 				rt.style.setProperty('opacity', '1', 'important');
 				rt.style.setProperty('visibility', 'visible', 'important');
-				rt.style.setProperty('padding-bottom', '0.2em', 'important');
+				rt.style.setProperty('padding-bottom', '0.3em', 'important');
 				rt.style.setProperty('font-weight', 'bold', 'important');
+				rt.style.paddingBottom = '0.3em';
+				rt.style.fontSize = '0.7em';
+				rt.style.fontWeight = 'bold';
 
 				// Clear any previous hide timeout
 				if (rt._hideTimeout) {
