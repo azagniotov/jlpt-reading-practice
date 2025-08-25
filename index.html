@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ふしぎな朝</title>
+
+    <style>
+		body {
+			font-family: "Noto Sans JP", serif;
+			font-size: 18px;
+			line-height: 2.2;
+			margin: 0;
+			padding: 0;
+			background-color: #fafafa;
+			color: #2d2a2e;
+		}
+
+		.main-container {
+			display: flex;
+			min-height: 100vh;
+		}
+
+		.sidebar {
+			width: 250px;
+			background-color: #f4f4f4;
+			padding: 2em 1.5em;
+			box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+			flex-shrink: 0;
+			overflow-y: auto;
+		}
+
+		.sidebar h2 {
+			font-size: 1.2em;
+			margin-top: 0;
+		}
+
+		.sidebar ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		.sidebar li {
+			margin-bottom: 0.5em;
+		}
+
+		.sidebar a {
+			text-decoration: none;
+			color: #333;
+			display: block;
+			padding: 0.5em;
+			border-radius: 5px;
+			transition: background-color 0.2s;
+		}
+
+		.sidebar a:hover,
+		.sidebar a.active {
+			background-color: #d3d3d3;
+		}
+
+		.sidebar a:hover {
+			background-color: #e9e9e9;
+		}
+
+		.content-wrapper {
+			flex-grow: 1;
+			padding: 2em;
+			overflow-y: auto;
+		}
+
+		.story-container p:first-child {
+			margin-top: 0;
+		}
+
+		ruby {
+			text-indent: 0;
+		}
+
+		ruby rt {
+			color: #0589f4;
+			padding-bottom: 0.2em;
+		}
+
+		.hidden-furigana ruby rt {
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		.hidden-furigana ruby:hover rt {
+			font-weight: bold;
+			opacity: 1;
+			visibility: visible;
+			z-index: 10;
+			transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+		}
+
+		.kanji {
+			cursor: pointer;
+		}
+
+		.kanji.highlight {
+			color: blue;
+			font-weight: bold;
+		}
+
+		/* Controls */
+		.controls {
+			margin-bottom: 1.5em;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1.5em;
+			align-items: center;
+		}
+
+		.checkbox-container {
+			display: flex;
+			align-items: center;
+			gap: 0.5em;
+			cursor: pointer;
+			user-select: none;
+		}
+
+		.checkbox-container input[type="checkbox"] {
+			display: none;
+		}
+
+		.custom-checkbox {
+			width: 20px;
+			height: 20px;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			position: relative;
+			transition: all 0.3s ease;
+			background-color: white;
+		}
+
+		.custom-checkbox::after {
+			content: '✓';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 16px;
+			color: white;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			font-weight: bold;
+		}
+
+		.checkbox-container input[type="checkbox"]:checked + .custom-checkbox {
+			background-color: #4CAF50;
+			border-color: #4CAF50;
+		}
+
+		.checkbox-container input[type="checkbox"]:checked + .custom-checkbox::after {
+			opacity: 1;
+		}
+
+		.checkbox-label {
+			font-size: 1em;
+			font-weight: 500;
+			cursor: pointer;
+		}
+
+		.kanji-highlight-label {
+			color: #0651f1;
+			font-weight: bold;
+		}
+
+		/* Dark Mode */
+		.dark-mode {
+			background-color: #282a36;
+			color: #d7d7c7;
+		}
+
+		.dark-mode .sidebar {
+			background-color: #2c2f3b;
+		}
+
+		.dark-mode .sidebar a {
+			color: #f8f8f2;
+		}
+
+		.dark-mode .sidebar a.active,
+		.dark-mode .sidebar a:hover {
+			background-color: #3b4052;
+		}
+
+		.dark-mode .custom-checkbox {
+			background-color: #3b4052;
+			border-color: #6272a4;
+		}
+
+		.dark-mode .checkbox-container input[type="checkbox"]:checked + .custom-checkbox {
+			background-color: #4CAF50;
+			border-color: #4CAF50;
+		}
+
+		.dark-mode .checkbox-label {
+			color: #f8f8f2;
+		}
+
+		.dark-mode .kanji-highlight-label {
+			color: #5492ef;
+		}
+
+		.dark-mode ruby rt {
+			color: #ff79c6;
+		}
+
+		.dark-mode .kanji.highlight {
+			color: #5492ef;
+		}
+
+		/* Responsive Design */
+		@media (max-width: 768px) {
+			.main-container {
+				flex-direction: column;
+			}
+
+			.sidebar {
+				width: 100%;
+				padding: 1em;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+				order: -1;
+			}
+
+			.sidebar ul {
+				display: flex;
+				gap: 0.5em;
+				flex-wrap: wrap;
+			}
+
+			.sidebar li {
+				margin-bottom: 0;
+				flex: 1;
+				min-width: 120px;
+			}
+
+			.content-wrapper {
+				padding: 1em;
+			}
+
+			.controls {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 1em;
+			}
+
+			body {
+				font-size: 16px;
+				line-height: 1.8;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.content-wrapper {
+				padding: 0.5em;
+			}
+
+			.sidebar {
+				padding: 0.5em;
+			}
+
+			.sidebar ul {
+				flex-direction: column;
+			}
+
+			.sidebar li {
+				min-width: auto;
+			}
+
+			body {
+				font-size: 14px;
+				line-height: 2.2;
+			}
+		}
+
+		@media (min-width: 769px) and (max-width: 1024px) {
+			.sidebar {
+				width: 200px;
+				padding: 1.5em 1em;
+			}
+
+			.content-wrapper {
+				padding: 1.5em;
+			}
+		}
+
+		@media (min-width: 1025px) {
+			.content-wrapper {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 2em;
+			}
+		}
+
+		#progress-bar-container {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 6px;
+			background-color: transparent;
+			z-index: 9999;
+		}
+
+		#progress-bar {
+			height: 100%;
+			width: 0%;
+			background-color: #4CAF50;
+			transition: width 0.25s ease-out;
+		}
+
+		.dark-mode #progress-bar {
+			background-color: #4CAF50;
+		}
+    </style>
+
+</head>
+<body>
+<div id="progress-bar-container">
+    <div id="progress-bar"></div>
+</div>
+<div class="main-container">
+    <nav class="sidebar">
+        <h2>Stories</h2>
+        <ul>
+            <li><a href="#story-1">N4 Sentences</a></li>
+            <li><a href="#story-2"><ruby>不思議<rt>ふしぎ</rt></ruby>な<ruby>朝<rt>あさ</rt></ruby></a></li>
+            <li><a href="#story-3">猫の冒険</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="controls">
+            <div class="checkbox-container n4-checkbox" onclick="toggleHighlight('kanji', 'blue', this)">
+                <input type="checkbox" id="n4-toggle">
+                <span class="custom-checkbox"></span>
+                <label for="n4-toggle" class="checkbox-label">
+                    Highlight 漢字 in <span class="kanji-highlight-label">Blue</span>
+                </label>
+            </div>
+
+            <div class="checkbox-container" onclick="toggleFurigana(this)">
+                <input type="checkbox" id="furigana-toggle">
+                <span class="custom-checkbox"></span>
+                <label for="furigana-toggle" class="checkbox-label">
+                    Toggle ふりがな
+                </label>
+            </div>
+
+            <div class="checkbox-container" onclick="toggleDarkMode(this)">
+                <input type="checkbox" id="dark-mode-toggle">
+                <span class="custom-checkbox"></span>
+                <label for="dark-mode-toggle" class="checkbox-label">
+                    Dark Mode
+                </label>
+            </div>
+        </div>
+
+        <div class="story-container">
+            <div id="story-1">
+                <ol>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>たちは<ruby><span class="kanji">図書館</span><rt>としょかん</rt></ruby>で<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">借</span><rt>か</rt></ruby>りるために、<ruby><span class="kanji">朝早</span><rt>あさはや</rt></ruby>くから<ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>って<ruby><span class="kanji">駅</span><rt>えき</rt></ruby>まで<ruby><span class="kanji">行</span><rt>い</rt></ruby>きました。</li>
+                    <li><ruby><span class="kanji">姉</span><rt>あね</rt></ruby>は<ruby><span class="kanji">先週</span><rt>せんしゅう</rt></ruby>、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">部屋</span><rt>へや</rt></ruby>をきれいに<ruby><span class="kanji">掃除</span><rt>そうじ</rt></ruby>して、<ruby><span class="kanji">古</span><rt>ふる</rt></ruby>い<ruby><span class="kanji">雑誌</span><rt>ざっし</rt></ruby>や<ruby><span class="kanji">服</span><rt>ふく</rt></ruby>を<ruby><span class="kanji">全部</span><rt>ぜんぶ</rt></ruby>捨てました。</li>
+                    <li><ruby><span class="kanji">今日</span><rt>きょう</rt></ruby>の<ruby><span class="kanji">夜</span><rt>よる</rt></ruby>ご<ruby><span class="kanji">飯</span><rt>はん</rt></ruby>は、お<ruby><span class="kanji">母</span><rt>かあ</rt></ruby>さんが<ruby><span class="kanji">作</span><rt>つく</rt></ruby>ったおいしいカレーライスだったので、<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>みんなで<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しく<ruby><span class="kanji">食</span><rt>た</rt></ruby>べました。</li>
+                    <li><ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>く<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>に<ruby><span class="kanji">公園</span><rt>こうえん</rt></ruby>を<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>くのが<ruby><span class="kanji">好</span><rt>す</rt></ruby>きで、<ruby><span class="kanji">自然</span><rt>しぜん</rt></ruby>の<ruby><span class="kanji">景色</span><rt>けしき</rt></ruby>をゆっくり<ruby><span class="kanji">見</span><rt>み</rt></ruby>ます。</li>
+                    <li><ruby><span class="kanji">週末</span><rt>しゅうまつ</rt></ruby>、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>たちは<ruby><span class="kanji">友達</span><rt>ともだち</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">映画館</span><rt>えいがかん</rt></ruby>で<ruby><span class="kanji">最近</span><rt>さいきん</rt></ruby><ruby><span class="kanji">公開</span><rt>こうかい</rt></ruby>されたおもしろいアニメを<ruby><span class="kanji">見</span><rt>み</rt></ruby>ました。</li>
+                    <li>この<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>の<ruby><span class="kanji">日曜日</span><rt>にちようび</rt></ruby>、<ruby><span class="kanji">父</span><rt>ちち</rt></ruby>は<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>みんなのために<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">車</span><rt>くるま</rt></ruby>を<ruby><span class="kanji">洗</span><rt>あら</rt></ruby>ってくれて、とてもきれいになりました。</li>
+                    <li><ruby><span class="kanji">来週</span><rt>らいしゅう</rt></ruby>のテストのために、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">毎晩</span><rt>まいばん</rt></ruby>、<ruby><span class="kanji">辞書</span><rt>じしょ</rt></ruby>を<ruby><span class="kanji">使</span><rt>つか</rt></ruby>って<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">漢字</span><rt>かんじ</rt></ruby>や<ruby><span class="kanji">言葉</span><rt>ことば</rt></ruby>をたくさん<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>しています。</li>
+                    <li><ruby><span class="kanji">弟</span><rt>おとうと</rt></ruby>はテレビゲームが<ruby><span class="kanji">好</span><rt>す</rt></ruby>きなので、いつも<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>から<ruby><span class="kanji">帰</span><rt>かえ</rt></ruby>ったらすぐに<ruby><span class="kanji">部屋</span><rt>へや</rt></ruby>で<ruby><span class="kanji">一人</span><rt>ひとり</rt></ruby>で<ruby><span class="kanji">遊</span><rt>あそ</rt></ruby>んでいます。</li>
+                    <li><ruby><span class="kanji">夏休</span><rt>なつやす</rt></ruby>み、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>たちは<ruby><span class="kanji">海</span><rt>うみ</rt></ruby>で<ruby><span class="kanji">泳</span><rt>およ</rt></ruby>いだり、かき<ruby><span class="kanji">氷</span><rt>ごおり</rt></ruby>を<ruby><span class="kanji">食</span><rt>た</rt></ruby>べたり、<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しい<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby>をたくさん<ruby><span class="kanji">過</span><rt>す</rt></ruby>ごしました。</li>
+                    <li><ruby><span class="kanji">田中</span><rt>たなか</rt></ruby>さんは、<ruby><span class="kanji">病気</span><rt>びょうき</rt></ruby>でしばらく<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>を<ruby><span class="kanji">休</span><rt>やす</rt></ruby>んでいましたが、<ruby><span class="kanji">今週</span><rt>こんしゅう</rt></ruby>からまた<ruby><span class="kanji">元気</span><rt>げんき</rt></ruby>に<ruby><span class="kanji">来</span><rt>こ</rt></ruby>られるようになりました。</li>
+                    <li>その<ruby><span class="kanji">古</span><rt>ふる</rt></ruby>い<ruby><span class="kanji">寺</span><rt>てら</rt></ruby>はとても<ruby><span class="kanji">静</span><rt>しず</rt></ruby>かな<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>にあり、<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">休</span><rt>やす</rt></ruby>みの<ruby><span class="kanji">日</span><rt>ひ</rt></ruby>にそこを<ruby><span class="kanji">訪</span><rt>おとず</rt></ruby>れます。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は<ruby><span class="kanji">外国</span><rt>がいこく</rt></ruby><ruby><span class="kanji">語</span><rt>ご</rt></ruby>を<ruby><span class="kanji">学</span><rt>まな</rt></ruby>ぶのが<ruby><span class="kanji">得意</span><rt>とくい</rt></ruby>で、<ruby><span class="kanji">今年</span><rt>ことし</rt></ruby>から<ruby><span class="kanji">中国語</span><rt>ちゅうごくご</rt></ruby>とスペイン<ruby><span class="kanji">語</span><rt>ご</rt></ruby>も<ruby><span class="kanji">習</span><rt>なら</rt></ruby>い<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>めました。</li>
+                    <li><ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>はいつも<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くてうるさいので、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>はできるだけ<ruby><span class="kanji">外</span><rt>そと</rt></ruby>の<ruby><span class="kanji">景色</span><rt>けしき</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>ています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">日本</span><rt>にほん</rt></ruby>の<ruby><span class="kanji">文化</span><rt>ぶんか</rt></ruby>についてもっと<ruby><span class="kanji">知</span><rt>し</rt></ruby>りたいので、<ruby><span class="kanji">日本</span><rt>にほん</rt></ruby>の<ruby><span class="kanji">古</span><rt>ふる</rt></ruby>い<ruby><span class="kanji">歴史</span><rt>れきし</rt></ruby>の<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んでいます。</li>
+                    <li><ruby><span class="kanji">寒</span><rt>さむ</rt></ruby>い<ruby><span class="kanji">冬</span><rt>ふゆ</rt></ruby>の<ruby><span class="kanji">日</span><rt>ひ</rt></ruby>、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>で<ruby><span class="kanji">温</span><rt>あたた</rt></ruby>かいお<ruby><span class="kanji">茶</span><rt>ちゃ</rt></ruby>を<ruby><span class="kanji">飲</span><rt>の</rt></ruby>みながら、<ruby><span class="kanji">好</span><rt>す</rt></ruby>きな<ruby><span class="kanji">音楽</span><rt>おんがく</rt></ruby>をゆっくり<ruby><span class="kanji">聞</span><rt>き</rt></ruby>きます。</li>
+                    <li><ruby><span class="kanji">先生</span><rt>せんせい</rt></ruby>は<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>たちに、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>少しずつでもいいから、<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>む<ruby><span class="kanji">習慣</span><rt>しゅうかん</rt></ruby>をつけなさいと<ruby><span class="kanji">言</span><rt>い</rt></ruby>いました。</li>
+                    <li><ruby><span class="kanji">来月</span><rt>らいげつ</rt></ruby>、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>たちは<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby><ruby><span class="kanji">旅行</span><rt>りょこう</rt></ruby>で<ruby><span class="kanji">飛行機</span><rt>ひこうき</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>って、<ruby><span class="kanji">沖縄</span><rt>おきなわ</rt></ruby>の<ruby><span class="kanji">美</span><rt>うつく</rt></ruby>しい<ruby><span class="kanji">海</span><rt>うみ</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>くつもりです。</li>
+                    <li>あの<ruby><span class="kanji">小</span><rt>ちい</rt></ruby>さい<ruby><span class="kanji">川</span><rt>かわ</rt></ruby>の<ruby><span class="kanji">近</span><rt>ちか</rt></ruby>くに、<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しいスーパーマーケットができて、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">買</span><rt>か</rt></ruby>い<ruby><span class="kanji">物</span><rt>もの</rt></ruby>に<ruby><span class="kanji">来</span><rt>く</rt></ruby>ます。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は<ruby><span class="kanji">英語</span><rt>えいご</rt></ruby>を<ruby><span class="kanji">話</span><rt>はな</rt></ruby>すことがあまり<ruby><span class="kanji">好</span><rt>す</rt></ruby>きではないので、いつも<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>で<ruby><span class="kanji">話</span><rt>はな</rt></ruby>すように<ruby><span class="kanji">心</span><rt>こころ</rt></ruby>がけています。</li>
+                    <li><ruby><span class="kanji">冬休</span><rt>ふゆやす</rt></ruby>みに<ruby><span class="kanji">雪</span><rt>ゆき</rt></ruby>がたくさん<ruby><span class="kanji">降</span><rt>ふ</rt></ruby>ったので、<ruby><span class="kanji">子供</span><rt>こども</rt></ruby>たちは<ruby><span class="kanji">朝</span><rt>あさ</rt></ruby>から<ruby><span class="kanji">晩</span><rt>ばん</rt></ruby>まで<ruby><span class="kanji">外</span><rt>そと</rt></ruby>で<ruby><span class="kanji">雪</span><rt>ゆき</rt></ruby><ruby><span class="kanji">遊</span><rt>あそ</rt></ruby>びをしていました。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>はこの<ruby><span class="kanji">町</span><rt>まち</rt></ruby>に<ruby><span class="kanji">住</span><rt>す</rt></ruby>んでいますが、まだ<ruby><span class="kanji">知</span><rt>し</rt></ruby>らない<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>が<ruby><span class="kanji">多</span><rt>おお</rt></ruby>いので、いろいろな<ruby><span class="kanji">道</span><rt>みち</rt></ruby>を<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>いてみたいです。</li>
+                    <li><ruby><span class="kanji">医者</span><rt>いしゃ</rt></ruby>になるために、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>たくさんの<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んで、<ruby><span class="kanji">体</span><rt>からだ</rt></ruby>のことについて<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>しています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>を<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>うのが<ruby><span class="kanji">好</span><rt>す</rt></ruby>きなので、<ruby><span class="kanji">休</span><rt>やす</rt></ruby>みの<ruby><span class="kanji">日</span><rt>ひ</rt></ruby>は<ruby><span class="kanji">友達</span><rt>ともだち</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>にカラオケに<ruby><span class="kanji">行</span><rt>い</rt></ruby>くことが<ruby><span class="kanji">多</span><rt>おお</rt></ruby>いです。</li>
+                    <li>この<ruby><span class="kanji">写真</span><rt>しゃしん</rt></ruby>は、<ruby><span class="kanji">去年</span><rt>きょねん</rt></ruby>の<ruby><span class="kanji">春</span><rt>はる</rt></ruby>に<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">旅行</span><rt>りょこう</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>った<ruby><span class="kanji">時</span><rt>とき</rt></ruby>に<ruby><span class="kanji">撮</span><rt>と</rt></ruby>った、とても<ruby><span class="kanji">大切</span><rt>たいせつ</rt></ruby>なものです。</li>
+                    <li><ruby><span class="kanji">病院</span><rt>びょういん</rt></ruby>の<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>には、たくさんの<ruby><span class="kanji">木</span><rt>き</rt></ruby>や<ruby><span class="kanji">花</span><rt>はな</rt></ruby>が<ruby><span class="kanji">植</span><rt>う</rt></ruby>えられていて、とてもきれいな<ruby><span class="kanji">庭</span><rt>にわ</rt></ruby>になっています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">朝早</span><rt>あさはや</rt></ruby>くから<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>が<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>まるので、いつも<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>を<ruby><span class="kanji">出</span><rt>で</rt></ruby>る<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>に<ruby><span class="kanji">朝</span><rt>あさ</rt></ruby>ごはんをしっかり<ruby><span class="kanji">食</span><rt>た</rt></ruby>べます。</li>
+                    <li><ruby><span class="kanji">部屋</span><rt>へや</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>がとても<ruby><span class="kanji">暑</span><rt>あつ</rt></ruby>いので、<ruby><span class="kanji">窓</span><rt>まど</rt></ruby>を<ruby><span class="kanji">開</span><rt>あ</rt></ruby>けて<ruby><span class="kanji">涼</span><rt>すず</rt></ruby>しい<ruby><span class="kanji">風</span><rt>かぜ</rt></ruby>を<ruby><span class="kanji">入</span><rt>い</rt></ruby>れることにしました。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は<ruby><span class="kanji">体</span><rt>からだ</rt></ruby>が<ruby><span class="kanji">弱</span><rt>よわ</rt></ruby>いので、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>ちゃんと<ruby><span class="kanji">食事</span><rt>しょくじ</rt></ruby>を<ruby><span class="kanji">摂</span><rt>と</rt></ruby>って、少しでも<ruby><span class="kanji">丈夫</span><rt>じょうぶ</rt></ruby>になるように<ruby><span class="kanji">頑張</span><rt>がんば</rt></ruby>っています。</li>
+                    <li><ruby><span class="kanji">今日</span><rt>きょう</rt></ruby>は<ruby><span class="kanji">天気</span><rt>てんき</rt></ruby>が<ruby><span class="kanji">悪</span><rt>わる</rt></ruby>いので、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>たちは<ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>やバスに<ruby><span class="kanji">乗</span><rt>の</rt></ruby>って<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>まで<ruby><span class="kanji">行</span><rt>い</rt></ruby>く<ruby><span class="kanji">必要</span><rt>ひつよう</rt></ruby>があります。</li>
+                    <li>この<ruby><span class="kanji">道</span><rt>みち</rt></ruby>は<ruby><span class="kanji">車</span><rt>くるま</rt></ruby>がよく<ruby><span class="kanji">通</span><rt>とお</rt></ruby>るので、<ruby><span class="kanji">自転車</span><rt>じてんしゃ</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>るときは<ruby><span class="kanji">右</span><rt>みぎ</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>て<ruby><span class="kanji">左</span><rt>ひだり</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>て、<ruby><span class="kanji">十分</span><rt>じゅうぶん</rt></ruby>に<ruby><span class="kanji">気</span><rt>き</rt></ruby>をつけてください。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">将来</span><rt>しょうらい</rt></ruby>、いろいろな<ruby><span class="kanji">国</span><rt>くに</rt></ruby>を<ruby><span class="kanji">旅行</span><rt>りょこう</rt></ruby>して、<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>々と<ruby><span class="kanji">話</span><rt>はな</rt></ruby>して、<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">文化</span><rt>ぶんか</rt></ruby>を<ruby><span class="kanji">知</span><rt>し</rt></ruby>りたいです。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">服</span><rt>ふく</rt></ruby>を<ruby><span class="kanji">買</span><rt>か</rt></ruby>うために、デパートのセールに<ruby><span class="kanji">行</span><rt>い</rt></ruby>って、<ruby><span class="kanji">安</span><rt>やす</rt></ruby>くて<ruby><span class="kanji">良</span><rt>よ</rt></ruby>いものを見つけました。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>はこの<ruby><span class="kanji">映画</span><rt>えいが</rt></ruby>がとても<ruby><span class="kanji">好</span><rt>す</rt></ruby>きなので、<ruby><span class="kanji">何度</span><rt>なんど</rt></ruby>も<ruby><span class="kanji">見</span><rt>み</rt></ruby>ましたが、まだ<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">発見</span><rt>はっけん</rt></ruby>があります。</li>
+                    <li>この<ruby><span class="kanji">公園</span><rt>こうえん</rt></ruby>はいつも<ruby><span class="kanji">犬</span><rt>いぬ</rt></ruby>を<ruby><span class="kanji">連</span><rt>つ</rt></ruby>れて<ruby><span class="kanji">散歩</span><rt>さんぽ</rt></ruby>している<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くて、とても<ruby><span class="kanji">賑</span><rt>にぎ</rt></ruby>やかな<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>です。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>が<ruby><span class="kanji">終</span><rt>お</rt></ruby>わってから<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">走</span><rt>はし</rt></ruby>っているので、<ruby><span class="kanji">最近</span><rt>さいきん</rt></ruby>は<ruby><span class="kanji">体</span><rt>からだ</rt></ruby>が少し<ruby><span class="kanji">痩</span><rt>や</rt></ruby>せてきました。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">毎晩</span><rt>まいばん</rt></ruby><ruby><span class="kanji">寝</span><rt>ね</rt></ruby>る<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>に、<ruby><span class="kanji">次</span><rt>つぎ</rt></ruby>の<ruby><span class="kanji">日</span><rt>ひ</rt></ruby>の<ruby><span class="kanji">予定</span><rt>よてい</rt></ruby>を<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えてから、ゆっくりと<ruby><span class="kanji">眠</span><rt>ねむ</rt></ruby>りに<ruby><span class="kanji">入</span><rt>はい</rt></ruby>ります。</li>
+                    <li><ruby><span class="kanji">母</span><rt>はは</rt></ruby>は、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>が<ruby><span class="kanji">子</span><rt>こ</rt></ruby>どもの<ruby><span class="kanji">頃</span><rt>ころ</rt></ruby>からいつも「ご<ruby><span class="kanji">飯</span><rt>はん</rt></ruby>をたくさん<ruby><span class="kanji">食</span><rt>た</rt></ruby>べなさい」と<ruby><span class="kanji">言</span><rt>い</rt></ruby>っていました。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">最近</span><rt>さいきん</rt></ruby>、<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">趣味</span><rt>しゅみ</rt></ruby>として<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>の<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>を<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>い<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>めたので、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">練習</span><rt>れんしゅう</rt></ruby>しています。</li>
+                    <li><ruby><span class="kanji">先週</span><rt>せんしゅう</rt></ruby>、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>つけるために、<ruby><span class="kanji">何度</span><rt>なんど</rt></ruby>も<ruby><span class="kanji">会社</span><rt>かいしゃ</rt></ruby>に<ruby><span class="kanji">電話</span><rt>でんわ</rt></ruby>をかけて<ruby><span class="kanji">面接</span><rt>めんせつ</rt></ruby>を<ruby><span class="kanji">受</span><rt>う</rt></ruby>けました。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んで<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">知識</span><rt>ちしき</rt></ruby>を<ruby><span class="kanji">得</span><rt>え</rt></ruby>るのが<ruby><span class="kanji">好</span><rt>す</rt></ruby>きなので、<ruby><span class="kanji">週末</span><rt>しゅうまつ</rt></ruby>はいつも<ruby><span class="kanji">図書館</span><rt>としょかん</rt></ruby>で<ruby><span class="kanji">過</span><rt>す</rt></ruby>ごします。</li>
+                    <li>この<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>は、たくさんの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>と<ruby><span class="kanji">話</span><rt>はな</rt></ruby>すことが<ruby><span class="kanji">必要</span><rt>ひつよう</rt></ruby>なので、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>とても<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しく<ruby><span class="kanji">働</span><rt>はたら</rt></ruby>いています。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えを<ruby><span class="kanji">文章</span><rt>ぶんしょう</rt></ruby>で<ruby><span class="kanji">書</span><rt>か</rt></ruby>くのがとても<ruby><span class="kanji">得意</span><rt>とくい</rt></ruby>で、いつもおもしろい<ruby><span class="kanji">物語</span><rt>ものがたり</rt></ruby>を<ruby><span class="kanji">書</span><rt>か</rt></ruby>いています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">先月</span><rt>せんげつ</rt></ruby>、<ruby><span class="kanji">友達</span><rt>ともだち</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">山</span><rt>やま</rt></ruby>の<ruby><span class="kanji">頂上</span><rt>ちょうじょう</rt></ruby>まで<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>いて<ruby><span class="kanji">行</span><rt>い</rt></ruby>って、きれいな<ruby><span class="kanji">景色</span><rt>けしき</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>ました。</li>
+                    <li><ruby><span class="kanji">駅</span><rt>えき</rt></ruby>の<ruby><span class="kanji">近</span><rt>ちか</rt></ruby>くにあるこの<ruby><span class="kanji">店</span><rt>みせ</rt></ruby>は、いつも<ruby><span class="kanji">安</span><rt>やす</rt></ruby>くておいしい<ruby><span class="kanji">食</span><rt>た</rt></ruby>べ<ruby><span class="kanji">物</span><rt>もの</rt></ruby>が<ruby><span class="kanji">多</span><rt>おお</rt></ruby>く<ruby><span class="kanji">売</span><rt>う</rt></ruby>られています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>が<ruby><span class="kanji">止</span><rt>と</rt></ruby>まるまで、ずっと<ruby><span class="kanji">窓</span><rt>まど</rt></ruby>の<ruby><span class="kanji">外</span><rt>そと</rt></ruby>の<ruby><span class="kanji">景色</span><rt>けしき</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>ていましたが、<ruby><span class="kanji">何</span><rt>なに</rt></ruby>も<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えませんでした。</li>
+                    <li><ruby><span class="kanji">先生</span><rt>せんせい</rt></ruby>は、この<ruby><span class="kanji">問題</span><rt>もんだい</rt></ruby>の<ruby><span class="kanji">答</span><rt>こた</rt></ruby>えを<ruby><span class="kanji">説明</span><rt>せつめい</rt></ruby>するために、ボードに<ruby><span class="kanji">大</span><rt>おお</rt></ruby>きな<ruby><span class="kanji">絵</span><rt>え</rt></ruby>を<ruby><span class="kanji">描</span><rt>か</rt></ruby>いてくれました。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は<ruby><span class="kanji">毎朝</span><rt>まいあさ</rt></ruby>、<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>の<ruby><span class="kanji">近</span><rt>ちか</rt></ruby>くの<ruby><span class="kanji">道</span><rt>みち</rt></ruby>を<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>いてから、<ruby><span class="kanji">会社</span><rt>かいしゃ</rt></ruby>まで<ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>って<ruby><span class="kanji">行</span><rt>い</rt></ruby>きます。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">友達</span><rt>ともだち</rt></ruby>の<ruby><span class="kanji">誕生</span><rt>たんじょう</rt></ruby><ruby><span class="kanji">日</span><rt>び</rt></ruby>プレゼントを<ruby><span class="kanji">買</span><rt>か</rt></ruby>うために、<ruby><span class="kanji">町</span><rt>まち</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>を<ruby><span class="kanji">一日中</span><rt>いちにちじゅう</rt></ruby><ruby><span class="kanji">歩</span><rt>ある</rt></ruby>いて<ruby><span class="kanji">探</span><rt>さが</rt></ruby>しました。</li>
+                    <li><ruby><span class="kanji">昨日</span><rt>きのう</rt></ruby>はとても<ruby><span class="kanji">疲</span><rt>つか</rt></ruby>れていたので、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>に<ruby><span class="kanji">帰</span><rt>かえ</rt></ruby>ってすぐに<ruby><span class="kanji">寝</span><rt>ね</rt></ruby>てしまいました。</li>
+                    <li>あの<ruby><span class="kanji">店</span><rt>みせ</rt></ruby>は、いつも<ruby><span class="kanji">安</span><rt>やす</rt></ruby>くて<ruby><span class="kanji">新鮮</span><rt>しんせん</rt></ruby>な<ruby><span class="kanji">野菜</span><rt>やさい</rt></ruby>を<ruby><span class="kanji">売</span><rt>う</rt></ruby>っているので、<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">買</span><rt>か</rt></ruby>い<ruby><span class="kanji">物</span><rt>もの</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>きます。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>はいつも<ruby><span class="kanji">忙</span><rt>いそが</rt></ruby>しいので、<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">食事</span><rt>しょくじ</rt></ruby>をする<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby>がほとんどありません。</li>
+                    <li>この<ruby><span class="kanji">川</span><rt>かわ</rt></ruby>は、<ruby><span class="kanji">夏</span><rt>なつ</rt></ruby>になると<ruby><span class="kanji">子供</span><rt>こども</rt></ruby>たちが<ruby><span class="kanji">泳</span><rt>およ</rt></ruby>いだり、<ruby><span class="kanji">魚</span><rt>さかな</rt></ruby>を<ruby><span class="kanji">釣</span><rt>つ</rt></ruby>ったりして<ruby><span class="kanji">遊</span><rt>あそ</rt></ruby>ぶ<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>です。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">大学</span><rt>だいがく</rt></ruby>の<ruby><span class="kanji">卒業</span><rt>そつぎょう</rt></ruby>を<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>に、<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>や<ruby><span class="kanji">友人</span><rt>ゆうじん</rt></ruby>に<ruby><span class="kanji">感謝</span><rt>かんしゃ</rt></ruby>の<ruby><span class="kanji">言葉</span><rt>ことば</rt></ruby>を<ruby><span class="kanji">伝</span><rt>つた</rt></ruby>えるつもりです。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>はいつも、<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>の<ruby><span class="kanji">先生</span><rt>せんせい</rt></ruby>に<ruby><span class="kanji">教</span><rt>おし</rt></ruby>えてもらった<ruby><span class="kanji">文法</span><rt>ぶんぽう</rt></ruby>を<ruby><span class="kanji">使</span><rt>つか</rt></ruby>いながら、<ruby><span class="kanji">日記</span><rt>にっき</rt></ruby>を<ruby><span class="kanji">書</span><rt>か</rt></ruby>いています。</li>
+                    <li>この<ruby><span class="kanji">部屋</span><rt>へや</rt></ruby>はとても<ruby><span class="kanji">静</span><rt>しず</rt></ruby>かで、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">毎朝</span><rt>まいあさ</rt></ruby>ここで<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>したり<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んだりしています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">子供</span><rt>こども</rt></ruby>の<ruby><span class="kanji">頃</span><rt>ころ</rt></ruby>、<ruby><span class="kanji">毎週</span><rt>まいしゅう</rt></ruby><ruby><span class="kanji">日曜日</span><rt>にちようび</rt></ruby>に<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">教会</span><rt>きょうかい</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>って、<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>を<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>っていました。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">毎朝</span><rt>まいあさ</rt></ruby><ruby><span class="kanji">早</span><rt>はや</rt></ruby>く<ruby><span class="kanji">起</span><rt>お</rt></ruby>きて<ruby><span class="kanji">走</span><rt>はし</rt></ruby>ったり、<ruby><span class="kanji">自転車</span><rt>じてんしゃ</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>ったりしているので、とても<ruby><span class="kanji">元気</span><rt>げんき</rt></ruby>です。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">駅</span><rt>えき</rt></ruby>の<ruby><span class="kanji">近</span><rt>ちか</rt></ruby>くに<ruby><span class="kanji">住</span><rt>す</rt></ruby>んでいるので、<ruby><span class="kanji">毎朝</span><rt>まいあさ</rt></ruby><ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>って<ruby><span class="kanji">会社</span><rt>かいしゃ</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>くのがとても<ruby><span class="kanji">便利</span><rt>べんり</rt></ruby>です。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は<ruby><span class="kanji">絵</span><rt>え</rt></ruby>を<ruby><span class="kanji">描</span><rt>か</rt></ruby>くのがとても<ruby><span class="kanji">上手</span><rt>じょうず</rt></ruby>で、<ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>の<ruby><span class="kanji">描</span><rt>か</rt></ruby>いた<ruby><span class="kanji">絵</span><rt>え</rt></ruby>はいつも<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>に<ruby><span class="kanji">見</span><rt>み</rt></ruby>られています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">来年</span><rt>らいねん</rt></ruby>の<ruby><span class="kanji">夏</span><rt>なつ</rt></ruby>に、<ruby><span class="kanji">友達</span><rt>ともだち</rt></ruby>と<ruby><span class="kanji">日本</span><rt>にほん</rt></ruby>を<ruby><span class="kanji">旅行</span><rt>りょこう</rt></ruby>するために、たくさんのお<ruby><span class="kanji">金</span><rt>かね</rt></ruby>を<ruby><span class="kanji">貯</span><rt>た</rt></ruby>めています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">毎朝</span><rt>まいあさ</rt></ruby>、<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>が<ruby><span class="kanji">起</span><rt>お</rt></ruby>きる<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>に、<ruby><span class="kanji">一人</span><rt>ひとり</rt></ruby>で<ruby><span class="kanji">温</span><rt>あたた</rt></ruby>かいコーヒーを<ruby><span class="kanji">飲</span><rt>の</rt></ruby>みながら<ruby><span class="kanji">新聞</span><rt>しんぶん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んでいます。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えを<ruby><span class="kanji">説明</span><rt>せつめい</rt></ruby>するのがとても<ruby><span class="kanji">苦手</span><rt>にがて</rt></ruby>で、いつも<ruby><span class="kanji">言葉</span><rt>ことば</rt></ruby>に<ruby><span class="kanji">詰</span><rt>つ</rt></ruby>まってしまいます。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は<ruby><span class="kanji">疲</span><rt>つか</rt></ruby>れている<ruby><span class="kanji">時</span><rt>とき</rt></ruby>でも、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">欠</span><rt>か</rt></ruby>かさずに<ruby><span class="kanji">犬</span><rt>いぬ</rt></ruby>の<ruby><span class="kanji">散歩</span><rt>さんぽ</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>くようにしています。</li>
+                    <li>この<ruby><span class="kanji">会社</span><rt>かいしゃ</rt></ruby>は、<ruby><span class="kanji">女性</span><rt>じょせい</rt></ruby>が<ruby><span class="kanji">働</span><rt>はたら</rt></ruby>きやすいように、いろいろな<ruby><span class="kanji">制度</span><rt>せいど</rt></ruby>を<ruby><span class="kanji">作</span><rt>つく</rt></ruby>ってくれました。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">今日</span><rt>きょう</rt></ruby>、<ruby><span class="kanji">会社</span><rt>かいしゃ</rt></ruby>で<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しいプロジェクトについて、<ruby><span class="kanji">長</span><rt>なが</rt></ruby>い<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby><ruby><span class="kanji">話</span><rt>はな</rt></ruby>す<ruby><span class="kanji">必要</span><rt>ひつよう</rt></ruby>がありました。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>、<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>の<ruby><span class="kanji">授業</span><rt>じゅぎょう</rt></ruby>が<ruby><span class="kanji">終</span><rt>お</rt></ruby>わってから、<ruby><span class="kanji">図書館</span><rt>としょかん</rt></ruby>で<ruby><span class="kanji">遅</span><rt>おそ</rt></ruby>くまで<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>しています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">朝</span><rt>あさ</rt></ruby><ruby><span class="kanji">起</span><rt>お</rt></ruby>きてから、<ruby><span class="kanji">夜</span><rt>よる</rt></ruby><ruby><span class="kanji">寝</span><rt>ね</rt></ruby>るまでの<ruby><span class="kanji">間</span><rt>あいだ</rt></ruby>、ほとんど<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>で<ruby><span class="kanji">話</span><rt>はな</rt></ruby>しています。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は<ruby><span class="kanji">毎朝</span><rt>まいあさ</rt></ruby>、<ruby><span class="kanji">会社</span><rt>かいしゃ</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>く<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>に、<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>の<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>の<ruby><span class="kanji">道</span><rt>みち</rt></ruby>を<ruby><span class="kanji">走</span><rt>はし</rt></ruby>ってから、<ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>ります。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>少しでも<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>を<ruby><span class="kanji">話</span><rt>はな</rt></ruby>す<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby>を<ruby><span class="kanji">作</span><rt>つく</rt></ruby>るように<ruby><span class="kanji">心</span><rt>こころ</rt></ruby>がけています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は<ruby><span class="kanji">週末</span><rt>しゅうまつ</rt></ruby>、<ruby><span class="kanji">友達</span><rt>ともだち</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">町</span><rt>まち</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>にある<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">映画館</span><rt>えいがかん</rt></ruby>で、<ruby><span class="kanji">面白</span><rt>おもしろ</rt></ruby>い<ruby><span class="kanji">映画</span><rt>えいが</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>ました。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">部屋</span><rt>へや</rt></ruby>にたくさんの<ruby><span class="kanji">漫画</span><rt>まんが</rt></ruby>やアニメのキャラクターの<ruby><span class="kanji">写真</span><rt>しゃしん</rt></ruby>を<ruby><span class="kanji">貼</span><rt>は</rt></ruby>っています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">明日</span><rt>あした</rt></ruby>から<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>まる<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>のために、いろいろな<ruby><span class="kanji">準備</span><rt>じゅんび</rt></ruby>をしています。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>のことを<ruby><span class="kanji">話</span><rt>はな</rt></ruby>すのがあまり<ruby><span class="kanji">好</span><rt>す</rt></ruby>きではないので、いつも<ruby><span class="kanji">黙</span><rt>だま</rt></ruby>っています。</li>
+                    <li>このお<ruby><span class="kanji">店</span><rt>みせ</rt></ruby>は、いつも<ruby><span class="kanji">安</span><rt>やす</rt></ruby>くておいしいお<ruby><span class="kanji">弁当</span><rt>べんとう</rt></ruby>を<ruby><span class="kanji">売</span><rt>う</rt></ruby>っているので、お<ruby><span class="kanji">昼</span><rt>ひる</rt></ruby>には<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>がたくさん<ruby><span class="kanji">来</span><rt>く</rt></ruby>ます。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、この<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>を<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>めるために、たくさんのお<ruby><span class="kanji">金</span><rt>かね</rt></ruby>を<ruby><span class="kanji">貯</span><rt>た</rt></ruby>めて、<ruby><span class="kanji">専門</span><rt>せんもん</rt></ruby>の<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>に<ruby><span class="kanji">通</span><rt>かよ</rt></ruby>いました。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>を<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>する<ruby><span class="kanji">時</span><rt>とき</rt></ruby>、<ruby><span class="kanji">辞書</span><rt>じしょ</rt></ruby>を<ruby><span class="kanji">使</span><rt>つか</rt></ruby>いながら、<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">言葉</span><rt>ことば</rt></ruby>をたくさん<ruby><span class="kanji">覚</span><rt>おぼ</rt></ruby>えています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、この<ruby><span class="kanji">映画</span><rt>えいが</rt></ruby>を<ruby><span class="kanji">観</span><rt>み</rt></ruby>るために、わざわざ<ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>って、<ruby><span class="kanji">隣</span><rt>となり</rt></ruby>の<ruby><span class="kanji">町</span><rt>まち</rt></ruby>まで<ruby><span class="kanji">来</span><rt>き</rt></ruby>ました。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、いつも<ruby><span class="kanji">元気</span><rt>げんき</rt></ruby>で<ruby><span class="kanji">笑顔</span><rt>えがお</rt></ruby>で、<ruby><span class="kanji">周</span><rt>まわ</rt></ruby>りの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>たちを<ruby><span class="kanji">明</span><rt>あか</rt></ruby>るくしてくれるとてもいい<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>です。</li>
+                    <li>この<ruby><span class="kanji">駅</span><rt>えき</rt></ruby>は、とても<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">利用</span><rt>りよう</rt></ruby>するので、いつも<ruby><span class="kanji">朝</span><rt>あさ</rt></ruby>から<ruby><span class="kanji">晩</span><rt>ばん</rt></ruby>まで<ruby><span class="kanji">賑</span><rt>にぎ</rt></ruby>やかです。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">国</span><rt>くに</rt></ruby>では<ruby><span class="kanji">見</span><rt>み</rt></ruby>ることができない<ruby><span class="kanji">景色</span><rt>けしき</rt></ruby>や<ruby><span class="kanji">文化</span><rt>ぶんか</rt></ruby>を<ruby><span class="kanji">知</span><rt>し</rt></ruby>るために、<ruby><span class="kanji">旅行</span><rt>りょこう</rt></ruby>をします。</li>
+                    <li>この<ruby><span class="kanji">橋</span><rt>はし</rt></ruby>は、とても<ruby><span class="kanji">古</span><rt>ふる</rt></ruby>いので、<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">歴史的</span><rt>れきしてき</rt></ruby>な<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>として<ruby><span class="kanji">見</span><rt>み</rt></ruby>に<ruby><span class="kanji">来</span><rt>く</rt></ruby>ます。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>の<ruby><span class="kanji">近</span><rt>ちか</rt></ruby>くのバス<ruby><span class="kanji">停</span><rt>てい</rt></ruby>まで<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>いて<ruby><span class="kanji">行</span><rt>い</rt></ruby>って、バスに<ruby><span class="kanji">乗</span><rt>の</rt></ruby>って<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>に<ruby><span class="kanji">帰</span><rt>かえ</rt></ruby>ります。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">健康</span><rt>けんこう</rt></ruby>を<ruby><span class="kanji">保</span><rt>たも</rt></ruby>つために、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">規則正</span><rt>きそくただ</rt></ruby>しい<ruby><span class="kanji">生活</span><rt>せいかつ</rt></ruby>を<ruby><span class="kanji">心</span><rt>こころ</rt></ruby>がけています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>の<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>を<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>める<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>に、まず<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>の<ruby><span class="kanji">文法</span><rt>ぶんぽう</rt></ruby>をしっかり<ruby><span class="kanji">覚</span><rt>おぼ</rt></ruby>えることにしました。</li>
+                    <li>この<ruby><span class="kanji">店</span><rt>みせ</rt></ruby>は、いつもお<ruby><span class="kanji">客</span><rt>きゃく</rt></ruby>さんがたくさんいて、とても<ruby><span class="kanji">賑</span><rt>にぎ</rt></ruby>やかな<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>なので、<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>もよく<ruby><span class="kanji">行</span><rt>い</rt></ruby>きます。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">毎朝</span><rt>まいあさ</rt></ruby><ruby><span class="kanji">早</span><rt>はや</rt></ruby>く<ruby><span class="kanji">起</span><rt>お</rt></ruby>きて、<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>の<ruby><span class="kanji">近</span><rt>ちか</rt></ruby>くの<ruby><span class="kanji">公園</span><rt>こうえん</rt></ruby>を<ruby><span class="kanji">走</span><rt>はし</rt></ruby>ってから、<ruby><span class="kanji">会社</span><rt>かいしゃ</rt></ruby>まで<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>いて<ruby><span class="kanji">行</span><rt>い</rt></ruby>きます。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、この<ruby><span class="kanji">町</span><rt>まち</rt></ruby>に<ruby><span class="kanji">住</span><rt>す</rt></ruby>んでいるので、いつも<ruby><span class="kanji">自転車</span><rt>じてんしゃ</rt></ruby>に<ruby><span class="kanji">乗</span><rt>の</rt></ruby>っていろいろな<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>きます。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、この<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>を<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>めてから、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>とても<ruby><span class="kanji">忙</span><rt>いそが</rt></ruby>しくて、<ruby><span class="kanji">休</span><rt>やす</rt></ruby>む<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby>がありません。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>の<ruby><span class="kanji">先生</span><rt>せんせい</rt></ruby>に<ruby><span class="kanji">教</span><rt>おし</rt></ruby>えてもらった<ruby><span class="kanji">文法</span><rt>ぶんぽう</rt></ruby>を<ruby><span class="kanji">使</span><rt>つか</rt></ruby>いながら、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">日記</span><rt>にっき</rt></ruby>を<ruby><span class="kanji">書</span><rt>か</rt></ruby>いています。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">好</span><rt>す</rt></ruby>きな<ruby><span class="kanji">歌手</span><rt>かしゅ</rt></ruby>の<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>を<ruby><span class="kanji">聴</span><rt>き</rt></ruby>くのが<ruby><span class="kanji">好</span><rt>す</rt></ruby>きで、いつもヘッドフォンを<ruby><span class="kanji">付</span><rt>つ</rt></ruby>けています。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えを<ruby><span class="kanji">話</span><rt>はな</rt></ruby>すのが<ruby><span class="kanji">苦手</span><rt>にがて</rt></ruby>なので、いつも<ruby><span class="kanji">周</span><rt>まわ</rt></ruby>りの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>たちに<ruby><span class="kanji">聞</span><rt>き</rt></ruby>いてもらっています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、この<ruby><span class="kanji">町</span><rt>まち</rt></ruby>にある<ruby><span class="kanji">古</span><rt>ふる</rt></ruby>い<ruby><span class="kanji">図書館</span><rt>としょかん</rt></ruby>で、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>たくさんの<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んでいます。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">健康</span><rt>けんこう</rt></ruby>を<ruby><span class="kanji">保</span><rt>たも</rt></ruby>つために、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>ランニングをしたり、ジムに<ruby><span class="kanji">通</span><rt>かよ</rt></ruby>ったりしています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>の<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>を<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>める<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>に、まず<ruby><span class="kanji">日本</span><rt>にほん</rt></ruby>の<ruby><span class="kanji">文化</span><rt>ぶんか</rt></ruby>について<ruby><span class="kanji">学</span><rt>まな</rt></ruby>ぶことにしました。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>のことを<ruby><span class="kanji">話</span><rt>はな</rt></ruby>すのが<ruby><span class="kanji">好</span><rt>す</rt></ruby>きなので、いつも<ruby><span class="kanji">友達</span><rt>ともだち</rt></ruby>と<ruby><span class="kanji">長</span><rt>なが</rt></ruby>い<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby><ruby><span class="kanji">話</span><rt>はな</rt></ruby>しています。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、この<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>がとても<ruby><span class="kanji">好</span><rt>す</rt></ruby>きなので、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しく<ruby><span class="kanji">働</span><rt>はたら</rt></ruby>いています。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は、このお<ruby><span class="kanji">店</span><rt>みせ</rt></ruby>でいつも<ruby><span class="kanji">安</span><rt>やす</rt></ruby>いお<ruby><span class="kanji">弁当</span><rt>べんとう</rt></ruby>を<ruby><span class="kanji">売</span><rt>う</rt></ruby>っているので、お<ruby><span class="kanji">昼</span><rt>ひる</rt></ruby>には<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">来</span><rt>く</rt></ruby>ます。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>は、<ruby><span class="kanji">日本語</span><rt>にほんご</rt></ruby>の<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>を<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>めるために、まず<ruby><span class="kanji">日本</span><rt>にほん</rt></ruby>の<ruby><span class="kanji">映画</span><rt>えいが</rt></ruby>やドラマを<ruby><span class="kanji">見</span><rt>み</rt></ruby>ることにしました。</li>
+                    <li><ruby><span class="kanji">彼</span><rt>かれ</rt></ruby>は、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">好</span><rt>す</rt></ruby>きな<ruby><span class="kanji">食</span><rt>た</rt></ruby>べ<ruby><span class="kanji">物</span><rt>もの</rt></ruby>を<ruby><span class="kanji">食</span><rt>た</rt></ruby>べるのが<ruby><span class="kanji">好</span><rt>す</rt></ruby>きなので、いつも<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しいレストランを<ruby><span class="kanji">探</span><rt>さが</rt></ruby>しています。</li>
+                    <li><ruby><span class="kanji">彼女</span><rt>かのじょ</rt></ruby>は、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>の<ruby><span class="kanji">授業</span><rt>じゅぎょう</rt></ruby>が<ruby><span class="kanji">終</span><rt>お</rt></ruby>わってから、<ruby><span class="kanji">友達</span><rt>ともだち</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>にカフェで<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>しています。</li>
+                    <li><ruby><span class="kanji">低</span><rt>ひく</rt></ruby>い<ruby><span class="kanji">声</span><rt>こえ</rt></ruby>で<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>を<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>っている<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>の<ruby><span class="kanji">隣</span><rt>となり</rt></ruby>で、<ruby><span class="kanji">高</span><rt>たか</rt></ruby>い<ruby><span class="kanji">声</span><rt>こえ</rt></ruby>の<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>も<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>っていました。</li>
+                    <li>あの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>は<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby><ruby><span class="kanji">朝早</span><rt>あさはや</rt></ruby>く<ruby><span class="kanji">起</span><rt>お</rt></ruby>きて、<ruby><span class="kanji">一人</span><rt>ひとり</rt></ruby>でこうえんを<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>いて、きれいな<ruby><span class="kanji">花</span><rt>はな</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>ることがとても<ruby><span class="kanji">好</span><rt>す</rt></ruby>きです。</li>
+                    <li><ruby><span class="kanji">今日</span><rt>きょう</rt></ruby>は<ruby><span class="kanji">雨</span><rt>あめ</rt></ruby>が<ruby><span class="kanji">降</span><rt>ふ</rt></ruby>っているので、<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちと<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>でゲームをして<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby>を<ruby><span class="kanji">過</span><rt>す</rt></ruby>ごしました。</li>
+                    <li><ruby><span class="kanji">母</span><rt>はは</rt></ruby>は<ruby><span class="kanji">毎朝</span><rt>まいあさ</rt></ruby><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>のために<ruby><span class="kanji">美味</span><rt>おい</rt></ruby>しいお<ruby><span class="kanji">弁当</span><rt>べんとう</rt></ruby>を<ruby><span class="kanji">作</span><rt>つく</rt></ruby>って、<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>に<ruby><span class="kanji">持</span><rt>も</rt></ruby>って<ruby><span class="kanji">行</span><rt>い</rt></ruby>くように<ruby><span class="kanji">言</span><rt>い</rt></ruby>ってくれます。</li>
+                    <li><ruby><span class="kanji">父</span><rt>ちち</rt></ruby>は<ruby><span class="kanji">会社</span><rt>かいしゃ</rt></ruby>から<ruby><span class="kanji">帰</span><rt>かえ</rt></ruby>ってきたら、いつも<ruby><span class="kanji">新聞</span><rt>しんぶん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んで、テレビでニュースを<ruby><span class="kanji">見</span><rt>み</rt></ruby>ています。</li>
+                    <li><ruby><span class="kanji">兄</span><rt>あに</rt></ruby>は<ruby><span class="kanji">大学</span><rt>だいがく</rt></ruby>で<ruby><span class="kanji">英語</span><rt>えいご</rt></ruby>を<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>していて、<ruby><span class="kanji">将来</span><rt>しょうらい</rt></ruby>は<ruby><span class="kanji">外国</span><rt>がいこく</rt></ruby>で<ruby><span class="kanji">仕事</span><rt>しごと</rt></ruby>をしたいと<ruby><span class="kanji">言</span><rt>い</rt></ruby>っています。</li>
+                    <li><ruby><span class="kanji">妹</span><rt>いもうと</rt></ruby>は<ruby><span class="kanji">小学生</span><rt>しょうがくせい</rt></ruby>ですが、とても<ruby><span class="kanji">頭</span><rt>あたま</rt></ruby>が<ruby><span class="kanji">良</span><rt>よ</rt></ruby>くて、いつも<ruby><span class="kanji">宿題</span><rt>しゅくだい</rt></ruby>を<ruby><span class="kanji">早</span><rt>はや</rt></ruby>く<ruby><span class="kanji">終</span><rt>お</rt></ruby>わらせることができます。</li>
+                    <li><ruby><span class="kanji">私</span><rt>わたし</rt></ruby>の<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちは<ruby><span class="kanji">音楽</span><rt>おんがく</rt></ruby>が<ruby><span class="kanji">大好</span><rt>だいす</rt></ruby>きで、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>ピアノをれんしゅうして<ruby><span class="kanji">上手</span><rt>じょうず</rt></ruby>になろうとがんばっています。</li>
+                    <li>お<ruby><span class="kanji">爺</span><rt>じい</rt></ruby>さんは<ruby><span class="kanji">若</span><rt>わか</rt></ruby>い<ruby><span class="kanji">時</span><rt>とき</rt></ruby>に<ruby><span class="kanji">戦争</span><rt>せんそう</rt></ruby>を<ruby><span class="kanji">経験</span><rt>けいけん</rt></ruby>して、<ruby><span class="kanji">平和</span><rt>へいわ</rt></ruby>の<ruby><span class="kanji">大切</span><rt>たいせつ</rt></ruby>さをいつも<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>たちに<ruby><span class="kanji">教</span><rt>おし</rt></ruby>えてくれます。</li>
+                    <li>お<ruby><span class="kanji">婆</span><rt>ばあ</rt></ruby>さんは<ruby><span class="kanji">料理</span><rt>りょうり</rt></ruby>がとても<ruby><span class="kanji">上手</span><rt>じょうず</rt></ruby>で、<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>のためにいつも<ruby><span class="kanji">心</span><rt>こころ</rt></ruby>をこめて<ruby><span class="kanji">作</span><rt>つく</rt></ruby>ってくれます。</li>
+                    <li><ruby><span class="kanji">先生</span><rt>せんせい</rt></ruby>は<ruby><span class="kanji">生徒</span><rt>せいと</rt></ruby>たちのことを<ruby><span class="kanji">深</span><rt>ふか</rt></ruby>く<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えて、<ruby><span class="kanji">一人一人</span><rt>ひとりひとり</rt></ruby>に<ruby><span class="kanji">合</span><rt>あ</rt></ruby>った<ruby><span class="kanji">指導</span><rt>しどう</rt></ruby>をしてくださいます。</li>
+                    <li>この<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>は<ruby><span class="kanji">内容</span><rt>ないよう</rt></ruby>が<ruby><span class="kanji">難</span><rt>むずか</rt></ruby>しいですが、<ruby><span class="kanji">最後</span><rt>さいご</rt></ruby>まで<ruby><span class="kanji">読</span><rt>よ</rt></ruby>めばきっと<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くのことを<ruby><span class="kanji">学</span><rt>まな</rt></ruby>べると<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">図書館</span><rt>としょかん</rt></ruby>では<ruby><span class="kanji">静</span><rt>しず</rt></ruby>かにしなければならないので、<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちと<ruby><span class="kanji">小</span><rt>ちい</rt></ruby>さな<ruby><span class="kanji">声</span><rt>こえ</rt></ruby>で<ruby><span class="kanji">話</span><rt>はな</rt></ruby>しながら<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>しました。</li>
+                    <li><ruby><span class="kanji">病院</span><rt>びょういん</rt></ruby>で<ruby><span class="kanji">医者</span><rt>いしゃ</rt></ruby>に<ruby><span class="kanji">診</span><rt>み</rt></ruby>てもらったら、<ruby><span class="kanji">風邪</span><rt>かぜ</rt></ruby>だから<ruby><span class="kanji">薬</span><rt>くすり</rt></ruby>を<ruby><span class="kanji">飲</span><rt>の</rt></ruby>んで<ruby><span class="kanji">早</span><rt>はや</rt></ruby>く<ruby><span class="kanji">寝</span><rt>ね</rt></ruby>るように<ruby><span class="kanji">言</span><rt>い</rt></ruby>われました。</li>
+                    <li><ruby><span class="kanji">銀行</span><rt>ぎんこう</rt></ruby>で<ruby><span class="kanji">お金</span><rt>かね</rt></ruby>をおろしてから、<ruby><span class="kanji">買</span><rt>か</rt></ruby>い<ruby><span class="kanji">物</span><rt>もの</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>って<ruby><span class="kanji">必要</span><rt>ひつよう</rt></ruby>な<ruby><span class="kanji">物</span><rt>もの</rt></ruby>をすべて<ruby><span class="kanji">買</span><rt>か</rt></ruby>うつもりです。</li>
+                    <li><ruby><span class="kanji">駅</span><rt>えき</rt></ruby>で<ruby><span class="kanji">電車</span><rt>でんしゃ</rt></ruby>を<ruby><span class="kanji">待</span><rt>ま</rt></ruby>っている<ruby><span class="kanji">間</span><rt>あいだ</rt></ruby>に、たくさんの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">急</span><rt>いそ</rt></ruby>いで<ruby><span class="kanji">通</span><rt>とお</rt></ruby>り<ruby><span class="kanji">過</span><rt>す</rt></ruby>ぎて<ruby><span class="kanji">行</span><rt>い</rt></ruby>くのを<ruby><span class="kanji">見</span><rt>み</rt></ruby>ていました。</li>
+                    <li>この<ruby><span class="kanji">店</span><rt>みせ</rt></ruby>の<ruby><span class="kanji">食</span><rt>た</rt></ruby>べ<ruby><span class="kanji">物</span><rt>もの</rt></ruby>はとても<ruby><span class="kanji">美味</span><rt>おい</rt></ruby>しくて、<ruby><span class="kanji">値段</span><rt>ねだん</rt></ruby>も<ruby><span class="kanji">安</span><rt>やす</rt></ruby>いので<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">客</span><rt>きゃく</rt></ruby>が<ruby><span class="kanji">来</span><rt>き</rt></ruby>ています。</li>
+                    <li><ruby><span class="kanji">今年</span><rt>ことし</rt></ruby>の<ruby><span class="kanji">夏</span><rt>なつ</rt></ruby>は<ruby><span class="kanji">特</span><rt>とく</rt></ruby>に<ruby><span class="kanji">暑</span><rt>あつ</rt></ruby>くて、<ruby><span class="kanji">毎日</span><rt>まいにち</rt></ruby>エアコンをつけないと<ruby><span class="kanji">部屋</span><rt>へや</rt></ruby>にいることができませんでした。</li>
+                    <li><ruby><span class="kanji">冬</span><rt>ふゆ</rt></ruby>になると<ruby><span class="kanji">雪</span><rt>ゆき</rt></ruby>が<ruby><span class="kanji">降</span><rt>ふ</rt></ruby>って<ruby><span class="kanji">寒</span><rt>さむ</rt></ruby>くなるので、<ruby><span class="kanji">厚</span><rt>あつ</rt></ruby>いコートを<ruby><span class="kanji">着</span><rt>き</rt></ruby>て<ruby><span class="kanji">外</span><rt>そと</rt></ruby>に<ruby><span class="kanji">出</span><rt>で</rt></ruby>かけなければなりません。</li>
+                    <li><ruby><span class="kanji">春</span><rt>はる</rt></ruby>には<ruby><span class="kanji">桜</span><rt>さくら</rt></ruby>の<ruby><span class="kanji">花</span><rt>はな</rt></ruby>がさいて、<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>がお<ruby><span class="kanji">花見</span><rt>はなみ</rt></ruby>をするためにこうえんに<ruby><span class="kanji">集</span><rt>あつ</rt></ruby>まります。</li>
+                    <li><ruby><span class="kanji">秋</span><rt>あき</rt></ruby>は<ruby><span class="kanji">紅葉</span><rt>こうよう</rt></ruby>がきれいな<ruby><span class="kanji">季節</span><rt>きせつ</rt></ruby>で、<ruby><span class="kanji">山</span><rt>やま</rt></ruby>に<ruby><span class="kanji">登</span><rt>のぼ</rt></ruby>って<ruby><span class="kanji">美</span><rt>うつく</rt></ruby>しい<ruby><span class="kanji">景色</span><rt>けしき</rt></ruby>を<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しむことができます。</li>
+                    <li><ruby><span class="kanji">朝</span><rt>あさ</rt></ruby>ごはんを<ruby><span class="kanji">食</span><rt>た</rt></ruby>べてから<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>って、<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちと<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しい<ruby><span class="kanji">一日</span><rt>いちにち</rt></ruby>を<ruby><span class="kanji">過</span><rt>す</rt></ruby>ごしました。</li>
+                    <li><ruby><span class="kanji">昼休</span><rt>ひるやす</rt></ruby>みには<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちと<ruby><span class="kanji">校庭</span><rt>こうてい</rt></ruby>で<ruby><span class="kanji">遊</span><rt>あそ</rt></ruby>んで、<ruby><span class="kanji">午後</span><rt>ごご</rt></ruby>の<ruby><span class="kanji">授業</span><rt>じゅぎょう</rt></ruby>に<ruby><span class="kanji">備</span><rt>そな</rt></ruby>えて<ruby><span class="kanji">元気</span><rt>げんき</rt></ruby>を<ruby><span class="kanji">回復</span><rt>かいふく</rt></ruby>させました。</li>
+                    <li><ruby><span class="kanji">夜遅</span><rt>よるおそ</rt></ruby>くまで<ruby><span class="kanji">宿題</span><rt>しゅくだい</rt></ruby>をしていたので、<ruby><span class="kanji">今日</span><rt>きょう</rt></ruby>は<ruby><span class="kanji">少</span><rt>すこ</rt></ruby>し<ruby><span class="kanji">眠</span><rt>ねむ</rt></ruby>くて<ruby><span class="kanji">集中</span><rt>しゅうちゅう</rt></ruby>することが<ruby><span class="kanji">難</span><rt>むずか</rt></ruby>しいです。</li>
+                    <li><ruby><span class="kanji">週末</span><rt>しゅうまつ</rt></ruby>には<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>にどこかに<ruby><span class="kanji">出</span><rt>で</rt></ruby>かけて、<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しい<ruby><span class="kanji">思</span><rt>おも</rt></ruby>い<ruby><span class="kanji">出</span><rt>で</rt></ruby>を<ruby><span class="kanji">作</span><rt>つく</rt></ruby>りたいと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">来月</span><rt>らいげつ</rt></ruby><ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちの<ruby><span class="kanji">誕生日</span><rt>たんじょうび</rt></ruby>なので、<ruby><span class="kanji">何</span><rt>なに</rt></ruby>かすてきなプレゼントを<ruby><span class="kanji">買</span><rt>か</rt></ruby>ってあげたいと<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えています。</li>
+                    <li><ruby><span class="kanji">去年</span><rt>きょねん</rt></ruby><ruby><span class="kanji">旅行</span><rt>りょこう</rt></ruby>で<ruby><span class="kanji">訪</span><rt>おとず</rt></ruby>れた<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>がとても<ruby><span class="kanji">印象的</span><rt>いんしょうてき</rt></ruby>で、また<ruby><span class="kanji">機会</span><rt>きかい</rt></ruby>があれば<ruby><span class="kanji">行</span><rt>い</rt></ruby>ってみたいです。</li>
+                    <li><ruby><span class="kanji">明日</span><rt>あした</rt></ruby>は<ruby><span class="kanji">大切</span><rt>たいせつ</rt></ruby>な<ruby><span class="kanji">試験</span><rt>しけん</rt></ruby>があるので、<ruby><span class="kanji">今夜</span><rt>こんや</rt></ruby>は<ruby><span class="kanji">早</span><rt>はや</rt></ruby>く<ruby><span class="kanji">寝</span><rt>ね</rt></ruby>て<ruby><span class="kanji">明日</span><rt>あした</rt></ruby>に<ruby><span class="kanji">備</span><rt>そな</rt></ruby>えなければなりません。</li>
+                    <li><ruby><span class="kanji">昨日</span><rt>きのう</rt></ruby><ruby><span class="kanji">見</span><rt>み</rt></ruby>た<ruby><span class="kanji">映画</span><rt>えいが</rt></ruby>はとても<ruby><span class="kanji">感動的</span><rt>かんどうてき</rt></ruby>で、<ruby><span class="kanji">最後</span><rt>さいご</rt></ruby>には<ruby><span class="kanji">涙</span><rt>なみだ</rt></ruby>が<ruby><span class="kanji">出</span><rt>で</rt></ruby>そうになってしまいました。</li>
+                    <li><ruby><span class="kanji">今度</span><rt>こんど</rt></ruby>の<ruby><span class="kanji">休</span><rt>やす</rt></ruby>みには<ruby><span class="kanji">久</span><rt>ひさ</rt></ruby>しぶりに<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちに<ruby><span class="kanji">会</span><rt>あ</rt></ruby>って、<ruby><span class="kanji">近況</span><rt>きんきょう</rt></ruby>を<ruby><span class="kanji">報告</span><rt>ほうこく</rt></ruby>し<ruby><span class="kanji">合</span><rt>あ</rt></ruby>いたいと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li>この<ruby><span class="kanji">問題</span><rt>もんだい</rt></ruby>の<ruby><span class="kanji">答</span><rt>こた</rt></ruby>えがわからないので、<ruby><span class="kanji">先生</span><rt>せんせい</rt></ruby>に<ruby><span class="kanji">質問</span><rt>しつもん</rt></ruby>して<ruby><span class="kanji">教</span><rt>おし</rt></ruby>えてもらおうと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">服</span><rt>ふく</rt></ruby>を<ruby><span class="kanji">買</span><rt>か</rt></ruby>いたいのですが、<ruby><span class="kanji">お金</span><rt>かね</rt></ruby>があまりないので<ruby><span class="kanji">少</span><rt>すこ</rt></ruby>し<ruby><span class="kanji">我慢</span><rt>がまん</rt></ruby>しなければなりません。</li>
+                    <li><ruby><span class="kanji">古</span><rt>ふる</rt></ruby>い<ruby><span class="kanji">写真</span><rt>しゃしん</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>ていたら、<ruby><span class="kanji">子供</span><rt>こども</rt></ruby>の<ruby><span class="kanji">頃</span><rt>ころ</rt></ruby>の<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しい<ruby><span class="kanji">思</span><rt>おも</rt></ruby>い<ruby><span class="kanji">出</span><rt>で</rt></ruby>がたくさんよみがえってきました。</li>
+                    <li><ruby><span class="kanji">大</span><rt>おお</rt></ruby>きな<ruby><span class="kanji">荷物</span><rt>にもつ</rt></ruby>を<ruby><span class="kanji">運</span><rt>はこ</rt></ruby>ぶのは<ruby><span class="kanji">大変</span><rt>たいへん</rt></ruby>なので、<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちに<ruby><span class="kanji">手伝</span><rt>てつだ</rt></ruby>ってもらうことにしました。</li>
+                    <li><ruby><span class="kanji">小</span><rt>ちい</rt></ruby>さな<ruby><span class="kanji">子供</span><rt>こども</rt></ruby>たちが<ruby><span class="kanji">元気</span><rt>げんき</rt></ruby>に<ruby><span class="kanji">遊</span><rt>あそ</rt></ruby>んでいる<ruby><span class="kanji">様子</span><rt>ようす</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>ていると、とても<ruby><span class="kanji">微笑</span><rt>ほほえ</rt></ruby>ましい<ruby><span class="kanji">気持</span><rt>きも</rt></ruby>ちになります。</li>
+                    <li><ruby><span class="kanji">高</span><rt>たか</rt></ruby>い<ruby><span class="kanji">山</span><rt>やま</rt></ruby>に<ruby><span class="kanji">登</span><rt>のぼ</rt></ruby>るのは<ruby><span class="kanji">疲</span><rt>つか</rt></ruby>れますが、<ruby><span class="kanji">頂上</span><rt>ちょうじょう</rt></ruby>から<ruby><span class="kanji">見</span><rt>み</rt></ruby>る<ruby><span class="kanji">景色</span><rt>けしき</rt></ruby>はとてもすばらしいものです。</li>
+                    <li><ruby><span class="kanji">低</span><rt>ひく</rt></ruby>い<ruby><span class="kanji">声</span><rt>こえ</rt></ruby>で<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>を<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>っている<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>の<ruby><span class="kanji">隣</span><rt>となり</rt></ruby>で、<ruby><span class="kanji">高</span><rt>たか</rt></ruby>い<ruby><span class="kanji">声</span><rt>こえ</rt></ruby>の<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>も<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">歌</span><rt>うた</rt></ruby>っていました。</li>
+                    <li><ruby><span class="kanji">長</span><rt>なが</rt></ruby>い<ruby><span class="kanji">間</span><rt>あいだ</rt></ruby><ruby><span class="kanji">待</span><rt>ま</rt></ruby>っていた<ruby><span class="kanji">手紙</span><rt>てがみ</rt></ruby>がやっと<ruby><span class="kanji">届</span><rt>とど</rt></ruby>いて、とてもうれしい<ruby><span class="kanji">気持</span><rt>きも</rt></ruby>ちになりました。</li>
+                    <li><ruby><span class="kanji">短</span><rt>みじか</rt></ruby>い<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby>しかありませんでしたが、<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちと<ruby><span class="kanji">会</span><rt>あ</rt></ruby>って<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しい<ruby><span class="kanji">話</span><rt>はなし</rt></ruby>をすることができました。</li>
+                    <li><ruby><span class="kanji">広</span><rt>ひろ</rt></ruby>いグラウンドで<ruby><span class="kanji">子供</span><rt>こども</rt></ruby>たちがサッカーをして、<ruby><span class="kanji">元気</span><rt>げんき</rt></ruby>に<ruby><span class="kanji">走</span><rt>はし</rt></ruby>り<ruby><span class="kanji">回</span><rt>まわ</rt></ruby>っているのを<ruby><span class="kanji">見</span><rt>み</rt></ruby>ました。</li>
+                    <li>せまい<ruby><span class="kanji">部屋</span><rt>へや</rt></ruby>に<ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">入</span><rt>はい</rt></ruby>っているので、<ruby><span class="kanji">少</span><rt>すこ</rt></ruby>し<ruby><span class="kanji">息苦</span><rt>いきぐる</rt></ruby>しく<ruby><span class="kanji">感</span><rt>かん</rt></ruby>じることがあります。</li>
+                    <li><ruby><span class="kanji">強</span><rt>つよ</rt></ruby>い<ruby><span class="kanji">風</span><rt>かぜ</rt></ruby>が<ruby><span class="kanji">吹</span><rt>ふ</rt></ruby>いているので、<ruby><span class="kanji">傘</span><rt>かさ</rt></ruby>をさしていても<ruby><span class="kanji">雨</span><rt>あめ</rt></ruby>に<ruby><span class="kanji">濡</span><rt>ぬ</rt></ruby>れてしまいそうです。</li>
+                    <li><ruby><span class="kanji">弱</span><rt>よわ</rt></ruby>い<ruby><span class="kanji">光</span><rt>ひかり</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>で<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んでいると、<ruby><span class="kanji">目</span><rt>め</rt></ruby>が<ruby><span class="kanji">疲</span><rt>つか</rt></ruby>れてしまうのでもっと<ruby><span class="kanji">明</span><rt>あか</rt></ruby>るい<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>に<ruby><span class="kanji">移</span><rt>うつ</rt></ruby>りました。</li>
+                    <li><ruby><span class="kanji">多</span><rt>おお</rt></ruby>くの<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>が<ruby><span class="kanji">同</span><rt>おな</rt></ruby>じ<ruby><span class="kanji">意見</span><rt>いけん</rt></ruby>を<ruby><span class="kanji">持</span><rt>も</rt></ruby>っていることがわかって、とても<ruby><span class="kanji">安心</span><rt>あんしん</rt></ruby>しました。</li>
+                    <li><ruby><span class="kanji">少</span><rt>すく</rt></ruby>ない<ruby><span class="kanji">お金</span><rt>かね</rt></ruby>でも<ruby><span class="kanji">工夫</span><rt>くふう</rt></ruby>すれば、<ruby><span class="kanji">必要</span><rt>ひつよう</rt></ruby>な<ruby><span class="kanji">物</span><rt>もの</rt></ruby>を<ruby><span class="kanji">買</span><rt>か</rt></ruby>うことができると<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">早</span><rt>はや</rt></ruby>い<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby>に<ruby><span class="kanji">起</span><rt>お</rt></ruby>きて<ruby><span class="kanji">準備</span><rt>じゅんび</rt></ruby>をしたおかげで、<ruby><span class="kanji">遅刻</span><rt>ちこく</rt></ruby>せずに<ruby><span class="kanji">学校</span><rt>がっこう</rt></ruby>に<ruby><span class="kanji">到着</span><rt>とうちゃく</rt></ruby>できました。</li>
+                    <li><ruby><span class="kanji">遅</span><rt>おそ</rt></ruby>い<ruby><span class="kanji">夕食</span><rt>ゆうしょく</rt></ruby>になってしまいましたが、<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>みんなで<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しく<ruby><span class="kanji">食</span><rt>た</rt></ruby>べることができました。</li>
+                    <li><ruby><span class="kanji">近</span><rt>ちか</rt></ruby>い<ruby><span class="kanji">将来</span><rt>しょうらい</rt></ruby>、<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">技術</span><rt>ぎじゅつ</rt></ruby>によって<ruby><span class="kanji">私</span><rt>わたし</rt></ruby>たちの<ruby><span class="kanji">生活</span><rt>せいかつ</rt></ruby>がもっと<ruby><span class="kanji">便利</span><rt>べんり</rt></ruby>になるでしょう。</li>
+                    <li><ruby><span class="kanji">遠</span><rt>とお</rt></ruby>い<ruby><span class="kanji">国</span><rt>くに</rt></ruby>から<ruby><span class="kanji">来</span><rt>き</rt></ruby>た<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちが、<ruby><span class="kanji">自分</span><rt>じぶん</rt></ruby>の<ruby><span class="kanji">国</span><rt>くに</rt></ruby>の<ruby><span class="kanji">文化</span><rt>ぶんか</rt></ruby>について<ruby><span class="kanji">詳</span><rt>くわ</rt></ruby>しく<ruby><span class="kanji">教</span><rt>おし</rt></ruby>えてくれました。</li>
+                    <li><ruby><span class="kanji">右手</span><rt>みぎて</rt></ruby>でペンを<ruby><span class="kanji">持</span><rt>も</rt></ruby>って<ruby><span class="kanji">字</span><rt>じ</rt></ruby>を<ruby><span class="kanji">書</span><rt>か</rt></ruby>きながら、<ruby><span class="kanji">左手</span><rt>ひだりて</rt></ruby>で<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>のページをめくっていました。</li>
+                    <li><ruby><span class="kanji">左側</span><rt>ひだりがわ</rt></ruby>の<ruby><span class="kanji">窓</span><rt>まど</rt></ruby>から<ruby><span class="kanji">美</span><rt>うつく</rt></ruby>しい<ruby><span class="kanji">景色</span><rt>けしき</rt></ruby>が<ruby><span class="kanji">見</span><rt>み</rt></ruby>えるので、いつもそこに<ruby><span class="kanji">座</span><rt>すわ</rt></ruby>って<ruby><span class="kanji">外</span><rt>そと</rt></ruby>を<ruby><span class="kanji">眺</span><rt>なが</rt></ruby>めています。</li>
+                    <li><ruby><span class="kanji">上</span><rt>うえ</rt></ruby>の<ruby><span class="kanji">階</span><rt>かい</rt></ruby>から<ruby><span class="kanji">音楽</span><rt>おんがく</rt></ruby>が<ruby><span class="kanji">聞</span><rt>き</rt></ruby>こえてくるので、だれかがピアノをれんしゅうしているようです。</li>
+                    <li><ruby><span class="kanji">下</span><rt>した</rt></ruby>の<ruby><span class="kanji">階</span><rt>かい</rt></ruby>に<ruby><span class="kanji">住</span><rt>す</rt></ruby>んでいる<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>がとても<ruby><span class="kanji">親切</span><rt>しんせつ</rt></ruby>で、いつも<ruby><span class="kanji">困</span><rt>こま</rt></ruby>った<ruby><span class="kanji">時</span><rt>とき</rt></ruby>に<ruby><span class="kanji">助</span><rt>たす</rt></ruby>けてくれます。</li>
+                    <li><ruby><span class="kanji">前回</span><rt>ぜんかい</rt></ruby>の<ruby><span class="kanji">試験</span><rt>しけん</rt></ruby>の<ruby><span class="kanji">結果</span><rt>けっか</rt></ruby>があまり<ruby><span class="kanji">良</span><rt>よ</rt></ruby>くなかったので、<ruby><span class="kanji">今回</span><rt>こんかい</rt></ruby>はもっとがんばって<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>します。</li>
+                    <li><ruby><span class="kanji">後</span><rt>あと</rt></ruby>で<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちに<ruby><span class="kanji">会</span><rt>あ</rt></ruby>う<ruby><span class="kanji">約束</span><rt>やくそく</rt></ruby>をしているので、それまでに<ruby><span class="kanji">宿題</span><rt>しゅくだい</rt></ruby>を<ruby><span class="kanji">終</span><rt>お</rt></ruby>わらせておきたいです。</li>
+                    <li><ruby><span class="kanji">中学校</span><rt>ちゅうがっこう</rt></ruby>の<ruby><span class="kanji">時</span><rt>とき</rt></ruby>の<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちと<ruby><span class="kanji">久</span><rt>ひさ</rt></ruby>しぶりに<ruby><span class="kanji">再会</span><rt>さいかい</rt></ruby>して、<ruby><span class="kanji">昔</span><rt>むかし</rt></ruby>の<ruby><span class="kanji">話</span><rt>はなし</rt></ruby>で<ruby><span class="kanji">盛</span><rt>も</rt></ruby>り<ruby><span class="kanji">上</span><rt>あ</rt></ruby>がりました。</li>
+                    <li><ruby><span class="kanji">外</span><rt>そと</rt></ruby>は<ruby><span class="kanji">雨</span><rt>あめ</rt></ruby>が<ruby><span class="kanji">降</span><rt>ふ</rt></ruby>っているようですが、<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>は<ruby><span class="kanji">暖</span><rt>あたた</rt></ruby>かくて<ruby><span class="kanji">快適</span><rt>かいてき</rt></ruby>に<ruby><span class="kanji">過</span><rt>す</rt></ruby>ごすことができます。</li>
+                    <li><ruby><span class="kanji">内容</span><rt>ないよう</rt></ruby>が<ruby><span class="kanji">複雑</span><rt>ふくざつ</rt></ruby>な<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>でしたが、ゆっくり<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んでいくうちに<ruby><span class="kanji">理解</span><rt>りかい</rt></ruby>できるようになりました。</li>
+                    <li><ruby><span class="kanji">北</span><rt>きた</rt></ruby>の<ruby><span class="kanji">方角</span><rt>ほうがく</rt></ruby>から<ruby><span class="kanji">冷</span><rt>つめ</rt></ruby>たい<ruby><span class="kanji">風</span><rt>かぜ</rt></ruby>が<ruby><span class="kanji">吹</span><rt>ふ</rt></ruby>いてきて、<ruby><span class="kanji">急</span><rt>きゅう</rt></ruby>に<ruby><span class="kanji">気温</span><rt>きおん</rt></ruby>が<ruby><span class="kanji">下</span><rt>さ</rt></ruby>がったような<ruby><span class="kanji">気</span><rt>き</rt></ruby>がします。</li>
+                    <li><ruby><span class="kanji">南</span><rt>みなみ</rt></ruby>の<ruby><span class="kanji">島</span><rt>しま</rt></ruby>に<ruby><span class="kanji">旅行</span><rt>りょこう</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>った<ruby><span class="kanji">時</span><rt>とき</rt></ruby>の<ruby><span class="kanji">写真</span><rt>しゃしん</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>ながら、また<ruby><span class="kanji">行</span><rt>い</rt></ruby>きたいなと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>いました。</li>
+                    <li><ruby><span class="kanji">東京</span><rt>とうきょう</rt></ruby>に<ruby><span class="kanji">住</span><rt>す</rt></ruby>んでいる<ruby><span class="kanji">親</span><rt>しん</rt></ruby>せきを<ruby><span class="kanji">訪</span><rt>たず</rt></ruby>ねて、<ruby><span class="kanji">久</span><rt>ひさ</rt></ruby>しぶりに<ruby><span class="kanji">大都市</span><rt>だいとし</rt></ruby>の<ruby><span class="kanji">生活</span><rt>せいかつ</rt></ruby>を<ruby><span class="kanji">体験</span><rt>たいけん</rt></ruby>しました。</li>
+                    <li><ruby><span class="kanji">西</span><rt>にし</rt></ruby>の<ruby><span class="kanji">空</span><rt>そら</rt></ruby>に<ruby><span class="kanji">美</span><rt>うつく</rt></ruby>しい<ruby><span class="kanji">夕日</span><rt>ゆうひ</rt></ruby>が<ruby><span class="kanji">見</span><rt>み</rt></ruby>えて、<ruby><span class="kanji">一日</span><rt>いちにち</rt></ruby>の<ruby><span class="kanji">終</span><rt>お</rt></ruby>わりを<ruby><span class="kanji">感</span><rt>かん</rt></ruby>じさせてくれます。</li>
+                    <li><ruby><span class="kanji">口</span><rt>くち</rt></ruby>で<ruby><span class="kanji">説明</span><rt>せつめい</rt></ruby>するよりも、<ruby><span class="kanji">実際</span><rt>じっさい</rt></ruby>に<ruby><span class="kanji">手</span><rt>て</rt></ruby>で<ruby><span class="kanji">作</span><rt>つく</rt></ruby>って<ruby><span class="kanji">見</span><rt>み</rt></ruby>せる<ruby><span class="kanji">方</span><rt>ほう</rt></ruby>がわかりやすいと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">目</span><rt>め</rt></ruby>で<ruby><span class="kanji">見</span><rt>み</rt></ruby>ただけではわからないことも、<ruby><span class="kanji">実際</span><rt>じっさい</rt></ruby>に<ruby><span class="kanji">体験</span><rt>たいけん</rt></ruby>してみると<ruby><span class="kanji">理解</span><rt>りかい</rt></ruby>できます。</li>
+                    <li><ruby><span class="kanji">耳</span><rt>みみ</rt></ruby>で<ruby><span class="kanji">音楽</span><rt>おんがく</rt></ruby>を<ruby><span class="kanji">聞</span><rt>き</rt></ruby>きながら<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>すると、<ruby><span class="kanji">集中</span><rt>しゅうちゅう</rt></ruby>できる<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>とできない<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>がいます。</li>
+                    <li><ruby><span class="kanji">手紙</span><rt>てがみ</rt></ruby>を<ruby><span class="kanji">書</span><rt>か</rt></ruby>く<ruby><span class="kanji">時</span><rt>とき</rt></ruby>は、<ruby><span class="kanji">相手</span><rt>あいて</rt></ruby>の<ruby><span class="kanji">気持</span><rt>きも</rt></ruby>ちを<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えながら<ruby><span class="kanji">言葉</span><rt>ことば</rt></ruby>を<ruby><span class="kanji">選</span><rt>えら</rt></ruby>ぶことが<ruby><span class="kanji">大切</span><rt>たいせつ</rt></ruby>です。</li>
+                    <li><ruby><span class="kanji">足</span><rt>あし</rt></ruby>が<ruby><span class="kanji">疲</span><rt>つか</rt></ruby>れてしまったので、<ruby><span class="kanji">少</span><rt>すこ</rt></ruby>し<ruby><span class="kanji">休憩</span><rt>きゅうけい</rt></ruby>してから<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>き<ruby><span class="kanji">続</span><rt>つづ</rt></ruby>けることにしました。</li>
+                    <li><ruby><span class="kanji">頭</span><rt>あたま</rt></ruby>で<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えるだけでなく、<ruby><span class="kanji">実際</span><rt>じっさい</rt></ruby>に<ruby><span class="kanji">行動</span><rt>こうどう</rt></ruby>に<ruby><span class="kanji">移</span><rt>うつ</rt></ruby>すことがとても<ruby><span class="kanji">重要</span><rt>じゅうよう</rt></ruby>だと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">心</span><rt>こころ</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>で<ruby><span class="kanji">思</span><rt>おも</rt></ruby>っていることを<ruby><span class="kanji">相手</span><rt>あいて</rt></ruby>に<ruby><span class="kanji">伝</span><rt>つた</rt></ruby>えるのは、<ruby><span class="kanji">時</span><rt>とき</rt></ruby>として<ruby><span class="kanji">難</span><rt>むずか</rt></ruby>しいものです。</li>
+                    <li><ruby><span class="kanji">体全体</span><rt>からだぜんたい</rt></ruby>を<ruby><span class="kanji">使</span><rt>つか</rt></ruby>って<ruby><span class="kanji">表現</span><rt>ひょうげん</rt></ruby>することで、<ruby><span class="kanji">言葉</span><rt>ことば</rt></ruby>だけでは<ruby><span class="kanji">伝</span><rt>つた</rt></ruby>えられない<ruby><span class="kanji">気持</span><rt>きも</rt></ruby>ちを<ruby><span class="kanji">表</span><rt>あらわ</rt></ruby>せます。</li>
+                    <li><ruby><span class="kanji">声</span><rt>こえ</rt></ruby>に<ruby><span class="kanji">出</span><rt>だ</rt></ruby>して<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>むと、<ruby><span class="kanji">黙読</span><rt>もくどく</rt></ruby>とは<ruby><span class="kanji">違</span><rt>ちが</rt></ruby>った<ruby><span class="kanji">理解</span><rt>りかい</rt></ruby>の<ruby><span class="kanji">仕方</span><rt>しかた</rt></ruby>ができることがあります。</li>
+                    <li><ruby><span class="kanji">顔</span><rt>かお</rt></ruby>の<ruby><span class="kanji">表情</span><rt>ひょうじょう</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>れば、その<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>がどんな<ruby><span class="kanji">気持</span><rt>きも</rt></ruby>ちでいるかある<ruby><span class="kanji">程度</span><rt>ていど</rt></ruby>わかります。</li>
+                    <li><ruby><span class="kanji">肩</span><rt>かた</rt></ruby>に<ruby><span class="kanji">重</span><rt>おも</rt></ruby>い<ruby><span class="kanji">荷物</span><rt>にもつ</rt></ruby>を<ruby><span class="kanji">載</span><rt>の</rt></ruby>せて<ruby><span class="kanji">長</span><rt>なが</rt></ruby>い<ruby><span class="kanji">距離</span><rt>きょり</rt></ruby>を<ruby><span class="kanji">歩</span><rt>ある</rt></ruby>くのは、とても<ruby><span class="kanji">疲</span><rt>つか</rt></ruby>れることです。</li>
+                    <li><ruby><span class="kanji">胸</span><rt>むね</rt></ruby>の<ruby><span class="kanji">奥</span><rt>おく</rt></ruby>で<ruby><span class="kanji">感</span><rt>かん</rt></ruby>じる<ruby><span class="kanji">気持</span><rt>きも</rt></ruby>ちを<ruby><span class="kanji">言葉</span><rt>ことば</rt></ruby>で<ruby><span class="kanji">表現</span><rt>ひょうげん</rt></ruby>するのは、なかなか<ruby><span class="kanji">難</span><rt>むずか</rt></ruby>しいものです。</li>
+                    <li><ruby><span class="kanji">背中</span><rt>せなか</rt></ruby>に<ruby><span class="kanji">日光</span><rt>にっこう</rt></ruby>を<ruby><span class="kanji">浴</span><rt>あ</rt></ruby>びながら<ruby><span class="kanji">本</span><rt>ほん</rt></ruby>を<ruby><span class="kanji">読</span><rt>よ</rt></ruby>んでいると、とても<ruby><span class="kanji">気持</span><rt>きも</rt></ruby>ちが<ruby><span class="kanji">良</span><rt>よ</rt></ruby>いです。</li>
+                    <li><ruby><span class="kanji">腰</span><rt>こし</rt></ruby>が<ruby><span class="kanji">痛</span><rt>いた</rt></ruby>くなったので、<ruby><span class="kanji">椅子</span><rt>いす</rt></ruby>に<ruby><span class="kanji">座</span><rt>すわ</rt></ruby>る<ruby><span class="kanji">時</span><rt>とき</rt></ruby>の<ruby><span class="kanji">姿勢</span><rt>しせい</rt></ruby>を<ruby><span class="kanji">気</span><rt>き</rt></ruby>をつけるようになりました。</li>
+                    <li><ruby><span class="kanji">赤</span><rt>あか</rt></ruby>い<ruby><span class="kanji">色</span><rt>いろ</rt></ruby>の<ruby><span class="kanji">花</span><rt>はな</rt></ruby>がきれいにさいていて、<ruby><span class="kanji">見</span><rt>み</rt></ruby>ているだけで<ruby><span class="kanji">明</span><rt>あか</rt></ruby>るい<ruby><span class="kanji">気持</span><rt>きも</rt></ruby>ちになります。</li>
+                    <li><ruby><span class="kanji">青</span><rt>あお</rt></ruby>い<ruby><span class="kanji">空</span><rt>そら</rt></ruby>と<ruby><span class="kanji">白</span><rt>しろ</rt></ruby>い<ruby><span class="kanji">雲</span><rt>くも</rt></ruby>のコントラストが<ruby><span class="kanji">美</span><rt>うつく</rt></ruby>しくて、ずっと<ruby><span class="kanji">見上</span><rt>みあ</rt></ruby>げていたくなります。</li>
+                    <li><ruby><span class="kanji">黄色</span><rt>きいろ</rt></ruby>いちょうちょが<ruby><span class="kanji">花</span><rt>はな</rt></ruby>の<ruby><span class="kanji">周</span><rt>まわ</rt></ruby>りを<ruby><span class="kanji">飛</span><rt>と</rt></ruby>んでいて、<ruby><span class="kanji">春</span><rt>はる</rt></ruby>の<ruby><span class="kanji">訪</span><rt>おとず</rt></ruby>れを<ruby><span class="kanji">感</span><rt>かん</rt></ruby>じさせてくれます。</li>
+                    <li><ruby><span class="kanji">白</span><rt>しろ</rt></ruby>いシャツに<ruby><span class="kanji">黒</span><rt>くろ</rt></ruby>いズボンという<ruby><span class="kanji">組</span><rt>く</rt></ruby>み<ruby><span class="kanji">合</span><rt>あ</rt></ruby>わせは、とてもシンプルで<ruby><span class="kanji">上品</span><rt>じょうひん</rt></ruby>に<ruby><span class="kanji">見</span><rt>み</rt></ruby>えます。</li>
+                    <li><ruby><span class="kanji">緑</span><rt>みどり</rt></ruby>の<ruby><span class="kanji">木々</span><rt>きぎ</rt></ruby>に<ruby><span class="kanji">囲</span><rt>かこ</rt></ruby>まれた<ruby><span class="kanji">場所</span><rt>ばしょ</rt></ruby>で<ruby><span class="kanji">読書</span><rt>どくしょ</rt></ruby>をすると、<ruby><span class="kanji">心</span><rt>こころ</rt></ruby>が<ruby><span class="kanji">落</span><rt>お</rt></ruby>ち<ruby><span class="kanji">着</span><rt>つ</rt></ruby>いて<ruby><span class="kanji">集中</span><rt>しゅうちゅう</rt></ruby>できます。</li>
+                    <li><ruby><span class="kanji">茶色</span><rt>ちゃいろ</rt></ruby>い<ruby><span class="kanji">犬</span><rt>いぬ</rt></ruby>がこうえんで<ruby><span class="kanji">元気</span><rt>げんき</rt></ruby>に<ruby><span class="kanji">走</span><rt>はし</rt></ruby>り<ruby><span class="kanji">回</span><rt>まわ</rt></ruby>っていて、<ruby><span class="kanji">見</span><rt>み</rt></ruby>ている<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>たちを<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しませています。</li>
+                    <li><ruby><span class="kanji">一人</span><rt>ひとり</rt></ruby>で<ruby><span class="kanji">映画</span><rt>えいが</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>くのも<ruby><span class="kanji">悪</span><rt>わる</rt></ruby>くないですが、<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちと<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>の<ruby><span class="kanji">方</span><rt>ほう</rt></ruby>が<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しいです。</li>
+                    <li><ruby><span class="kanji">二人</span><rt>ふたり</rt></ruby>で<ruby><span class="kanji">協力</span><rt>きょうりょく</rt></ruby>して<ruby><span class="kanji">問題</span><rt>もんだい</rt></ruby>を<ruby><span class="kanji">解決</span><rt>かいけつ</rt></ruby>すれば、<ruby><span class="kanji">一人</span><rt>ひとり</rt></ruby>でやるよりも<ruby><span class="kanji">早</span><rt>はや</rt></ruby>く<ruby><span class="kanji">答</span><rt>こた</rt></ruby>えが<ruby><span class="kanji">見</span><rt>み</rt></ruby>つかります。</li>
+                    <li><ruby><span class="kanji">三</span><rt>みっ</rt></ruby>つの<ruby><span class="kanji">選択肢</span><rt>せんたくし</rt></ruby>の<ruby><span class="kanji">中</span><rt>なか</rt></ruby>から<ruby><span class="kanji">最</span><rt>もっと</rt></ruby>も<ruby><span class="kanji">良</span><rt>よ</rt></ruby>いものを<ruby><span class="kanji">選</span><rt>えら</rt></ruby>ぶのは、<ruby><span class="kanji">意外</span><rt>いがい</rt></ruby>に<ruby><span class="kanji">難</span><rt>むずか</rt></ruby>しいことです。</li>
+                    <li><ruby><span class="kanji">四季</span><rt>しき</rt></ruby>それぞれに<ruby><span class="kanji">美</span><rt>うつく</rt></ruby>しさがあって、<ruby><span class="kanji">日本</span><rt>にほん</rt></ruby>に<ruby><span class="kanji">生</span><rt>う</rt></ruby>まれて<ruby><span class="kanji">良</span><rt>よ</rt></ruby>かったと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">五人</span><rt>ごにん</rt></ruby>のグループで<ruby><span class="kanji">旅行</span><rt>りょこう</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>った<ruby><span class="kanji">時</span><rt>とき</rt></ruby>の<ruby><span class="kanji">思</span><rt>おも</rt></ruby>い<ruby><span class="kanji">出</span><rt>で</rt></ruby>は、<ruby><span class="kanji">今</span><rt>いま</rt></ruby>でも<ruby><span class="kanji">心</span><rt>こころ</rt></ruby>に<ruby><span class="kanji">残</span><rt>のこ</rt></ruby>っています。</li>
+                    <li><ruby><span class="kanji">六時間</span><rt>ろくじかん</rt></ruby>も<ruby><span class="kanji">勉強</span><rt>べんきょう</rt></ruby>を<ruby><span class="kanji">続</span><rt>つづ</rt></ruby>けていたので、<ruby><span class="kanji">少</span><rt>すこ</rt></ruby>し<ruby><span class="kanji">休憩</span><rt>きゅうけい</rt></ruby>を<ruby><span class="kanji">取</span><rt>と</rt></ruby>ってリフレッシュしました。</li>
+                    <li><ruby><span class="kanji">七</span><rt>なな</rt></ruby>つの<ruby><span class="kanji">約束</span><rt>やくそく</rt></ruby>を<ruby><span class="kanji">守</span><rt>まも</rt></ruby>ることで、<ruby><span class="kanji">人</span><rt>ひと</rt></ruby>との<ruby><span class="kanji">信頼関係</span><rt>しんらいかんけい</rt></ruby>を<ruby><span class="kanji">築</span><rt>きず</rt></ruby>くことができると<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">八月</span><rt>はちがつ</rt></ruby>の<ruby><span class="kanji">暑</span><rt>あつ</rt></ruby>い<ruby><span class="kanji">日</span><rt>ひ</rt></ruby>に<ruby><span class="kanji">海</span><rt>うみ</rt></ruby>で<ruby><span class="kanji">泳</span><rt>およ</rt></ruby>いだ<ruby><span class="kanji">経験</span><rt>けいけん</rt></ruby>は、<ruby><span class="kanji">夏</span><rt>なつ</rt></ruby>の<ruby><span class="kanji">最高</span><rt>さいこう</rt></ruby>の<ruby><span class="kanji">思</span><rt>おも</rt></ruby>い<ruby><span class="kanji">出</span><rt>で</rt></ruby>の<ruby><span class="kanji">一</span><rt>ひと</rt></ruby>つです。</li>
+                    <li><ruby><span class="kanji">九回</span><rt>きゅうかい</rt></ruby>も<ruby><span class="kanji">練習</span><rt>れんしゅう</rt></ruby>を<ruby><span class="kanji">重</span><rt>かさ</rt></ruby>ねたおかげで、ようやく<ruby><span class="kanji">上手</span><rt>じょうず</rt></ruby>に<ruby><span class="kanji">演奏</span><rt>えんそう</rt></ruby>できるようになりました。</li>
+                    <li><ruby><span class="kanji">十分</span><rt>じゅうぶん</rt></ruby>な<ruby><span class="kanji">準備</span><rt>じゅんび</rt></ruby>をしてから<ruby><span class="kanji">試験</span><rt>しけん</rt></ruby>に<ruby><span class="kanji">臨</span><rt>のぞ</rt></ruby>めば、きっと<ruby><span class="kanji">良</span><rt>よ</rt></ruby>い<ruby><span class="kanji">結果</span><rt>けっか</rt></ruby>が<ruby><span class="kanji">得</span><rt>え</rt></ruby>られるでしょう。</li>
+                    <li><ruby><span class="kanji">百人</span><rt>ひゃくにん</rt></ruby>の<ruby><span class="kanji">前</span><rt>まえ</rt></ruby>で<ruby><span class="kanji">発表</span><rt>はっぴょう</rt></ruby>するのは<ruby><span class="kanji">緊張</span><rt>きんちょう</rt></ruby>しますが、<ruby><span class="kanji">練習</span><rt>れんしゅう</rt></ruby>すれば<ruby><span class="kanji">大丈夫</span><rt>だいじょうぶ</rt></ruby>だと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">千円</span><rt>せんえん</rt></ruby>あれば<ruby><span class="kanji">昼食</span><rt>ちゅうしょく</rt></ruby>を<ruby><span class="kanji">食</span><rt>た</rt></ruby>べることができるので、<ruby><span class="kanji">お金</span><rt>かね</rt></ruby>を<ruby><span class="kanji">忘</span><rt>わす</rt></ruby>れずに<ruby><span class="kanji">持</span><rt>も</rt></ruby>って<ruby><span class="kanji">行</span><rt>い</rt></ruby>きます。</li>
+                    <li><ruby><span class="kanji">万一</span><rt>まんいち</rt></ruby>のことを<ruby><span class="kanji">考</span><rt>かんが</rt></ruby>えて、いつも<ruby><span class="kanji">予備</span><rt>よび</rt></ruby>の<ruby><span class="kanji">計画</span><rt>けいかく</rt></ruby>を<ruby><span class="kanji">立</span><rt>た</rt></ruby>てておくことにしています。</li>
+                    <li><ruby><span class="kanji">円</span><rt>まる</rt></ruby>い<ruby><span class="kanji">形</span><rt>かたち</rt></ruby>の<ruby><span class="kanji">月</span><rt>つき</rt></ruby>が<ruby><span class="kanji">夜空</span><rt>よぞら</rt></ruby>に<ruby><span class="kanji">浮</span><rt>う</rt></ruby>かんでいて、とても<ruby><span class="kanji">美</span><rt>うつく</rt></ruby>しい<ruby><span class="kanji">光景</span><rt>こうけい</rt></ruby>だと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>いました。</li>
+                    <li><ruby><span class="kanji">金曜日</span><rt>きんようび</rt></ruby>には<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちと<ruby><span class="kanji">映画</span><rt>えいが</rt></ruby>を<ruby><span class="kanji">見</span><rt>み</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>く<ruby><span class="kanji">約束</span><rt>やくそく</rt></ruby>をしているので、とても<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しみです。</li>
+                    <li><ruby><span class="kanji">土曜日</span><rt>どようび</rt></ruby>は<ruby><span class="kanji">家族</span><rt>かぞく</rt></ruby>と<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">買</span><rt>か</rt></ruby>い<ruby><span class="kanji">物</span><rt>もの</rt></ruby>に<ruby><span class="kanji">行</span><rt>い</rt></ruby>って、<ruby><span class="kanji">必要</span><rt>ひつよう</rt></ruby>な<ruby><span class="kanji">物</span><rt>もの</rt></ruby>をまとめて<ruby><span class="kanji">購入</span><rt>こうにゅう</rt></ruby>します。</li>
+                    <li><ruby><span class="kanji">日曜日</span><rt>にちようび</rt></ruby>はゆっくり<ruby><span class="kanji">休</span><rt>やす</rt></ruby>んで、<ruby><span class="kanji">来週</span><rt>らいしゅう</rt></ruby>に<ruby><span class="kanji">備</span><rt>そな</rt></ruby>えて<ruby><span class="kanji">体力</span><rt>たいりょく</rt></ruby>を<ruby><span class="kanji">回復</span><rt>かいふく</rt></ruby>させたいと<ruby><span class="kanji">思</span><rt>おも</rt></ruby>います。</li>
+                    <li><ruby><span class="kanji">火曜日</span><rt>かようび</rt></ruby>から<ruby><span class="kanji">新</span><rt>あたら</rt></ruby>しい<ruby><span class="kanji">授業</span><rt>じゅぎょう</rt></ruby>が<ruby><span class="kanji">始</span><rt>はじ</rt></ruby>まるので、<ruby><span class="kanji">教科書</span><rt>きょうかしょ</rt></ruby>を<ruby><span class="kanji">準備</span><rt>じゅんび</rt></ruby>しておかなければなりません。</li>
+                    <li><ruby><span class="kanji">水曜日</span><rt>すいようび</rt></ruby>には<ruby><span class="kanji">友</span><rt>とも</rt></ruby>だちの<ruby><span class="kanji">家</span><rt>いえ</rt></ruby>に<ruby><span class="kanji">遊</span><rt>あそ</rt></ruby>び<ruby><span class="kanji">行</span><rt>い</rt></ruby>って、<ruby><span class="kanji">一緒</span><rt>いっしょ</rt></ruby>に<ruby><span class="kanji">楽</span><rt>たの</rt></ruby>しい<ruby><span class="kanji">時間</span><rt>じかん</rt></ruby>を<ruby><span class="kanji">過</span><rt>す</rt></ruby>ごす<ruby><span class="kanji">予定</span><rt>よてい</rt></ruby>です。</li>
+                </ol>
+            </div>
+            <div id="story-2" style="display: none;">
+
+            </div>
+            <div id="story-3" style="display: none;">
+                <p>猫が冒険に出た。...</li>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+	function toggleHighlight(level, color, container) {
+		const checkbox = container.querySelector('input[type="checkbox"]');
+		checkbox.checked = !checkbox.checked;
+
+		const elements = document.querySelectorAll('.' + level);
+		elements.forEach(el => {
+			if (checkbox.checked) {
+				el.classList.add('highlight');
+			} else {
+				el.classList.remove('highlight');
+			}
+		});
+	}
+
+	function toggleFurigana(container) {
+		const checkbox = container.querySelector('input[type="checkbox"]');
+		checkbox.checked = !checkbox.checked;
+
+		const body = document.body;
+		if (checkbox.checked) {
+			body.classList.remove('hidden-furigana');
+		} else {
+			body.classList.add('hidden-furigana');
+		}
+	}
+
+	function toggleDarkMode(container) {
+		const checkbox = container.querySelector('input[type="checkbox"]');
+		checkbox.checked = !checkbox.checked;
+
+		const body = document.body;
+		if (checkbox.checked) {
+			body.classList.add('dark-mode');
+		} else {
+			body.classList.remove('dark-mode');
+		}
+	}
+
+	// Story switching
+	document.addEventListener('DOMContentLoaded', () => {
+		const navLinks = document.querySelectorAll('.sidebar a');
+		const stories = document.querySelectorAll('.story-container > div');
+
+		navLinks.forEach(link => {
+			link.addEventListener('click', (event) => {
+				event.preventDefault();
+
+				const clickedLink = event.currentTarget;
+				const targetId = clickedLink.getAttribute('href').substring(1);
+
+				// Remove active class from all links
+				navLinks.forEach(l => l.classList.remove('active'));
+
+				// Add active class to clicked link
+				clickedLink.classList.add('active');
+
+				// Hide all stories
+				stories.forEach(story => {
+					story.style.display = 'none';
+				});
+
+				// Show target story
+				const targetStory = document.getElementById(targetId);
+				if (targetStory) {
+					targetStory.style.display = 'block';
+				}
+			});
+		});
+
+		// Initialize with first story active and furigana hidden
+		const firstLink = navLinks[0];
+		if (firstLink) {
+			firstLink.classList.add('active');
+		}
+
+		const furiganaCheckbox = document.getElementById('furigana-toggle');
+		furiganaCheckbox.checked = false;
+		document.body.classList.add('hidden-furigana');
+	});
+
+	window.addEventListener('scroll', () => {
+		const scrollTop = window.scrollY;
+		const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+		const scrollPercent = (scrollTop / docHeight) * 100;
+		const progressBar = document.getElementById('progress-bar');
+		progressBar.style.width = `${scrollPercent}%`;
+	});
+</script>
+</body>
+</html>
