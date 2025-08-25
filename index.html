@@ -568,7 +568,7 @@
 
             </div>
             <div id="story-3" style="display: none;">
-                <p>猫が冒険に出た。...</li>
+                <li>猫が冒険に出た。...</li>
             </div>
         </div>
     </div>
@@ -664,6 +664,38 @@
 	});
 
 	document.addEventListener('DOMContentLoaded', function () {
+		const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+		if (isTouchDevice) {
+			const rubies = document.querySelectorAll('.hidden-furigana ruby');
+
+			rubies.forEach(ruby => {
+				ruby.addEventListener('click', function () {
+					const rt = ruby.querySelector('rt');
+					if (!rt) return;
+
+					// Show furigana
+					rt.style.opacity = '1';
+					rt.style.visibility = 'visible';
+					rt.style.paddingBottom = '0.2em';
+					rt.style.fontWeight = 'bold';
+
+					// Clear any existing hide timeout
+					if (rt._hideTimeout) {
+						clearTimeout(rt._hideTimeout);
+					}
+
+					// Auto-hide after 2 seconds
+					rt._hideTimeout = setTimeout(() => {
+						rt.style.opacity = '0';
+						rt.style.visibility = 'hidden';
+					}, 2000);
+				});
+			});
+		}
+	});
+
+	document.addEventListener('DOMContentLoaded', function () {
 		// Detect if device is touch-capable
 		const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
@@ -682,6 +714,8 @@
 					} else {
 						rt.style.opacity = '1';
 						rt.style.visibility = 'visible';
+						rt.style.paddingBottom = '0.2em';
+						rt.style.fontWeight = 'bold';
 					}
 				});
 			});
