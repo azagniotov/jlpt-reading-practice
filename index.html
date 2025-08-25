@@ -245,6 +245,11 @@
 				align-items: flex-start;
 				gap: 1em;
 			}
+
+			body {
+				font-size: 18px;
+				line-height: 2.2;
+			}
 		}
 
 		@media (max-width: 480px) {
@@ -262,6 +267,11 @@
 
 			.sidebar li {
 				min-width: auto;
+			}
+
+			body {
+				font-size: 18px;
+				line-height: 2.2;
 			}
 		}
 
@@ -697,8 +707,8 @@
 				// Show furigana with inline styles (overrides CSS)
 				rt.style.setProperty('opacity', '1', 'important');
 				rt.style.setProperty('visibility', 'visible', 'important');
-				rt.style.paddingBottom = '0.2em';
-				rt.style.fontWeight = 'bold';
+				rt.style.setProperty('padding-bottom', '0.2em', 'important');
+				rt.style.setProperty('font-weight', 'bold', 'important');
 
 				// Clear any previous hide timeout
 				if (rt._hideTimeout) {
@@ -709,9 +719,8 @@
 				rt._hideTimeout = setTimeout(() => {
 					rt.style.setProperty('opacity', '0', 'important');
 					rt.style.setProperty('visibility', 'hidden', 'important');
-					rt.style.fontWeight = '';
-					rt.style.paddingBottom = '';
-				}, 2000);
+					rt.style.setProperty('font-weight', 'normal', 'important');
+				}, 2500);
 			});
 		});
 	});
