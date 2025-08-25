@@ -692,10 +692,12 @@
 					if (!rt) return;
 
 					// Show furigana
-					rt.style.opacity = '1';
-					rt.style.visibility = 'visible';
+					//rt.style.opacity = '1';
+					//rt.style.visibility = 'visible';
 					// rt.style.paddingBottom = '0.2em';
 					// rt.style.fontWeight = 'bold';
+					rt.style.setProperty('opacity', '1', 'important');
+					rt.style.setProperty('visibility', 'visible', 'important');
 
 					// Clear any existing hide timeout
 					if (rt._hideTimeout) {
@@ -704,8 +706,8 @@
 
 					// Auto-hide after 2 seconds
 					rt._hideTimeout = setTimeout(() => {
-						rt.style.opacity = '0';
-						rt.style.visibility = 'hidden';
+						rt.style.setProperty('opacity', '0', 'important');
+						rt.style.setProperty('visibility', 'hidden', 'important');
 					}, 2500);
 				});
 			});
