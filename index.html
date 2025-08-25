@@ -114,6 +114,12 @@
 			transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 		}
 
+		/* Add a class for temporarily showing furigana on mobile tap */
+		.temp-show-furigana rt {
+			opacity: 1 !important;
+			visibility: visible !important;
+		}
+
 		.kanji {
 			cursor: pointer;
 		}
@@ -606,6 +612,18 @@
 		});
 	}
 
+	function clearAllTempFurigana() {
+		const tempFuriganaElements = document.querySelectorAll('.temp-show-furigana');
+		tempFuriganaElements.forEach(ruby => {
+			ruby.classList.remove('temp-show-furigana');
+			const rt = ruby.querySelector('rt');
+			if (rt && rt._hideTimeout) {
+				clearTimeout(rt._hideTimeout);
+				delete rt._hideTimeout;
+			}
+		});
+	}
+
 	function toggleFurigana(container) {
 		const checkbox = container.querySelector('input[type="checkbox"]');
 		checkbox.checked = !checkbox.checked;
@@ -616,6 +634,9 @@
 		} else {
 			body.classList.add('hidden-furigana');
 		}
+
+		// Clear any temporary mobile tap states when toggling furigana
+		clearAllTempFurigana();
 	}
 
 	function toggleDarkMode(container) {
@@ -684,30 +705,26 @@
 		const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 		if (isTouchDevice) {
-			const rubies = document.querySelectorAll('.hidden-furigana ruby');
+			const rubies = document.querySelectorAll('ruby');
 
 			rubies.forEach(ruby => {
 				ruby.addEventListener('click', function () {
 					const rt = ruby.querySelector('rt');
 					if (!rt) return;
 
-					// Show furigana
-					//rt.style.opacity = '1';
-					//rt.style.visibility = 'visible';
-					// rt.style.paddingBottom = '0.2em';
-					// rt.style.fontWeight = 'bold';
-					rt.style.setProperty('opacity', '1', 'important');
-					rt.style.setProperty('visibility', 'visible', 'important');
-
-					// Clear any existing hide timeout
+					// Clear any existing timeout
 					if (rt._hideTimeout) {
 						clearTimeout(rt._hideTimeout);
+						delete rt._hideTimeout;
 					}
 
-					// Auto-hide after 2 seconds
+					// Add class to show furigana temporarily
+					ruby.classList.add('temp-show-furigana');
+
+					// Auto-hide after 2.5 seconds
 					rt._hideTimeout = setTimeout(() => {
-						rt.style.setProperty('opacity', '0', 'important');
-						rt.style.setProperty('visibility', 'hidden', 'important');
+						ruby.classList.remove('temp-show-furigana');
+						delete rt._hideTimeout;
 					}, 2500);
 				});
 			});
