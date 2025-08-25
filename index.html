@@ -662,6 +662,31 @@
 		const progressBar = document.getElementById('progress-bar');
 		progressBar.style.width = `${scrollPercent}%`;
 	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+		// Detect if device is touch-capable
+		const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+		if (isTouchDevice) {
+			const rubies = document.querySelectorAll('.hidden-furigana ruby');
+
+			rubies.forEach(ruby => {
+				ruby.addEventListener('click', function () {
+					const rt = ruby.querySelector('rt');
+					if (!rt) return;
+
+					// Toggle manual visibility
+					if (rt.style.opacity === '1') {
+						rt.style.opacity = '0';
+						rt.style.visibility = 'hidden';
+					} else {
+						rt.style.opacity = '1';
+						rt.style.visibility = 'visible';
+					}
+				});
+			});
+		}
+	});
 </script>
 </body>
 </html>
