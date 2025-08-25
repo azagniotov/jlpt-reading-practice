@@ -413,7 +413,7 @@
 			background: #f0f0f0;
 			color: #333;
 			border-radius: 6px;
-			padding: 0.3em 1em;
+			padding: 0.5em 1em;
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 			border: 1px solid #9c9696;
 			font-size: 0.95em;
@@ -423,6 +423,7 @@
 			white-space: normal;
 			z-index: 100;
 			pointer-events: none;
+			line-height: 1.8;
 		}
 
 		.translation-popup.show {
@@ -1070,10 +1071,10 @@
 				popup.textContent = translation;
 				popup.classList.add('show');
 
-				// Hide after 3 seconds
+				// Hide after 3.5 seconds
 				popup._fadeTimeout = setTimeout(() => {
 					popup.classList.remove('show');
-				}, 3000);
+				}, 3500);
 			});
 		});
 	});
