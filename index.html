@@ -491,7 +491,7 @@
 			}
 
 			.speaker-btn, .speaker-btn:disabled {
-				transform: translateY(0.04em) !important;
+				transform: translateY(0.05em) !important;
 				padding: 2px 2px 2px 2px !important;
 			}
 		}
@@ -530,7 +530,7 @@
 			}
 
 			.speaker-btn, .speaker-btn:disabled {
-				transform: translateY(0.04em) !important;
+				transform: translateY(0.05em) !important;
 				padding: 2px 2px 2px 2px !important;
 			}
 		}
@@ -561,7 +561,7 @@
 			}
 
 			.speaker-btn, .speaker-btn:disabled {
-				transform: translateY(0.04em) !important;
+				transform: translateY(0.05em) !important;
 				padding: 2px 2px 2px 2px !important;
 			}
 		}
@@ -1214,6 +1214,14 @@
 						clearTimeout(popup._fadeTimeout);
 					}
 					popup.classList.remove('show');
+				});
+
+				// Re-enable all translate buttons (in case another was disabled)
+				const allTranslateButtons = document.querySelectorAll('.translate-btn');
+				allTranslateButtons.forEach(btn => {
+					btn.disabled = false;
+					btn.style.opacity = '1';
+					btn.style.cursor = 'pointer';
 				});
 
 				// Clear references from ruby elements
