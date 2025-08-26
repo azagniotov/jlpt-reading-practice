@@ -1117,6 +1117,7 @@
 		// Remove furigana popups on scroll (mobile only)
 		if (isTouchDevice) {
 			window.addEventListener('scroll', function() {
+				// Clear furigana popups
 				const furiganaPopups = document.querySelectorAll('.furigana-popup');
 				furiganaPopups.forEach(popup => {
 					if (popup._hideTimeout) {
@@ -1124,6 +1125,23 @@
 					}
 					popup.classList.remove('show');
 					setTimeout(() => popup.remove(), 100);
+				});
+
+				// Clear translation popups
+				const translationPopups = document.querySelectorAll('.translation-popup.show');
+				translationPopups.forEach(popup => {
+					if (popup._fadeTimeout) {
+						clearTimeout(popup._fadeTimeout);
+					}
+					popup.classList.remove('show');
+				});
+
+				// Clear references from ruby elements
+				const rubies = document.querySelectorAll('ruby');
+				rubies.forEach(ruby => {
+					if (ruby._currentPopup) {
+						delete ruby._currentPopup;
+					}
 				});
 
 				// Clear references from ruby elements
@@ -1164,7 +1182,7 @@
 				// Hide after 3.5 seconds
 				popup._fadeTimeout = setTimeout(() => {
 					popup.classList.remove('show');
-				}, 3500);
+				}, 4000);
 			});
 		});
 	});
