@@ -309,6 +309,21 @@
 			transform: translateY(0.5em);
 		}
 
+		.translate-btn:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+			pointer-events: none;
+			transform: translateY(0.5em) !important;
+			box-shadow: none !important;
+			border: 1px solid #c8c3c3;
+		}
+
+		.translate-btn:disabled:active {
+			transform: translateY(0.5em) !important;
+			box-shadow: none !important;
+			border: 1px solid #c8c3c3;
+		}
+
 		.translate-btn, .dark-mode .translate-btn {
 			background-image: url("assets/language-translation-icon.svg");
 			background-repeat: no-repeat;
@@ -389,7 +404,7 @@
 			vertical-align: baseline;
 			flex-shrink: 0;
 			line-height: 1;
-            padding: 0px 0px 0px 0px;
+            padding: 0 0 0 0;
 			align-self: baseline;
 			border: 1px solid #cdc5c5;
 			border-radius: 4px;
@@ -404,6 +419,19 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+		}
+
+		.speaker-btn:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+			pointer-events: none;
+			box-shadow: none !important;
+			border: 1px solid #c8c3c3;
+		}
+
+		.speaker-btn:disabled:active {
+			box-shadow: none !important;
+			border: 1px solid #c8c3c3;
 		}
 
 		.dark-mode .speaker-btn {
@@ -462,8 +490,8 @@
 				padding: 0.2em 0.7em 0.3em 0.7em;
 			}
 
-			.speaker-btn {
-				transform: translateY(0.03em) !important;
+			.speaker-btn, .speaker-btn:disabled {
+				transform: translateY(0.04em) !important;
 				padding: 2px 2px 2px 2px !important;
 			}
 		}
@@ -501,8 +529,8 @@
 				top: -3.2em;
 			}
 
-			.speaker-btn {
-				transform: translateY(0.03em) !important;
+			.speaker-btn, .speaker-btn:disabled {
+				transform: translateY(0.04em) !important;
 				padding: 2px 2px 2px 2px !important;
 			}
 		}
@@ -532,8 +560,8 @@
 				padding: 0.2em 0.7em 0.3em 0.7em;
 			}
 
-			.speaker-btn {
-				transform: translateY(0.03em) !important;
+			.speaker-btn, .speaker-btn:disabled {
+				transform: translateY(0.04em) !important;
 				padding: 2px 2px 2px 2px !important;
 			}
 		}
@@ -1205,6 +1233,9 @@
 		translationButtons.forEach((btn) => {
 			btn.addEventListener('click', () => {
 
+				// Don't do anything if button is disabled
+				if (btn.disabled) return;
+
 				const parentLi = btn.closest('li');
 				const allLis = Array.from(parentLi.parentElement.children);
 				const index = allLis.indexOf(parentLi);
@@ -1218,13 +1249,26 @@
 					clearTimeout(popup._fadeTimeout);
 				}
 
+				// Disable the button and show visual feedback
+				btn.disabled = true;
+				btn.style.opacity = '0.5';
+				btn.style.cursor = 'not-allowed';
+
 				// Set translation text
 				popup.textContent = translation;
 				popup.classList.add('show');
 
-				// Hide after a few seconds
+				// Hide popup and re-enable button after a few seconds
 				popup._fadeTimeout = setTimeout(() => {
 					popup.classList.remove('show');
+
+					// Re-enable button after popup fade animation completes
+					setTimeout(() => {
+						btn.disabled = false;
+						btn.style.opacity = '1';
+						btn.style.cursor = 'pointer';
+						// The second 100ms delay lets the CSS animation finish before enabling up the DOM element.
+					}, 100);
 				}, 4000);
 			});
 		});
@@ -1237,16 +1281,39 @@
 		return clone.textContent.trim();
 	}
 
-	function speakJapanese(jpSentenceElement) {
+	function speakJapanese(jpSentenceElement, speakerButton) {
 		const cleanText = getCleanJapaneseText(jpSentenceElement);
 
 		if ('speechSynthesis' in window) {
 			speechSynthesis.cancel(); // Stop any current speech
 
+			// Re-enable all speaker buttons first (in case another was disabled)
+			const allSpeakerButtons = document.querySelectorAll('.speaker-btn');
+			allSpeakerButtons.forEach(btn => {
+				btn.disabled = false;
+				btn.style.opacity = '1';
+				btn.style.cursor = 'pointer';
+			});
+
+			// Disable the clicked button
+			speakerButton.disabled = true;
+			speakerButton.style.opacity = '0.5';
+			speakerButton.style.cursor = 'not-allowed';
+
 			const utterance = new SpeechSynthesisUtterance(cleanText);
 			utterance.lang = 'ja-JP';
-			utterance.rate = 0.7;
+			utterance.rate = 0.9;
 			utterance.pitch = 1.0;
+
+			// Re-enable button when speech ends or errors
+			const enableButton = () => {
+				speakerButton.disabled = false;
+				speakerButton.style.opacity = '1';
+				speakerButton.style.cursor = 'pointer';
+			};
+
+			utterance.onend = enableButton;
+			utterance.onerror = enableButton;
 
 			// Function to set voice once voices are available
 			const setVoice = () => {
@@ -1293,7 +1360,7 @@
 			btn.addEventListener('click', () => {
 				const wrapper = btn.closest('.sentence-wrapper');
 				const jpSentence = wrapper.querySelector('.jp-sentence');
-				speakJapanese(jpSentence);
+				speakJapanese(jpSentence, btn);
 			});
 		});
 	});
