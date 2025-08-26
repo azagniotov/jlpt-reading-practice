@@ -1143,14 +1143,6 @@
 						delete ruby._currentPopup;
 					}
 				});
-
-				// Clear references from ruby elements
-				const rubies = document.querySelectorAll('ruby');
-				rubies.forEach(ruby => {
-					if (ruby._currentPopup) {
-						delete ruby._currentPopup;
-					}
-				});
 			});
 		}
 	});
