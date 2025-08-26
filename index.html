@@ -88,6 +88,8 @@
 
 		ruby {
 			text-indent: 0;
+			cursor: pointer;
+			position: relative;
 		}
 
 		ruby rt {
@@ -98,39 +100,58 @@
 			text-emphasis: none;
 			font-variant-east-asian: ruby;
 			padding-bottom: 0.1em;
-			font-size: 75%;
 			font-weight: bold;
 		}
 
 		.hidden-furigana ruby rt {
+			opacity: 0 !important;
+			visibility: hidden !important;
+		}
+
+		.furigana-popup {
+			position: fixed;
+			background: #f0f0f0;
+			color: #f40531;
+			border-radius: 6px;
+			padding: 0.3em 0.8em;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			border: 1px solid #9c9696;
+			font-size: 14px !important;
 			opacity: 0;
 			visibility: hidden;
+			transition: opacity 0.3s ease, visibility 0.3s ease;
+			white-space: nowrap;
+			z-index: 100;
+			pointer-events: none;
+			line-height: 1.4 !important;
+			font-weight: bold;
+			min-width: fit-content;
 		}
 
-		.hidden-furigana ruby:hover rt {
+		.furigana-popup.show {
 			opacity: 1;
 			visibility: visible;
-			z-index: 10;
-			transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 		}
 
-		@media (hover: none) {
-			.hidden-furigana ruby:hover rt {
-				opacity: 0;
-				visibility: hidden;
+		.dark-mode .furigana-popup {
+			background: #44475a;
+			color: #ff79c6;
+		}
+
+		/* Responsive adjustments for furigana popup */
+		@media (max-width: 768px) {
+			.furigana-popup {
+				font-size: 16px !important;
+				padding: 0.4em 0.9em;
 			}
 		}
 
-		.temp-show-furigana rt {
-			opacity: 1 !important;
-			visibility: visible !important;
-			transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-		}
-
-		.temp-hide-furigana rt {
-			opacity: 0 !important;
-			visibility: hidden !important;
-			transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+		@media (max-width: 480px) {
+			.furigana-popup {
+				font-size: 16px !important;
+				padding: 0.4em 0.9em;
+				top: -3.2em;
+			}
 		}
 
 		.kanji {
@@ -938,21 +959,9 @@
 	}
 
 	function clearAllTempFurigana() {
-		const tempFuriganaElements = document.querySelectorAll('.temp-show-furigana, .temp-hide-furigana');
-		tempFuriganaElements.forEach(ruby => {
-			ruby.classList.remove('temp-show-furigana', 'temp-hide-furigana');
-			const rt = ruby.querySelector('rt');
-			if (rt) {
-				if (rt._hideTimeout) {
-					clearTimeout(rt._hideTimeout);
-					delete rt._hideTimeout;
-				}
-				if (rt._fadeTimeout) {
-					clearTimeout(rt._fadeTimeout);
-					delete rt._fadeTimeout;
-				}
-			}
-		});
+		// Remove all furigana popups
+		const furiganaPopups = document.querySelectorAll('.furigana-popup');
+		furiganaPopups.forEach(popup => popup.remove());
 	}
 
 	function toggleFurigana(container) {
@@ -1035,45 +1044,61 @@
 	document.addEventListener('DOMContentLoaded', function () {
 		const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-		if (isTouchDevice) {
-			const rubies = document.querySelectorAll('ruby');
+		// Function to show furigana pop-up
+		function showFuriganaPopup(ruby) {
+			const rt = ruby.querySelector('rt');
+			if (!rt) return;
 
-			rubies.forEach(ruby => {
-				ruby.addEventListener('click', function () {
-					const rt = ruby.querySelector('rt');
-					if (!rt) return;
+			// Create popup
+			const popup = document.createElement('div');
+			popup.className = 'furigana-popup';
+			popup.textContent = rt.textContent;
+			document.body.appendChild(popup);
 
-					// Clear any existing timeouts
-					if (rt._hideTimeout) {
-						clearTimeout(rt._hideTimeout);
-						delete rt._hideTimeout;
-					}
-					if (rt._fadeTimeout) {
-						clearTimeout(rt._fadeTimeout);
-						delete rt._fadeTimeout;
-					}
+			// Position the popup
+			const rubyRect = ruby.getBoundingClientRect();
+			const offset = isTouchDevice ? 50 : 30; // Larger offset on mobile
+			popup.style.position = 'fixed';
+			popup.style.left = (rubyRect.left + rubyRect.width / 2) + 'px';
+			popup.style.top = (rubyRect.top - offset) + 'px';
+			popup.style.transform = 'translateX(-50%)';
 
-					// Remove any existing temp classes
-					ruby.classList.remove('temp-hide-furigana');
+			// Show popup
+			popup.classList.add('show');
 
-					// Add class to show furigana temporarily
-					ruby.classList.add('temp-show-furigana');
-
-					// Start fade out after 2 seconds
-					rt._fadeTimeout = setTimeout(() => {
-						ruby.classList.remove('temp-show-furigana');
-						ruby.classList.add('temp-hide-furigana');
-
-						// Clean up after fade animation completes
-						rt._hideTimeout = setTimeout(() => {
-							ruby.classList.remove('temp-hide-furigana');
-							delete rt._fadeTimeout;
-							delete rt._hideTimeout;
-						}, 500); // Match the CSS transition duration
-					}, 2000);
-				});
-			});
+			// Store reference and set up auto-hide
+			ruby._currentPopup = popup;
+			popup._hideTimeout = setTimeout(() => {
+				popup.classList.remove('show');
+				setTimeout(() => popup.remove(), 300);
+			}, 3000);
 		}
+
+		const rubies = document.querySelectorAll('ruby');
+
+		rubies.forEach(ruby => {
+			if (isTouchDevice) {
+				ruby.addEventListener('click', function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+					showFuriganaPopup(ruby);
+				});
+			} else {
+				ruby.addEventListener('mouseenter', function() {
+					showFuriganaPopup(ruby);
+				});
+
+				ruby.addEventListener('mouseleave', function() {
+					const popup = ruby._currentPopup;
+					if (popup && popup._hideTimeout) {
+						clearTimeout(popup._hideTimeout);
+						popup.classList.remove('show');
+						setTimeout(() => popup.remove(), 300);
+						delete ruby._currentPopup;
+					}
+				});
+			}
+		});
 	});
 
 	document.addEventListener('DOMContentLoaded', () => {
