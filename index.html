@@ -111,11 +111,11 @@
 		.furigana-popup {
 			position: fixed;
 			background: #f0f0f0;
-			color: #f40531;
+			color: #815a70;
 			border-radius: 6px;
-			padding: 0.3em 0.8em;
+			padding: 0.2em 0.7em 0.3em 0.7em;
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-			border: 1px solid #9c9696;
+			border: 1px solid #656161;
 			font-size: 14px !important;
 			opacity: 0;
 			visibility: hidden;
@@ -136,22 +136,6 @@
 		.dark-mode .furigana-popup {
 			background: #44475a;
 			color: #ff79c6;
-		}
-
-		/* Responsive adjustments for furigana popup */
-		@media (max-width: 768px) {
-			.furigana-popup {
-				font-size: 16px !important;
-				padding: 0.4em 0.9em;
-			}
-		}
-
-		@media (max-width: 480px) {
-			.furigana-popup {
-				font-size: 16px !important;
-				padding: 0.4em 0.9em;
-				top: -3.2em;
-			}
 		}
 
 		.kanji {
@@ -426,6 +410,11 @@
 				font-size: 18px !important;
 				line-height: 1.6 !important;
 			}
+
+			.furigana-popup {
+				font-size: 16px !important;
+				padding: 0.2em 0.7em 0.3em 0.7em;
+			}
 		}
 
 		@media (max-width: 480px) {
@@ -454,6 +443,12 @@
 				font-size: 18px !important;
 				line-height: 1.6 !important;
 			}
+
+			.furigana-popup {
+				font-size: 16px !important;
+				padding: 0.2em 0.7em 0.3em 0.7em;
+				top: -3.2em;
+			}
 		}
 
 		@media (min-width: 769px) and (max-width: 1024px) {
@@ -474,6 +469,11 @@
 			.translation-popup {
 				font-size: 18px !important;
 				line-height: 1.6 !important;
+			}
+
+			.furigana-popup {
+				font-size: 16px !important;
+				padding: 0.2em 0.7em 0.3em 0.7em;
 			}
 		}
 
@@ -1057,7 +1057,7 @@
 
 			// Position the popup
 			const rubyRect = ruby.getBoundingClientRect();
-			const offset = isTouchDevice ? 50 : 30; // Larger offset on mobile
+			const offset = isTouchDevice ? 40 : 30; // Larger offset on mobile
 			popup.style.position = 'fixed';
 			popup.style.left = (rubyRect.left + rubyRect.width / 2) + 'px';
 			popup.style.top = (rubyRect.top - offset) + 'px';
@@ -1068,10 +1068,13 @@
 
 			// Store reference and set up auto-hide
 			ruby._currentPopup = popup;
-			popup._hideTimeout = setTimeout(() => {
-				popup.classList.remove('show');
-				setTimeout(() => popup.remove(), 300);
-			}, 3000);
+
+			if (isTouchDevice) {
+				popup._hideTimeout = setTimeout(() => {
+					popup.classList.remove('show');
+					setTimeout(() => popup.remove(), 300);
+				}, 500);
+			}
 		}
 
 		const rubies = document.querySelectorAll('ruby');
@@ -1090,10 +1093,13 @@
 
 				ruby.addEventListener('mouseleave', function() {
 					const popup = ruby._currentPopup;
-					if (popup && popup._hideTimeout) {
-						clearTimeout(popup._hideTimeout);
+					if (popup) {
 						popup.classList.remove('show');
 						setTimeout(() => popup.remove(), 300);
+					}
+
+					if (popup._hideTimeout) {
+						clearTimeout(popup._hideTimeout);
 						delete ruby._currentPopup;
 					}
 				});
