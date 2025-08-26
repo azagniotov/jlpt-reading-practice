@@ -1113,6 +1113,28 @@
 				});
 			}
 		});
+
+		// Remove furigana popups on scroll (mobile only)
+		if (isTouchDevice) {
+			window.addEventListener('scroll', function() {
+				const furiganaPopups = document.querySelectorAll('.furigana-popup');
+				furiganaPopups.forEach(popup => {
+					if (popup._hideTimeout) {
+						clearTimeout(popup._hideTimeout);
+					}
+					popup.classList.remove('show');
+					setTimeout(() => popup.remove(), 300);
+				});
+
+				// Clear references from ruby elements
+				const rubies = document.querySelectorAll('ruby');
+				rubies.forEach(ruby => {
+					if (ruby._currentPopup) {
+						delete ruby._currentPopup;
+					}
+				});
+			});
+		}
 	});
 
 	document.addEventListener('DOMContentLoaded', () => {
