@@ -90,6 +90,14 @@
 			text-indent: 0;
 			cursor: pointer;
 			position: relative;
+			/* Disable touch highlight */
+			-webkit-tap-highlight-color: transparent;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
 		}
 
 		ruby rt {
@@ -1057,7 +1065,7 @@
 
 			// Position the popup
 			const rubyRect = ruby.getBoundingClientRect();
-			const offset = isTouchDevice ? 40 : 30; // Larger offset on mobile
+			const offset = isTouchDevice ? 45 : 30; // Larger offset on mobile
 			popup.style.position = 'fixed';
 			popup.style.left = (rubyRect.left + rubyRect.width / 2) + 'px';
 			popup.style.top = (rubyRect.top - offset) + 'px';
@@ -1073,7 +1081,7 @@
 				popup._hideTimeout = setTimeout(() => {
 					popup.classList.remove('show');
 					setTimeout(() => popup.remove(), 300);
-				}, 2000);
+				}, 2500);
 			}
 		}
 
