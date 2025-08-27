@@ -1429,6 +1429,30 @@
 					e.preventDefault();
 					e.stopPropagation();
 
+					// Close any existing popup and remove its highlight before showing new one
+					const existingPopups = document.querySelectorAll('.furigana-popup');
+					existingPopups.forEach(existingPopup => {
+						if (existingPopup._hideTimeout) {
+							clearTimeout(existingPopup._hideTimeout);
+						}
+						existingPopup.classList.remove('show');
+						existingPopup.remove();
+					});
+
+					// Remove highlight from all kanji
+					const allKanji = document.querySelectorAll('.kanji.popup-highlight');
+					allKanji.forEach(kanji => {
+						kanji.classList.remove('popup-highlight');
+					});
+
+					// Clear references from all ruby elements
+					const allRubies = document.querySelectorAll('ruby');
+					allRubies.forEach(rubyEl => {
+						if (rubyEl._currentPopup) {
+							delete rubyEl._currentPopup;
+						}
+					});
+
 					// Copy kanji to clipboard (click is a proper user gesture)
 					copyToClipboard(kanjiText).then(() => {
 						console.log('Copied to clipboard:', kanjiText);
@@ -1436,6 +1460,7 @@
 						console.error('Failed to copy:', err);
 					});
 
+					// Show new popup
 					showFuriganaPopup(isTouchDevice, ruby);
 				});
 			}
