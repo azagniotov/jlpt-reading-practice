@@ -161,6 +161,11 @@
 			font-weight: normal;
 		}
 
+		.kanji.popup-highlight {
+			color: #c74a4a !important;
+			font-weight: normal;
+		}
+
 		/* Controls */
 		.controls {
 			margin-bottom: 1.5em;
@@ -269,6 +274,11 @@
 
 		.dark-mode .kanji.highlight {
 			color: #5492ef;
+		}
+
+		.dark-mode .kanji.popup-highlight {
+			color: #5492ef !important;
+			font-weight: normal;
 		}
 
 		#progress-bar-container {
@@ -1144,7 +1154,12 @@
 		const rt = ruby.querySelector('rt');
 		if (!rt) return;
 
+		const kanjiElement = ruby.querySelector('.kanji');
 		const kanjiMeaning = ruby.querySelector('.kanji_meaning');
+
+		if (kanjiElement) {
+			kanjiElement.classList.add('popup-highlight');
+		}
 
 		// Create popup
 		const popup = document.createElement('div');
@@ -1169,7 +1184,7 @@
 			element = element.offsetParent;
 		}
 
-		const offset = isTouchDevice ? 73 : 68;
+		const offset = isTouchDevice ? 77 : 62;
 		popup.style.position = 'absolute';
 		popup.style.left = (offsetLeft + ruby.offsetWidth / 2) + 'px';
 		popup.style.top = (offsetTop - offset) + 'px';
@@ -1182,6 +1197,11 @@
 		if (isTouchDevice) {
 			popup._hideTimeout = setTimeout(() => {
 				popup.classList.remove('show');
+
+				if (kanjiElement) {
+					kanjiElement.classList.remove('popup-highlight');
+				}
+
 				// The second 300ms delay lets the CSS animation finish before cleaning up the DOM element.
 				setTimeout(() => popup.remove(), 300);
 			}, 3500);
@@ -1439,8 +1459,14 @@
 
 				ruby.addEventListener('mouseleave', function () {
 					const popup = ruby._currentPopup;
+					const kanjiElement = ruby.querySelector('.kanji');
+
 					if (popup) {
 						popup.classList.remove('show');
+
+						if (kanjiElement) {
+							kanjiElement.classList.remove('popup-highlight');
+						}
 						setTimeout(() => popup.remove(), 300);
 					}
 					if (popup._hideTimeout) {
@@ -1453,7 +1479,7 @@
 
 		if (isTouchDevice) {
 			window.addEventListener('scroll', function() {
-				// Clear furigana popups
+				// Clear furigana popups and remove highlights
 				const furiganaPopups = document.querySelectorAll('.furigana-popup');
 				furiganaPopups.forEach(popup => {
 					if (popup._hideTimeout) {
@@ -1463,9 +1489,13 @@
 					setTimeout(() => popup.remove(), 100);
 				});
 
-				// Clear references from ruby elements
+				// Clear references from ruby elements and remove highlights
 				const rubies = document.querySelectorAll('ruby');
 				rubies.forEach(ruby => {
+					const kanjiElement = ruby.querySelector('.kanji');
+					if (kanjiElement) {
+						kanjiElement.classList.remove('popup-highlight');
+					}
 					if (ruby._currentPopup) {
 						delete ruby._currentPopup;
 					}
