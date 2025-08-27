@@ -1103,19 +1103,21 @@
 		const rt = ruby.querySelector('rt');
 		if (!rt) return;
 
-		// Force reflow on mobile devices to get fresh coordinates on mobile devices.
-		// After zooming, the relationship between the ruby element's position and the
-		// viewport changes, but getBoundingClientRect() might return outdated or
-		// incorrectly scaled coordinates
-		if (isTouchDevice) {
-			ruby.offsetHeight;
-		}
-
 		// Create popup
 		const popup = document.createElement('div');
 		popup.className = 'furigana-popup';
 		popup.textContent = rt.textContent;
 		document.body.appendChild(popup);
+
+		// Force a complete repaint/reflow cycle on touch devices to get fresh coordinates.
+		// After zooming, the relationship between the ruby element's position and the
+		// viewport changes, but getBoundingClientRect() might return outdated or
+		// incorrectly scaled coordinates
+		if (isTouchDevice) {
+			ruby.style.transform = 'translateZ(0)';
+			ruby.offsetHeight;
+			ruby.style.transform = '';
+		}
 
 		// Position the popup
 		const rubyRect = ruby.getBoundingClientRect();
