@@ -21,7 +21,7 @@
 
     <style>
 		body {
-			font-family: "Noto Sans JP", serif;
+			font-family: "Hiragino Sans", "Hiragino Mincho", serif;
 			font-size: 18px;
 			line-height: 2.2;
 			margin: 0;
@@ -103,7 +103,7 @@
 		}
 
 		ruby rt {
-			color: #f40531;
+			color: #d1072d;
 			display: ruby-text;
             text-align: start;
 			line-height: normal;
@@ -121,7 +121,7 @@
 		.furigana-popup {
 			position: fixed;
 			background: #f0f0f0;
-			color: #815a70;
+			color: #d1072d;
 			border-radius: 6px;
 			padding: 0.2em 0.7em 0.3em 0.7em;
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -153,8 +153,8 @@
 		}
 
 		.kanji.highlight {
-			color: blue;
-			font-weight: bold;
+			color: #c74a4a;
+			font-weight: normal;
 		}
 
 		/* Controls */
@@ -593,11 +593,11 @@
 
     <div class="content-wrapper">
         <div class="controls">
-            <div class="checkbox-container n4-checkbox" onclick="toggleHighlight('kanji', 'blue', this)">
+            <div class="checkbox-container n4-checkbox" onclick="toggleHighlight('kanji', this)">
                 <input type="checkbox" id="n4-toggle">
                 <span class="custom-checkbox"></span>
                 <label for="n4-toggle" class="checkbox-label">
-                    Highlight 漢字 in <span class="kanji-highlight-label">Blue</span>
+                    Highlight 漢字
                 </label>
             </div>
 
@@ -1033,7 +1033,7 @@
 </div>
 
 <script>
-	function toggleHighlight(level, color, container) {
+	function toggleHighlight(level, container) {
 		const checkbox = container.querySelector('input[type="checkbox"]');
 		checkbox.checked = !checkbox.checked;
 
