@@ -33,9 +33,9 @@ like pronunciation guides, translations, and audio support.
 
 ### Visual Customization
 
-- **Kanji highlighting** - option to highlight all kanji characters for easier identification
-- **Dark mode** toggle for comfortable reading in low light
-- **Responsive design** that adapts to mobile, tablet, and desktop screens
+- Kanji highlighting - option to highlight all kanji characters for easier identification
+- Dark mode toggle for comfortable reading in low light
+- Responsive design that adapts to mobile, tablet, and desktop screens
 
 ### User Experience Enhancements
 
@@ -47,8 +47,8 @@ like pronunciation guides, translations, and audio support.
 
 ## Technical Highlights
 
-- **Mobile-first design** with touch-optimized interactions
-- **Accessibility considerations** with proper semantic markup
-- **Performance optimized** with efficient event handling
-- **Cross-browser compatibility** including fallbacks for older browsers
-- **No external dependencies** - everything is self-contained
+- Mobile-first design with touch-optimized interactions
+- Accessibility considerations with proper semantic markup
+- Performance optimized with efficient event handling
+- Cross-browser compatibility including fallbacks for older browsers
+- No external dependencies - everything is self-contained
