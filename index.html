@@ -123,7 +123,7 @@
 			background: #f0f0f0;
 			color: #d1072d;
 			border-radius: 6px;
-			padding: 0.2em 0.7em 0.3em 0.7em;
+			padding: 0.5em 0.7em 0.5em 0.7em;
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 			border: 1px solid #656161;
 			font-size: 14px !important;
@@ -150,6 +150,10 @@
 
 		.kanji {
 			cursor: pointer;
+		}
+
+		.kanji_meaning {
+			display: none;
 		}
 
 		.kanji.highlight {
@@ -449,6 +453,15 @@
 			align-items: baseline;
 		}
 
+		.furigana-popup-label {
+			color: #0066cc;
+		}
+
+
+		.dark-mode .furigana-popup-label {
+			color: #66b3ff;
+		}
+
 		/* Responsive Design */
 		@media (max-width: 480px) {
 			.button-group {
@@ -485,7 +498,7 @@
 
 			.furigana-popup {
 				font-size: 18px !important;
-				padding: 0.2em 0.7em 0.3em 0.7em;
+				padding: 0.5em 0.7em 0.5em 0.7em;
 				top: -3.2em;
 			}
 
@@ -547,7 +560,7 @@
 
 			.furigana-popup {
 				font-size: 18px !important;
-				padding: 0.2em 0.7em 0.3em 0.7em;
+				padding: 0.5em 0.7em 0.5em 0.7em;
 			}
 
 			.speaker-btn, .speaker-btn:disabled {
@@ -578,7 +591,7 @@
 
 			.furigana-popup {
 				font-size: 18px !important;
-				padding: 0.2em 0.7em 0.3em 0.7em;
+				padding: 0.5em 0.7em 0.5em 0.7em;
 			}
 
 			.speaker-btn, .speaker-btn:disabled {
@@ -643,15 +656,15 @@
             </div>
             <div id="n4-sentences">
                 <ol>
-                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">私</span><span class="kanji_meaning"></span><rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>たちは<ruby><span class="kanji">図書館</span><span class="kanji_meaning"></span><rp>(</rp><rt>としょかん</rt><rp>)</rp></ruby>で<ruby><span class="kanji">新</span><span class="kanji_meaning"></span><rp>(</rp><rt>あたら</rt><rp>)</rp></ruby>しい<ruby><span class="kanji">本</span><span class="kanji_meaning"></span><rp>(</rp><rt>ほん</rt><rp>)</rp></ruby>を<ruby><span class="kanji">借</span><span class="kanji_meaning"></span><rp>(</rp><rt>か</rt><rp>)</rp></ruby>りるために、<ruby><span class="kanji">朝早</span><span class="kanji_meaning"></span><rp>(</rp><rt>あさはや</rt><rp>)</rp></ruby>くから<ruby><span class="kanji">電車</span><span class="kanji_meaning"></span><rp>(</rp><rt>でんしゃ</rt><rp>)</rp></ruby>に<ruby><span class="kanji">乗</span><span class="kanji_meaning"></span><rp>(</rp><rt>の</rt><rp>)</rp></ruby>って<ruby><span class="kanji">駅</span><span class="kanji_meaning"></span><rp>(</rp><rt>えき</rt><rp>)</rp></ruby>まで<ruby><span class="kanji">行</span><span class="kanji_meaning"></span><rp>(</rp><rt>い</rt><rp>)</rp></ruby>きました。</span><div class="translation-popup"></div></div></li>
+                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">私</span><span class="kanji_meaning">I, me, myself</span><rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>たちは<ruby><span class="kanji">図書館</span><span class="kanji_meaning">library</span><rp>(</rp><rt>としょかん</rt><rp>)</rp></ruby>で<ruby><span class="kanji">新</span><span class="kanji_meaning">new, fresh, recent</span><rp>(</rp><rt>あたら</rt><rp>)</rp></ruby>しい<ruby><span class="kanji">本</span><span class="kanji_meaning">book, origin, main</span><rp>(</rp><rt>ほん</rt><rp>)</rp></ruby>を<ruby><span class="kanji">借</span><span class="kanji_meaning">borrow, rent, loan</span><rp>(</rp><rt>か</rt><rp>)</rp></ruby>りるために、<ruby><span class="kanji">朝早</span><span class="kanji_meaning">early morning</span><rp>(</rp><rt>あさはや</rt><rp>)</rp></ruby>くから<ruby><span class="kanji">電車</span><span class="kanji_meaning">train, electric train</span><rp>(</rp><rt>でんしゃ</rt><rp>)</rp></ruby>に<ruby><span class="kanji">乗</span><span class="kanji_meaning">ride, get on, board</span><rp>(</rp><rt>の</rt><rp>)</rp></ruby>って<ruby><span class="kanji">駅</span><span class="kanji_meaning">station</span><rp>(</rp><rt>えき</rt><rp>)</rp></ruby>まで<ruby><span class="kanji">行</span><span class="kanji_meaning">go, travel, move</span><rp>(</rp><rt>い</rt><rp>)</rp></ruby>きました。</span><div class="translation-popup"></div></div></li>
                     <li style="display: none">We got on the train early in the morning and went to the station to borrow a new book from the library.</li>
-                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">姉</span><span class="kanji_meaning"></span><rp>(</rp><rt>あね</rt><rp>)</rp></ruby>は<ruby><span class="kanji">先週</span><span class="kanji_meaning"></span><rp>(</rp><rt>せんしゅう</rt><rp>)</rp></ruby>、<ruby><span class="kanji">自分</span><span class="kanji_meaning"></span><rp>(</rp><rt>じぶん</rt><rp>)</rp></ruby>の<ruby><span class="kanji">部屋</span><span class="kanji_meaning"></span><rp>(</rp><rt>へや</rt><rp>)</rp></ruby>をきれいに<ruby><span class="kanji">掃除</span><span class="kanji_meaning"></span><rp>(</rp><rt>そうじ</rt><rp>)</rp></ruby>して、<ruby><span class="kanji">古</span><span class="kanji_meaning"></span><rp>(</rp><rt>ふる</rt><rp>)</rp></ruby>い<ruby><span class="kanji">雑誌</span><span class="kanji_meaning"></span><rp>(</rp><rt>ざっし</rt><rp>)</rp></ruby>や<ruby><span class="kanji">服</span><span class="kanji_meaning"></span><rp>(</rp><rt>ふく</rt><rp>)</rp></ruby>を<ruby><span class="kanji">全部</span><span class="kanji_meaning"></span><rp>(</rp><rt>ぜんぶ</rt><rp>)</rp></ruby><ruby><span class="kanji">捨</span><span class="kanji_meaning"></span><rp>(</rp><rt>す</rt><rp>)</rp></ruby>てました。</span><div class="translation-popup"></div></div></li>
+                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">姉</span><span class="kanji_meaning">older sister</span><rp>(</rp><rt>あね</rt><rp>)</rp></ruby>は<ruby><span class="kanji">先週</span><span class="kanji_meaning">last week</span><rp>(</rp><rt>せんしゅう</rt><rp>)</rp></ruby>、<ruby><span class="kanji">自分</span><span class="kanji_meaning">oneself</span><rp>(</rp><rt>じぶん</rt><rp>)</rp></ruby>の<ruby><span class="kanji">部屋</span><span class="kanji_meaning">room</span><rp>(</rp><rt>へや</rt><rp>)</rp></ruby>をきれいに<ruby><span class="kanji">掃除</span><span class="kanji_meaning">cleaning</span><rp>(</rp><rt>そうじ</rt><rp>)</rp></ruby>して、<ruby><span class="kanji">古</span><span class="kanji_meaning">old</span><rp>(</rp><rt>ふる</rt><rp>)</rp></ruby>い<ruby><span class="kanji">雑誌</span><span class="kanji_meaning">magazine</span><rp>(</rp><rt>ざっし</rt><rp>)</rp></ruby>や<ruby><span class="kanji">服</span><span class="kanji_meaning">clothes</span><rp>(</rp><rt>ふく</rt><rp>)</rp></ruby>を<ruby><span class="kanji">全部</span><span class="kanji_meaning">all</span><rp>(</rp><rt>ぜんぶ</rt><rp>)</rp></ruby><ruby><span class="kanji">捨</span><span class="kanji_meaning">throw away</span><rp>(</rp><rt>す</rt><rp>)</rp></ruby>てました。</span><div class="translation-popup"></div></div></li>
                     <li style="display: none">Last week, my older sister cleaned her room and threw away all the old magazines and clothes.</li>
-                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">今日</span><span class="kanji_meaning"></span><rp>(</rp><rt>きょう</rt><rp>)</rp></ruby>の<ruby><span class="kanji">夜</span><span class="kanji_meaning"></span><rp>(</rp><rt>よる</rt><rp>)</rp></ruby>ご<ruby><span class="kanji">飯</span><span class="kanji_meaning"></span><rp>(</rp><rt>はん</rt><rp>)</rp></ruby>は、お<ruby><span class="kanji">母</span><span class="kanji_meaning"></span><rp>(</rp><rt>かあ</rt><rp>)</rp></ruby>さんが<ruby><span class="kanji">作</span><span class="kanji_meaning"></span><rp>(</rp><rt>つく</rt><rp>)</rp></ruby>ったおいしいカレーライスだったので、<ruby><span class="kanji">家族</span><span class="kanji_meaning"></span><rp>(</rp><rt>かぞく</rt><rp>)</rp></ruby>みんなで<ruby><span class="kanji">楽</span><span class="kanji_meaning"></span><rp>(</rp><rt>たの</rt><rp>)</rp></ruby>しく<ruby><span class="kanji">食</span><span class="kanji_meaning"></span><rp>(</rp><rt>た</rt><rp>)</rp></ruby>べました。</span><div class="translation-popup"></div></div></li>
+                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">今日</span><span class="kanji_meaning">today</span><rp>(</rp><rt>きょう</rt><rp>)</rp></ruby>の<ruby><span class="kanji">夜</span><span class="kanji_meaning">night</span><rp>(</rp><rt>よる</rt><rp>)</rp></ruby>ご<ruby><span class="kanji">飯</span><span class="kanji_meaning">meal</span><rp>(</rp><rt>はん</rt><rp>)</rp></ruby>は、お<ruby><span class="kanji">母</span><span class="kanji_meaning">mother</span><rp>(</rp><rt>かあ</rt><rp>)</rp></ruby>さんが<ruby><span class="kanji">作</span><span class="kanji_meaning">make</span><rp>(</rp><rt>つく</rt><rp>)</rp></ruby>ったおいしいカレーライスだったので、<ruby><span class="kanji">家族</span><span class="kanji_meaning">family</span><rp>(</rp><rt>かぞく</rt><rp>)</rp></ruby>みんなで<ruby><span class="kanji">楽</span><span class="kanji_meaning">enjoyable</span><rp>(</rp><rt>たの</rt><rp>)</rp></ruby>しく<ruby><span class="kanji">食</span><span class="kanji_meaning">eat</span><rp>(</rp><rt>た</rt><rp>)</rp></ruby>べました。</span><div class="translation-popup"></div></div></li>
                     <li style="display: none">Tonight's dinner was delicious curry rice that my mother made, so the whole family had a fun time eating it together.</li>
-                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">毎日</span><span class="kanji_meaning"></span><rp>(</rp><rt>まいにち</rt><rp>)</rp></ruby>、<ruby><span class="kanji">私</span><span class="kanji_meaning"></span><rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>は<ruby><span class="kanji">学校</span><span class="kanji_meaning"></span><rp>(</rp><rt>がっこう</rt><rp>)</rp></ruby>に<ruby><span class="kanji">行</span><span class="kanji_meaning"></span><rp>(</rp><rt>い</rt><rp>)</rp></ruby>く<ruby><span class="kanji">前</span><span class="kanji_meaning"></span><rp>(</rp><rt>まえ</rt><rp>)</rp></ruby>に<ruby><span class="kanji">公園</span><span class="kanji_meaning"></span><rp>(</rp><rt>こうえん</rt><rp>)</rp></ruby>を<ruby><span class="kanji">歩</span><span class="kanji_meaning"></span><rp>(</rp><rt>ある</rt><rp>)</rp></ruby>くのが<ruby><span class="kanji">好</span><span class="kanji_meaning"></span><rp>(</rp><rt>す</rt><rp>)</rp></ruby>きで、<ruby><span class="kanji">自然</span><span class="kanji_meaning"></span><rp>(</rp><rt>しぜん</rt><rp>)</rp></ruby>の<ruby><span class="kanji">景色</span><span class="kanji_meaning"></span><rp>(</rp><rt>けしき</rt><rp>)</rp></ruby>をゆっくり<ruby><span class="kanji">見</span><span class="kanji_meaning"></span><rp>(</rp><rt>み</rt><rp>)</rp></ruby>ます。</span><div class="translation-popup"></div></div></li>
+                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">毎日</span><span class="kanji_meaning">every day</span><rp>(</rp><rt>まいにち</rt><rp>)</rp></ruby>、<ruby><span class="kanji">私</span><span class="kanji_meaning">I</span><rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>は<ruby><span class="kanji">学校</span><span class="kanji_meaning">school</span><rp>(</rp><rt>がっこう</rt><rp>)</rp></ruby>に<ruby><span class="kanji">行</span><span class="kanji_meaning">go</span><rp>(</rp><rt>い</rt><rp>)</rp></ruby>く<ruby><span class="kanji">前</span><span class="kanji_meaning">before</span><rp>(</rp><rt>まえ</rt><rp>)</rp></ruby>に<ruby><span class="kanji">公園</span><span class="kanji_meaning">park</span><rp>(</rp><rt>こうえん</rt><rp>)</rp></ruby>を<ruby><span class="kanji">歩</span><span class="kanji_meaning">walk</span><rp>(</rp><rt>ある</rt><rp>)</rp></ruby>くのが<ruby><span class="kanji">好</span><span class="kanji_meaning">like</span><rp>(</rp><rt>す</rt><rp>)</rp></ruby>きで、<ruby><span class="kanji">自然</span><span class="kanji_meaning">nature</span><rp>(</rp><rt>しぜん</rt><rp>)</rp></ruby>の<ruby><span class="kanji">景色</span><span class="kanji_meaning">scenery</span><rp>(</rp><rt>けしき</rt><rp>)</rp></ruby>をゆっくり<ruby><span class="kanji">見</span><span class="kanji_meaning">look</span><rp>(</rp><rt>み</rt><rp>)</rp></ruby>ます。</span><div class="translation-popup"></div></div></li>
                     <li style="display: none">Every day, I like to walk in the park before I go to school and take my time looking at the natural scenery.</li>
-                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">週末</span><span class="kanji_meaning"></span><rp>(</rp><rt>しゅうまつ</rt><rp>)</rp></ruby>、<ruby><span class="kanji">私</span><span class="kanji_meaning"></span><rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>たちは<ruby><span class="kanji">友達</span><span class="kanji_meaning"></span><rp>(</rp><rt>ともだち</rt><rp>)</rp></ruby>と<ruby><span class="kanji">一緒</span><span class="kanji_meaning"></span><rp>(</rp><rt>いっしょ</rt><rp>)</rp></ruby>に<ruby><span class="kanji">映画館</span><span class="kanji_meaning"></span><rp>(</rp><rt>えいがかん</rt><rp>)</rp></ruby>で<ruby><span class="kanji">最近</span><span class="kanji_meaning"></span><rp>(</rp><rt>さいきん</rt><rp>)</rp></ruby><ruby><span class="kanji">公開</span><span class="kanji_meaning"></span><rp>(</rp><rt>こうかい</rt><rp>)</rp></ruby>されたおもしろいアニメを<ruby><span class="kanji">見</span><span class="kanji_meaning"></span><rp>(</rp><rt>み</rt><rp>)</rp></ruby>ました。</span><div class="translation-popup"></div></div></li>
+                    <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence"><ruby><span class="kanji">週末</span><span class="kanji_meaning">weekend</span><rp>(</rp><rt>しゅうまつ</rt><rp>)</rp></ruby>、<ruby><span class="kanji">私</span><span class="kanji_meaning">I</span><rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>たちは<ruby><span class="kanji">友達</span><span class="kanji_meaning">friends</span><rp>(</rp><rt>ともだち</rt><rp>)</rp></ruby>と<ruby><span class="kanji">一緒</span><span class="kanji_meaning">together</span><rp>(</rp><rt>いっしょ</rt><rp>)</rp></ruby>に<ruby><span class="kanji">映画館</span><span class="kanji_meaning">movie theater</span><rp>(</rp><rt>えいがかん</rt><rp>)</rp></ruby>で<ruby><span class="kanji">最近</span><span class="kanji_meaning">recently</span><rp>(</rp><rt>さいきん</rt><rp>)</rp></ruby><ruby><span class="kanji">公開</span><span class="kanji_meaning">released</span><rp>(</rp><rt>こうかい</rt><rp>)</rp></ruby>されたおもしろいアニメを<ruby><span class="kanji">見</span><span class="kanji_meaning">watched</span><rp>(</rp><rt>み</rt><rp>)</rp></ruby>ました。</span><div class="translation-popup"></div></div></li>
                     <li style="display: none">On the weekend, we watched a recently released and interesting anime movie at the movie theater with our friends.</li>
                     <li><div class="sentence-wrapper"><div class="button-group"><button class="translate-btn"></button><button class="speaker-btn">🔊</button></div><span class="jp-sentence">この<ruby><span class="kanji">前</span><span class="kanji_meaning"></span><rp>(</rp><rt>まえ</rt><rp>)</rp></ruby>の<ruby><span class="kanji">日曜日</span><span class="kanji_meaning"></span><rp>(</rp><rt>にちようび</rt><rp>)</rp></ruby>、<ruby><span class="kanji">父</span><span class="kanji_meaning"></span><rp>(</rp><rt>ちち</rt><rp>)</rp></ruby>は<ruby><span class="kanji">家族</span><span class="kanji_meaning"></span><rp>(</rp><rt>かぞく</rt><rp>)</rp></ruby>みんなのために<ruby><span class="kanji">新</span><span class="kanji_meaning"></span><rp>(</rp><rt>あたら</rt><rp>)</rp></ruby>しい<ruby><span class="kanji">車</span><span class="kanji_meaning"></span><rp>(</rp><rt>くるま</rt><rp>)</rp></ruby>を<ruby><span class="kanji">洗</span><span class="kanji_meaning"></span><rp>(</rp><rt>あら</rt><rp>)</rp></ruby>ってくれて、とてもきれいになりました。</span><div class="translation-popup"></div></div></li>
                     <li style="display: none">Last Sunday, my dad washed his new car for the whole family, and it became very clean.</li>
@@ -1131,10 +1144,16 @@
 		const rt = ruby.querySelector('rt');
 		if (!rt) return;
 
+		const kanjiMeaning = ruby.querySelector('.kanji_meaning');
+
 		// Create popup
 		const popup = document.createElement('div');
 		popup.className = 'furigana-popup';
-		popup.textContent = rt.textContent;
+
+		const furiganaText = rt.textContent;
+		const kanjiMeaningText = kanjiMeaning.textContent ? kanjiMeaning.textContent : 'No meaning available';
+
+		popup.innerHTML = `<div><span class="furigana-popup-label">furigana:</span> ${furiganaText}</div><div><span class="furigana-popup-label">meaning:</span> ${kanjiMeaningText}</div>`;
 		document.body.appendChild(popup);
 
 		let element = ruby;
@@ -1150,7 +1169,7 @@
 			element = element.offsetParent;
 		}
 
-		const offset = isTouchDevice ? 40 : 33;
+		const offset = isTouchDevice ? 68 : 63;
 		popup.style.position = 'absolute';
 		popup.style.left = (offsetLeft + ruby.offsetWidth / 2) + 'px';
 		popup.style.top = (offsetTop - offset) + 'px';
@@ -1165,13 +1184,13 @@
 				popup.classList.remove('show');
 				// The second 300ms delay lets the CSS animation finish before cleaning up the DOM element.
 				setTimeout(() => popup.remove(), 300);
-			}, 2500);
+			}, 3500);
 		}
 	}
 
 	function getCleanJapaneseText(element) {
 		const clone = element.cloneNode(true);
-		const furiganaElements = clone.querySelectorAll('rt, rp');
+		const furiganaElements = clone.querySelectorAll('rt, rp, .kanji_meaning');
 		furiganaElements.forEach(el => el.remove());
 		return clone.textContent.trim();
 	}
