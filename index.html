@@ -490,6 +490,57 @@
 			color: #66b3ff;
 		}
 
+		/* Back to Top Button */
+		.back-to-top {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			padding: 12px 16px;
+			font-size: 14px;
+			font-weight: 500;
+			cursor: pointer;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			transition: all 0.3s ease;
+			z-index: 1000;
+			opacity: 0;
+			visibility: hidden;
+			transform: translateY(10px);
+			font-family: inherit;
+			min-width: 100px;
+			text-align: center;
+		}
+
+		.back-to-top.show {
+			opacity: 1;
+			visibility: visible;
+			transform: translateY(0);
+		}
+
+		.back-to-top:hover {
+			background-color: #45a049;
+			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+			transform: translateY(-2px);
+		}
+
+		.back-to-top:active {
+			transform: translateY(0);
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		}
+
+		/* Dark mode styles */
+		.dark-mode .back-to-top {
+			background-color: #6272a4;
+			color: #f8f8f2;
+		}
+
+		.dark-mode .back-to-top:hover {
+			background-color: #5865a3;
+		}
+
 		/* Responsive Design */
 		@media (max-width: 480px) {
 			.button-group {
@@ -533,6 +584,14 @@
 			.speaker-btn, .speaker-btn:disabled {
 				transform: translateY(0.06em) !important;
 				padding: 2px 2px 2px 2px !important;
+			}
+
+			.back-to-top {
+				bottom: 12px;
+				right: 12px;
+				padding: 16px 20px;
+				font-size: 16px;
+				min-width: 120px;
 			}
 		}
 
@@ -594,6 +653,14 @@
 			.speaker-btn, .speaker-btn:disabled {
 				transform: translateY(0.06em) !important;
 				padding: 2px 2px 2px 2px !important;
+			}
+
+			.back-to-top {
+				bottom: 15px;
+				right: 15px;
+				padding: 14px 18px;
+				font-size: 15px;
+				min-width: 110px;
 			}
 		}
 
@@ -1132,8 +1199,27 @@
         </div>
     </div>
 </div>
-
+<button id="backToTop" class="back-to-top" onclick="scrollToTop()">Back to top</button>
 <script>
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth"
+		});
+	}
+
+	function backToTopVisibilityHandlers() {
+		const backToTopButton = document.getElementById('backToTop');
+		const scrollPosition = window.scrollY;
+		const showThreshold = 300; // Show button after scrolling 300px
+
+		if (scrollPosition > showThreshold) {
+			backToTopButton.classList.add('show');
+		} else {
+			backToTopButton.classList.remove('show');
+		}
+	}
+
 	function toggleHighlight(level, container) {
 		const checkbox = container.querySelector('input[type="checkbox"]');
 		checkbox.checked = !checkbox.checked;
@@ -1617,6 +1703,11 @@
 		//           Add event listeners for individual Kanji Furigana popups
 		// ######################################################################################## //
 		individualKanjiFuriganaPopupHandlers(isTouchDevice);
+
+		// ######################################################################################## //
+		//           Add event listeners for back to top behavior
+		// ######################################################################################## //
+		backToTopVisibilityHandlers();
 	});
 
 	window.addEventListener('scroll', () => {
@@ -1625,6 +1716,8 @@
 		const scrollPercent = (scrollTop / docHeight) * 100;
 		const progressBar = document.getElementById('progress-bar');
 		progressBar.style.width = `${scrollPercent}%`;
+
+		backToTopVisibilityHandlers();
 	});
 </script>
 </body>

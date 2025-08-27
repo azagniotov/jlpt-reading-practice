@@ -1,8 +1,8 @@
 # JLPT Reading Practice
 
-The app is essentially a comprehensive digital reading companion for JLPT students, offering multiple ways
-to interact with Japanese text while providing the scaffolding needed for language learning through features
-like pronunciation guides, translations, and audio support.
+The https://azagniotov.github.io/jlpt-reading-practice/ is essentially a comprehensive digital reading companion
+for JLPT students, offering multiple ways to interact with Japanese text while providing the scaffolding needed
+for language learning through features like pronunciation guides, translations, and audio support.
 
 ## Core Features
 
@@ -14,7 +14,7 @@ like pronunciation guides, translations, and audio support.
 
 ### Interactive Ruby/Furigana System
 
-- Clickable kanji characters that show both pronunciation (furigana) and English meanings in popup tooltips
+- Clickable kanji characters that show both pronunciation (furigana / 振り仮名) and English meanings in popup tooltips
 - Furigana can be toggled on/off globally for reading comprehension practice
 - On touch devices, tapping kanji automatically copies it to clipboard
 - Desktop users can hover over kanji for instant popup display
