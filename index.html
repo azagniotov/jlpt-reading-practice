@@ -21,7 +21,7 @@
 
     <style>
 		body {
-			font-family: "Hiragino Sans", "Hiragino Mincho", serif;
+			font-family: "Hiragino Sans", "Hiragino Mincho", "Noto Sans JP", serif;
 			font-size: 18px;
 			line-height: 2.2;
 			margin: 0;
@@ -369,7 +369,7 @@
 
 		.translation-popup {
 			position: absolute;
-			top: 3.2em;
+			top: 2.4em;
 			left: 0;
 			background: #f0f0f0;
 			color: #333;
@@ -1246,6 +1246,26 @@
 			btn.addEventListener('click', () => {
 				// Don't do anything if button is disabled
 				if (btn.disabled) return;
+
+				// Close any existing translation popup and re-enable its button
+				const existingPopups = document.querySelectorAll('.translation-popup.show');
+				existingPopups.forEach(existingPopup => {
+					// Clear timeout for existing popup
+					if (existingPopup._fadeTimeout) {
+						clearTimeout(existingPopup._fadeTimeout);
+					}
+
+					// Hide existing popup
+					existingPopup.classList.remove('show');
+
+					// Re-enable the button associated with this popup
+					const existingWrapper = existingPopup.closest('.sentence-wrapper');
+					const existingBtn = existingWrapper.querySelector('.translate-btn');
+
+					existingBtn.disabled = false;
+					existingBtn.style.opacity = '1';
+					existingBtn.style.cursor = 'pointer';
+				});
 
 				const parentLi = btn.closest('li');
 				const allLis = Array.from(parentLi.parentElement.children);
