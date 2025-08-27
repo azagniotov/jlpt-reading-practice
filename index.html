@@ -1219,9 +1219,17 @@
 	function backToTopVisibilityHandlers() {
 		const backToTopButton = document.getElementById('backToTop');
 		const scrollPosition = window.scrollY;
-		const showThreshold = 300; // Show button after scrolling 300px
+		const windowHeight = window.innerHeight;
 
-		if (scrollPosition > showThreshold) {
+		// Use percentage-based threshold (show after scrolling 20% of viewport height)
+		// or minimum 200px, whichever is larger
+		const percentageThreshold = windowHeight * 0.2;
+		const showThreshold = Math.max(percentageThreshold, 200);
+
+		// Also check that we're not at the very top (account for zoom edge cases)
+		const isNearTop = scrollPosition < 50;
+
+		if (scrollPosition > showThreshold && !isNearTop) {
 			backToTopButton.classList.add('show');
 		} else {
 			backToTopButton.classList.remove('show');
