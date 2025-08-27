@@ -1099,6 +1099,34 @@
 		}
 	}
 
+	function copyToClipboard(text) {
+		if (navigator.clipboard && window.isSecureContext) {
+			// Modern clipboard API
+			return navigator.clipboard.writeText(text);
+		} else {
+			// Fallback for older browsers or non-HTTPS
+			const textArea = document.createElement('textarea');
+			textArea.value = text;
+			textArea.style.position = 'fixed';
+			textArea.style.left = '-999999px';
+			textArea.style.top = '-999999px';
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+
+			return new Promise((resolve, reject) => {
+				try {
+					document.execCommand('copy');
+					textArea.remove();
+					resolve();
+				} catch (error) {
+					textArea.remove();
+					reject(error);
+				}
+			});
+		}
+	}
+
 	function showFuriganaPopup(isTouchDevice, ruby) {
 		const rt = ruby.querySelector('rt');
 		if (!rt) return;
@@ -1109,19 +1137,20 @@
 		popup.textContent = rt.textContent;
 		document.body.appendChild(popup);
 
-		// Try using offset properties instead of getBoundingClientRect
 		let element = ruby;
 		let offsetLeft = 0;
 		let offsetTop = 0;
 
-		// Calculate absolute position by walking up the DOM tree
+		// Calculate absolute position by walking up the DOM tree using the
+		// following properties which are more zoom-stable than ruby.getBoundingClientRect()
+		// on mobile / touch devices.
 		while (element) {
 			offsetLeft += element.offsetLeft;
 			offsetTop += element.offsetTop;
 			element = element.offsetParent;
 		}
 
-		const offset = isTouchDevice ? 45 : 33;
+		const offset = isTouchDevice ? 40 : 33;
 		popup.style.position = 'absolute';
 		popup.style.left = (offsetLeft + ruby.offsetWidth / 2) + 'px';
 		popup.style.top = (offsetTop - offset) + 'px';
@@ -1353,17 +1382,42 @@
 	function individualKanjiFuriganaPopupHandlers(isTouchDevice) {
 		const rubies = document.querySelectorAll('ruby');
 		rubies.forEach(ruby => {
+			const kanjiElement = ruby.querySelector('.kanji');
+			const kanjiText = kanjiElement.textContent;
+
 			if (isTouchDevice) {
 				ruby.addEventListener('click', function (e) {
 					e.preventDefault();
 					e.stopPropagation();
+
+					// Copy kanji to clipboard (click is a proper user gesture)
+					copyToClipboard(kanjiText).then(() => {
+						console.log('Copied to clipboard:', kanjiText);
+					}).catch(err => {
+						console.error('Failed to copy:', err);
+					});
+
 					showFuriganaPopup(isTouchDevice, ruby);
 				});
 			}
 			else {
+				// On desktop, use click instead of mouseenter for clipboard
+				ruby.addEventListener('click', function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+
+					// Copy kanji to clipboard
+					copyToClipboard(kanjiText).then(() => {
+						console.log('Copied to clipboard:', kanjiText);
+					}).catch(err => {
+						console.error('Failed to copy:', err);
+					});
+				});
+
 				ruby.addEventListener('mouseenter', function () {
 					showFuriganaPopup(isTouchDevice, ruby);
 				});
+
 				ruby.addEventListener('mouseleave', function () {
 					const popup = ruby._currentPopup;
 					if (popup) {
