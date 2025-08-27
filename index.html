@@ -587,11 +587,15 @@
 			}
 
 			.back-to-top {
-				bottom: 12px;
+				bottom: 30px;
 				right: 12px;
 				padding: 16px 20px;
 				font-size: 16px;
 				min-width: 120px;
+				/* iOS Safari tap fix */
+				-webkit-tap-highlight-color: transparent;
+				-webkit-touch-callout: none;
+				touch-action: manipulation;
 			}
 		}
 
@@ -656,11 +660,15 @@
 			}
 
 			.back-to-top {
-				bottom: 15px;
+				bottom: 25px;
 				right: 15px;
 				padding: 14px 18px;
 				font-size: 15px;
 				min-width: 110px;
+				/* iOS Safari tap fix */
+				-webkit-tap-highlight-color: transparent;
+				-webkit-touch-callout: none;
+				touch-action: manipulation;
 			}
 		}
 
@@ -1199,12 +1207,21 @@
         </div>
     </div>
 </div>
-<button id="backToTop" class="back-to-top" onclick="scrollToTop()">Back to top</button>
+<button id="backToTop" class="back-to-top" ontouchstart="" onclick="scrollToTop()">Back to top</button>
 <script>
 	function scrollToTop() {
+		// Prevent default behavior and stop event bubbling
+		event.preventDefault();
+		event.stopPropagation();
+
+		// Force immediate scroll for iOS Safari
+		document.documentElement.scrollTop = 0;
+		document.body.scrollTop = 0;
+
+		// Also use smooth scroll as fallback
 		window.scrollTo({
 			top: 0,
-			behavior: "smooth"
+			behavior: 'smooth'
 		});
 	}
 
