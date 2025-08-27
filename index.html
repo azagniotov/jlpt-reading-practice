@@ -2,8 +2,19 @@
 <html lang="ja">
 <head>
     <title>JLPT reading practice</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon-180x180.png" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+
     <meta charset="UTF-8">
     <meta name="description" content="JLPT reading passages for levels N5, N4 and N3 with toggleable furigana and translations.">
+    <meta name="author" content="Alexander Zagniotov">
     <meta name="keywords" content="jlpt,jlpt reading,jlpt n5,jlpt n4,jlpt n3,furigana reading,振り仮名,ふりがな,japanese translation">
 
     <meta property="og:title" content="JLPT reading practice">
@@ -15,6 +26,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-title" content="JLPTRead" />
 
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#ffffff">
@@ -626,7 +639,7 @@
 </div>
 <div class="main-container">
     <nav class="sidebar">
-        <h2>Stories</h2>
+        <h2>JLPT Levels</h2>
         <ul>
             <li><a href="#n5-sentences">N5 Sentences</a></li>
             <li><a href="#n4-sentences">N4 Sentences</a></li>
@@ -1252,14 +1265,21 @@
 			// Function to set voice once voices are available
 			const setVoice = () => {
 				const voices = speechSynthesis.getVoices();
+				console.log('Available Japanese voices:');
+				voices.forEach((voice, index) => {
+					if (voice.lang.startsWith('ja')) {
+						console.log(`${index}: ${voice.name} ${voice.lang}`);
+					}
+				});
 
-				// Priority order: female Japanese voice -> any Japanese voice -> default
+				// Priority order: female Japanese voice -> male Japanese voice (Hattori) -> any Japanese voice -> default
 				let selectedVoice = voices.find(voice =>
-						voice.lang.startsWith('ja-JP') &&
+						voice.lang.startsWith('ja') &&
 						(voice.name.toLowerCase().includes('female') ||
 								voice.name.toLowerCase().includes('woman') ||
 								voice.name.toLowerCase().includes('kyoko') ||
-								voice.name.toLowerCase().includes('otoya'))
+								voice.name.toLowerCase().includes('otoya') ||
+								voice.name.toLowerCase().includes('hattori'))
 				);
 
 				if (!selectedVoice) {
