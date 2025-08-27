@@ -1109,28 +1109,26 @@
 		popup.textContent = rt.textContent;
 		document.body.appendChild(popup);
 
-		// Force a complete repaint/reflow cycle on touch devices to get fresh coordinates.
-		// After zooming, the relationship between the ruby element's position and the
-		// viewport changes, but getBoundingClientRect() might return outdated or
-		// incorrectly scaled coordinates
-		if (isTouchDevice) {
-			ruby.style.transform = 'translateZ(0)';
-			ruby.offsetHeight;
-			ruby.style.transform = '';
+		// Try using offset properties instead of getBoundingClientRect
+		let element = ruby;
+		let offsetLeft = 0;
+		let offsetTop = 0;
+
+		// Calculate absolute position by walking up the DOM tree
+		while (element) {
+			offsetLeft += element.offsetLeft;
+			offsetTop += element.offsetTop;
+			element = element.offsetParent;
 		}
 
-		// Position the popup
-		const rubyRect = ruby.getBoundingClientRect();
-		const offset = isTouchDevice ? 45 : 33; // Larger offset on mobile
-		popup.style.position = 'fixed';
-		popup.style.left = (rubyRect.left + rubyRect.width / 2) + 'px';
-		popup.style.top = (rubyRect.top - offset) + 'px';
+		const offset = isTouchDevice ? 45 : 33;
+		popup.style.position = 'absolute';
+		popup.style.left = (offsetLeft + ruby.offsetWidth / 2) + 'px';
+		popup.style.top = (offsetTop - offset) + 'px';
 		popup.style.transform = 'translateX(-50%)';
 
-		// Show popup
+		// Show popup and rest of the code...
 		popup.classList.add('show');
-
-		// Store reference and set up auto-hide
 		ruby._currentPopup = popup;
 
 		if (isTouchDevice) {
