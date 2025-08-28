@@ -1347,18 +1347,35 @@
 		const furiganaText = rt.textContent;
 		const kanjiMeaningText = kanjiMeaning.textContent ? kanjiMeaning.textContent : 'No meaning available';
 
-		// Process meanings to create vertical layout
-		let meaningDisplay = kanjiMeaningText;
+		// Create furigana line
+		const furiganaLine = document.createElement('div');
+		furiganaLine.innerHTML = `<span class="furigana-popup-label">furigana:</span> ${furiganaText}`;
+
+		// Create meaning container
+		const meaningContainer = document.createElement('div');
+		meaningContainer.innerHTML = `<span class="furigana-popup-label">meaning:</span> `;
+
+		// Process meanings
 		if (kanjiMeaningText.includes(';')) {
 			const meanings = kanjiMeaningText.split(';').map(m => m.trim());
-			meaningDisplay = meanings[0];
-			if (meanings.length > 1) {
-				const additionalMeanings = meanings.slice(1).map(m => `<div style="margin-left: 4.5em;">${m};</div>`).join('');
-				meaningDisplay += ';<br>' + additionalMeanings;
+
+			// Add first meaning inline
+			meaningContainer.innerHTML += meanings[0] + ';';
+
+			// Add additional meanings as separate lines with proper indentation
+			for (let i = 1; i < meanings.length; i++) {
+				const meaningLine = document.createElement('div');
+				meaningLine.style.paddingLeft = '4.9em';
+				meaningLine.textContent = meanings[i] + (i < meanings.length - 1 ? ';' : '');
+				meaningContainer.appendChild(meaningLine);
 			}
+		} else {
+			meaningContainer.innerHTML += kanjiMeaningText;
 		}
 
-		popup.innerHTML = `<div><span class="furigana-popup-label">furigana:</span> ${furiganaText}</div><div><span class="furigana-popup-label">meaning:</span> ${kanjiMeaningText}</div>`;
+		popup.appendChild(furiganaLine);
+		popup.appendChild(meaningContainer);
+
 		document.body.appendChild(popup);
 
 		let element = ruby;
