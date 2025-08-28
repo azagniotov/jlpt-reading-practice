@@ -1227,12 +1227,9 @@
 		const scrollPosition = window.scrollY;
 		const windowHeight = window.innerHeight;
 
-		// Show after scrolling 4 screen heights
-		const percentageThreshold = windowHeight * 6.0;
-		const offset = windowHeight * 4.0;
-		const showThreshold = Math.max(percentageThreshold, offset);
-
-		if (scrollPosition > showThreshold) {
+		// Show after scrolling 5 screen heights
+		const percentageThreshold = windowHeight * 5.0;
+		if (scrollPosition > percentageThreshold) {
 			backToTopButton.classList.add('show');
 		} else {
 			backToTopButton.classList.remove('show');
