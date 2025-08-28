@@ -1228,13 +1228,10 @@
 
 		// Show after scrolling 4 screen heights
 		const percentageThreshold = windowHeight * 4.0;
-		const offset = windowHeight / 2;
+		const offset = windowHeight * 2.0;
 		const showThreshold = Math.max(percentageThreshold, offset);
 
-		// Also check that we're not at the very top (account for zoom edge cases)
-		const isNearTop = scrollPosition < 100;
-
-		if (scrollPosition > showThreshold && !isNearTop) {
+		if (scrollPosition > showThreshold) {
 			backToTopButton.classList.add('show');
 		} else {
 			backToTopButton.classList.remove('show');
