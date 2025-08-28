@@ -708,9 +708,9 @@
 			}
 		}
 
-		@media (orientation: landscape) and (max-height: 600px) {
+		@media screen and (orientation: landscape) and (max-height: 600px) {
 			.back-to-top {
-				right: 15px;
+				right: 5px !important;
 			}
 		}
     </style>
@@ -1226,8 +1226,9 @@
 		const scrollPosition = window.scrollY;
 		const windowHeight = window.innerHeight;
 
-		const percentageThreshold = windowHeight * 0.5;
-		const offset = isTouchDevice ? 350 : 1025;
+		// Show after scrolling 4 screen heights
+		const percentageThreshold = windowHeight * 4.0;
+		const offset = windowHeight / 2;
 		const showThreshold = Math.max(percentageThreshold, offset);
 
 		// Also check that we're not at the very top (account for zoom edge cases)
