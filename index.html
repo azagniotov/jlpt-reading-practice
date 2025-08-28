@@ -1222,14 +1222,14 @@
 		document.body.scrollTop = 0;
 	}
 
-	function backToTopVisibilityHandlers(isTouchDevice) {
+	function backToTopVisibilityHandlers() {
 		const backToTopButton = document.getElementById('backToTop');
 		const scrollPosition = window.scrollY;
 		const windowHeight = window.innerHeight;
 
 		// Show after scrolling 4 screen heights
-		const percentageThreshold = windowHeight * 4.0;
-		const offset = windowHeight * 2.0;
+		const percentageThreshold = windowHeight * 6.0;
+		const offset = windowHeight * 4.0;
 		const showThreshold = Math.max(percentageThreshold, offset);
 
 		if (scrollPosition > showThreshold) {
@@ -1750,7 +1750,7 @@
 		//           Add event listeners for back to top behavior
 		// ######################################################################################## //
 		initializeBackToTop()
-		backToTopVisibilityHandlers(isTouchDevice);
+		backToTopVisibilityHandlers();
 
 		window.addEventListener('scroll', () => {
 			const scrollTop = window.scrollY;
@@ -1759,7 +1759,7 @@
 			const progressBar = document.getElementById('progress-bar');
 			progressBar.style.width = `${scrollPercent}%`;
 
-			backToTopVisibilityHandlers(isTouchDevice);
+			backToTopVisibilityHandlers();
 		});
 	});
 </script>
