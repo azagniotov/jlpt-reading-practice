@@ -1221,10 +1221,10 @@
 		const scrollPosition = window.scrollY;
 		const windowHeight = window.innerHeight;
 
-		// Use percentage-based threshold (show after scrolling 20% of viewport height)
-		// or minimum 200px, whichever is larger
-		const percentageThreshold = windowHeight * 0.2;
-		const showThreshold = Math.max(percentageThreshold, 200);
+		// Use percentage-based threshold (show after scrolling 30% of viewport height)
+		// or minimum 300px, whichever is larger
+		const percentageThreshold = windowHeight * 0.3;
+		const showThreshold = Math.max(percentageThreshold, 300);
 
 		// Also check that we're not at the very top (account for zoom edge cases)
 		const isNearTop = scrollPosition < 50;
