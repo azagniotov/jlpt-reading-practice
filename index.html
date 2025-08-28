@@ -1391,13 +1391,35 @@
 			element = element.offsetParent;
 		}
 
-		const offset = isTouchDevice ? 77 : 62;
-		popup.style.position = 'absolute';
-		popup.style.left = (offsetLeft + ruby.offsetWidth / 2) + 'px';
-		popup.style.top = (offsetTop - offset) + 'px';
-		popup.style.transform = 'translateX(-50%)';
+		// Get popup dimensions after it's in the DOM
+		const popupRect = popup.getBoundingClientRect();
+		const viewportWidth = window.innerWidth;
 
-		// Show popup and rest of the code...
+		// Calculate ideal centered position
+		let leftPosition = offsetLeft + ruby.offsetWidth / 2;
+		const viewportEdgeOffset = 10;
+
+		if (leftPosition + popupRect.width / 2 > viewportWidth - viewportEdgeOffset) {
+			// Check if popup would go off the right edge
+			// Position so right edge is from viewport edge
+			leftPosition = viewportWidth - popupRect.width - viewportEdgeOffset;
+			popup.style.transform = 'none';
+		} else if (leftPosition - popupRect.width / 2 < viewportEdgeOffset) {
+			// Check if popup would go off the left edge
+			// Position so left edge is from viewport edge
+			leftPosition = viewportEdgeOffset;
+			popup.style.transform = 'none';
+		} else {
+			// Use centered positioning
+			popup.style.transform = 'translateX(-50%)';
+		}
+
+		const offset = isTouchDevice ? 10 : 5;
+		popup.style.position = 'absolute';
+		popup.style.left = leftPosition + 'px';
+		popup.style.top = (offsetTop - popupRect.height - offset) + 'px';
+
+		// Show popup
 		popup.classList.add('show');
 		ruby._currentPopup = popup;
 
@@ -1411,7 +1433,7 @@
 
 				// The second 300ms delay lets the CSS animation finish before cleaning up the DOM element.
 				setTimeout(() => popup.remove(), 300);
-			}, 3500);
+			}, 4000);
 		}
 	}
 
