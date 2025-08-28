@@ -1227,8 +1227,8 @@
 		const scrollPosition = window.scrollY;
 		const windowHeight = window.innerHeight;
 
-		// Show after scrolling 5 screen heights
-		const percentageThreshold = windowHeight * 5.0;
+		// Show after scrolling 4 screen heights
+		const percentageThreshold = windowHeight * 4.0;
 		if (scrollPosition > percentageThreshold) {
 			backToTopButton.classList.add('show');
 		} else {
@@ -1346,6 +1346,17 @@
 
 		const furiganaText = rt.textContent;
 		const kanjiMeaningText = kanjiMeaning.textContent ? kanjiMeaning.textContent : 'No meaning available';
+
+		// Process meanings to create vertical layout
+		let meaningDisplay = kanjiMeaningText;
+		if (kanjiMeaningText.includes(';')) {
+			const meanings = kanjiMeaningText.split(';').map(m => m.trim());
+			meaningDisplay = meanings[0];
+			if (meanings.length > 1) {
+				const additionalMeanings = meanings.slice(1).map(m => `<div style="margin-left: 4.5em;">${m};</div>`).join('');
+				meaningDisplay += ';<br>' + additionalMeanings;
+			}
+		}
 
 		popup.innerHTML = `<div><span class="furigana-popup-label">furigana:</span> ${furiganaText}</div><div><span class="furigana-popup-label">meaning:</span> ${kanjiMeaningText}</div>`;
 		document.body.appendChild(popup);
