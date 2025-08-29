@@ -133,7 +133,8 @@
 		.search-container {
 			margin-bottom: 20px;
 			position: relative;
-			max-width: 600px;
+			width: 100%;
+			box-sizing: border-box;
 		}
 
 		.search-input {
@@ -147,6 +148,7 @@
 			outline: none;
 			transition: all 0.3s ease;
 			font-family: inherit;
+			box-sizing: border-box;
 		}
 
 		.search-input:focus {
@@ -513,6 +515,34 @@
 				max-width: 1400px;
 				margin: 0 auto;
 				padding: 2em;
+			}
+		}
+
+
+		/* Landscape mode for phones - 2 cards per row */
+		@media (max-width: 768px) and (orientation: landscape) {
+			.cards-grid {
+				grid-template-columns: repeat(2, 1fr);
+				gap: 12px;
+			}
+
+			.kanji-card {
+				padding: 15px;
+			}
+
+			.kanji-character {
+				font-size: 2.5rem;
+			}
+
+			.content-wrapper {
+				padding: 1em;
+			}
+		}
+
+		/* Keep single column for small portrait phones */
+		@media (max-width: 480px) and (orientation: portrait) {
+			.cards-grid {
+				grid-template-columns: 1fr;
 			}
 		}
     </style>
@@ -2081,155 +2111,162 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div id="backToTop" class="back-to-top">🔼
-        Back
-        to Top
-    </div>
+<div id="backToTop" class="back-to-top">🔼
+    Back
+    to Top
+</div>
 
-    <script>
-		// Dark mode toggle
-		function toggleDarkMode(container)
+<script>
+	// Dark mode toggle
+	function toggleDarkMode(container)
+	{
+		const checkbox = container.querySelector('input[type="checkbox"]');
+		checkbox.checked = !checkbox.checked;
+		const body = document.body;
+		if (checkbox.checked)
 		{
-			const checkbox = container.querySelector('input[type="checkbox"]');
-			checkbox.checked = !checkbox.checked;
-			const body = document.body;
-			if (checkbox.checked) {
-				body.classList.add('dark-mode');
-			}
-			else {
-				body.classList.remove('dark-mode');
-			}
+			body.classList.add('dark-mode');
 		}
-
-		// Card expansion functionality
-		function initializeCards()
+		else
 		{
-			document.querySelectorAll('.kanji-card').forEach(card => {
-				card.addEventListener('click', function () {
-					const readings = this.querySelector('.readings');
-					const hint = this.querySelector('.expand-hint');
-					if (readings.classList.contains('show'))
-					{
-						readings.classList.remove('show');
-						hint.textContent = 'Tap to see readings';
-						this.classList.remove('expanded');
-					}
-					else
-					{
-						// Close other expanded cards
-						document.querySelectorAll('.kanji-card.expanded').forEach(otherCard => {
-							if (otherCard !== this)
-							{
-								otherCard.querySelector('.readings').classList.remove('show');
-								otherCard.querySelector('.expand-hint').textContent = 'Tap to see readings';
-								otherCard.classList.remove('expanded');
-							}
-						});
-						readings.classList.add('show');
-						hint.textContent = 'Tap to hide readings';
-						this.classList.add('expanded');
-					}
-				});
-			});
+			body.classList.remove('dark-mode');
 		}
+	}
 
-		// Search functionality
-		function initializeSearch()
-		{
-			const searchInput = document.getElementById('searchInput');
-			const cardsGrid = document.getElementById('cardsGrid');
-			const noResults = document.getElementById('noResults');
-			searchInput.addEventListener('input', function () {
-				const searchTerm = this.value.toLowerCase().trim();
-				const cards = document.querySelectorAll('.kanji-card');
-				let visibleCount = 0;
-				cards.forEach(card => {
-					const searchData = card.getAttribute('data-search').toLowerCase();
-					if (searchTerm === '' || searchData.includes(searchTerm))
-					{
-						card.style.display = 'block';
-						visibleCount++;
-					}
-					else
-					{
-						card.style.display = 'none';
-					}
-				});
-				if (visibleCount === 0 && searchTerm !== '')
+	// Card expansion functionality
+	function initializeCards()
+	{
+		document.querySelectorAll('.kanji-card').forEach(card => {
+			card.addEventListener('click', function () {
+				const readings = this.querySelector('.readings');
+				const hint = this.querySelector('.expand-hint');
+				if (readings.classList.contains('show'))
 				{
-					noResults.style.display = 'block';
+					readings.classList.remove('show');
+					hint.textContent = 'Tap to see readings';
+					this.classList.remove('expanded');
 				}
 				else
 				{
-					noResults.style.display = 'none';
+					// Close other expanded cards
+					document.querySelectorAll('.kanji-card.expanded').forEach(otherCard => {
+						if (otherCard !== this)
+						{
+							otherCard.querySelector('.readings').classList.remove('show');
+							otherCard.querySelector('.expand-hint').textContent = 'Tap to see readings';
+							otherCard.classList.remove('expanded');
+						}
+					});
+					readings.classList.add('show');
+					hint.textContent = 'Tap to hide readings';
+					this.classList.add('expanded');
 				}
 			});
-		}
-
-		// Back to top functionality
-		function scrollToTop() {
-			window.scrollTo({top: 0, behavior: 'smooth'});
-		}
-
-		function backToTopVisibilityHandlers() {
-			const backToTopButton = document.getElementById('backToTop');
-			const scrollPosition = window.scrollY;
-			const windowHeight = window.innerHeight;
-			// Show after scrolling 4 screen heights
-			const percentageThreshold = windowHeight * 4.0;
-			if (scrollPosition > percentageThreshold) {
-				backToTopButton.classList.add('show');
-			}
-			else {
-				backToTopButton.classList.remove('show');
-			}
-		}
-
-		function initializeBackToTop() {
-			const backToTopButton = document.getElementById('backToTop');
-			// Use touchstart for immediate response on mobile
-			backToTopButton.addEventListener('touchstart', function (e) {
-				e.preventDefault();
-				e.stopPropagation();
-				scrollToTop();
-			}, {passive: false});
-
-			// Fallback for desktop
-			backToTopButton.addEventListener('click', function (e) {
-				e.preventDefault();
-				e.stopPropagation();
-				scrollToTop();
-			});
-		}
-
-		// Progress bar functionality
-		function updateProgressBar()
-		{
-			const scrollTop = window.scrollY;
-			const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-			const scrollPercent = (scrollTop / docHeight) * 100;
-			const progressBar = document.getElementById('progress-bar');
-			progressBar.style.width = `${scrollPercent}%`;
-		}
-
-		// Initialize everything when DOM is ready
-		document.addEventListener('DOMContentLoaded', () => {
-			// Set dark mode as default
-			const darkModeCheckbox = document.getElementById('dark-mode-toggle');
-			darkModeCheckbox.checked = true;
-			document.body.classList.add('dark-mode');
-			// Initialize all functionality
-			initializeCards();
-			initializeSearch();
-			initializeBackToTop();
-			backToTopVisibilityHandlers();
-			// Scroll event listeners
-			window.addEventListener('scroll', () => {
-				updateProgressBar();
-				backToTopVisibilityHandlers();
-			});
 		});
-    </script>
+	}
+
+	// Search functionality
+	function initializeSearch()
+	{
+		const searchInput = document.getElementById('searchInput');
+		const cardsGrid = document.getElementById('cardsGrid');
+		const noResults = document.getElementById('noResults');
+		searchInput.addEventListener('input', function () {
+			const searchTerm = this.value.toLowerCase().trim();
+			const cards = document.querySelectorAll('.kanji-card');
+			let visibleCount = 0;
+			cards.forEach(card => {
+				const searchData = card.getAttribute('data-search').toLowerCase();
+				if (searchTerm === '' || searchData.includes(searchTerm))
+				{
+					card.style.display = 'block';
+					visibleCount++;
+				}
+				else
+				{
+					card.style.display = 'none';
+				}
+			});
+			if (visibleCount === 0 && searchTerm !== '')
+			{
+				noResults.style.display = 'block';
+			}
+			else
+			{
+				noResults.style.display = 'none';
+			}
+		});
+	}
+
+	// Back to top functionality
+	function scrollToTop()
+	{
+		window.scrollTo({top: 0, behavior: 'smooth'});
+	}
+
+	function backToTopVisibilityHandlers()
+	{
+		const backToTopButton = document.getElementById('backToTop');
+		const scrollPosition = window.scrollY;
+		const windowHeight = window.innerHeight;
+		// Show after scrolling 4 screen heights
+		const percentageThreshold = windowHeight * 4.0;
+		if (scrollPosition > percentageThreshold)
+		{
+			backToTopButton.classList.add('show');
+		}
+		else
+		{
+			backToTopButton.classList.remove('show');
+		}
+	}
+
+	function initializeBackToTop()
+	{
+		const backToTopButton = document.getElementById('backToTop');
+		// Use touchstart for immediate response on mobile
+		backToTopButton.addEventListener('touchstart', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			scrollToTop();
+		}, {passive: false});
+		// Fallback for desktop
+		backToTopButton.addEventListener('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			scrollToTop();
+		});
+	}
+
+	// Progress bar functionality
+	function updateProgressBar()
+	{
+		const scrollTop = window.scrollY;
+		const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+		const scrollPercent = (scrollTop / docHeight) * 100;
+		const progressBar = document.getElementById('progress-bar');
+		progressBar.style.width = `${scrollPercent}%`;
+	}
+
+	// Initialize everything when DOM is ready
+	document.addEventListener('DOMContentLoaded', () => {
+		// Set dark mode as default
+		const darkModeCheckbox = document.getElementById('dark-mode-toggle');
+		darkModeCheckbox.checked = true;
+		document.body.classList.add('dark-mode');
+		// Initialize all functionality
+		initializeCards();
+		initializeSearch();
+		initializeBackToTop();
+		backToTopVisibilityHandlers();
+		// Scroll event listeners
+		window.addEventListener('scroll', () => {
+			updateProgressBar();
+			backToTopVisibilityHandlers();
+		});
+	});
+</script>
 </body>
 </html>
