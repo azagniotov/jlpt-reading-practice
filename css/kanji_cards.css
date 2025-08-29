@@ -1,0 +1,277 @@
+.search-container {
+	margin-bottom: 20px;
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.search-input {
+	width: 100%;
+	padding: 12px 20px;
+	font-size: 16px;
+	border: 2px solid #ddd;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	background: white;
+	outline: none;
+	transition: all 0.3s ease;
+	font-family: inherit;
+	box-sizing: border-box;
+}
+
+.search-input:focus {
+	border-color: #4CAF50;
+	box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+}
+
+.search-input::placeholder {
+	color: #999;
+}
+
+.dark-mode .search-input {
+	background-color: #3b4052;
+	border-color: #6272a4;
+	color: #f8f8f2;
+}
+
+.dark-mode .search-input::placeholder {
+	color: #8b8b8b;
+}
+
+.dark-mode .search-input:focus {
+	border-color: #50fa7b;
+	box-shadow: 0 4px 12px rgba(80, 250, 123, 0.15);
+}
+
+/* Kanji Cards Grid */
+.cards-grid {
+	display: grid;
+	gap: 16px;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.kanji-card {
+	background: white;
+	border-radius: 12px;
+	padding: 20px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+	cursor: pointer;
+	border: 2px solid transparent;
+}
+
+.kanji-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+	border-color: #4CAF50;
+}
+
+.kanji-card.expanded {
+	transform: none;
+	background: #f8fdf9;
+}
+
+.kanji-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 16px;
+}
+
+.kanji-character {
+	font-size: 3.5rem;
+	font-weight: bold;
+	color: #2d3748;
+	line-height: 1;
+	font-family: "Hiragino Mincho", "Noto Sans JP", serif;
+}
+
+.stroke-count {
+	background: #e8f5e9;
+	color: #2e7d32;
+	padding: 6px 12px;
+	border-radius: 20px;
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+
+.meaning {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: #2d3748;
+	margin-bottom: 12px;
+}
+
+.readings {
+	display: none;
+	opacity: 0;
+	transform: translateY(-10px);
+	transition: all 0.3s ease;
+}
+
+.readings.show {
+	display: block;
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.reading-section {
+	margin-bottom: 12px;
+	padding: 8px;
+	background: #f5f5f5;
+	border-radius: 8px;
+}
+
+.reading-label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #4CAF50;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 4px;
+}
+
+.reading-text {
+	font-size: 1rem;
+	color: #4a5568;
+	line-height: 1.4;
+	font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+}
+
+.expand-hint {
+	text-align: center;
+	color: #a0aec0;
+	font-size: 0.8rem;
+	margin-top: 12px;
+	transition: color 0.3s ease;
+}
+
+.kanji-card:hover .expand-hint {
+	color: #4CAF50;
+}
+
+.no-results {
+	text-align: center;
+	color: #666;
+	font-size: 1.1rem;
+	margin-top: 40px;
+	padding: 40px;
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark Mode - Kanji Cards specific */
+.dark-mode .content-wrapper {
+	background-color: #282a36;
+}
+
+.dark-mode .kanji-card {
+	background-color: #3b4052;
+	color: #f8f8f2;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .kanji-card:hover {
+	border-color: #50fa7b;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .kanji-card.expanded {
+	background: #44475a;
+}
+
+.dark-mode .kanji-character {
+	color: #f8f8f2;
+}
+
+.dark-mode .stroke-count {
+	background: #44475a;
+	color: #50fa7b;
+}
+
+.dark-mode .meaning {
+	color: #f8f8f2;
+}
+
+.dark-mode .reading-section {
+	background: #282a36;
+}
+
+.dark-mode .reading-label {
+	color: #50fa7b;
+}
+
+.dark-mode .reading-text {
+	color: #bd93f9;
+}
+
+.dark-mode .expand-hint {
+	color: #6272a4;
+}
+
+.dark-mode .kanji-card:hover .expand-hint {
+	color: #50fa7b;
+}
+
+.dark-mode .no-results {
+	background: #3b4052;
+	color: #f8f8f2;
+}
+
+/* Page-specific responsive design */
+@media (max-width: 768px) {
+	.content-wrapper {
+		padding: 1.5em 1em;
+	}
+
+	.cards-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.kanji-character {
+		font-size: 3rem;
+	}
+
+	.search-container {
+		max-width: 100%;
+	}
+
+	.back-to-top {
+		bottom: 60px;
+	}
+}
+
+@media (max-width: 480px) {
+	.kanji-character {
+		font-size: 2.5rem;
+	}
+}
+
+/* Keep single column for small portrait phones */
+@media (max-width: 480px) and (orientation: portrait) {
+	.cards-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Landscape mode for phones - 2 cards per row */
+@media (max-width: 768px) and (orientation: landscape) {
+	.cards-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
+	}
+
+	.kanji-card {
+		padding: 15px;
+	}
+
+	.kanji-character {
+		font-size: 2.5rem;
+	}
+
+	.content-wrapper {
+		padding: 1em;
+	}
+}
