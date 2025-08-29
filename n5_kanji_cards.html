@@ -50,6 +50,9 @@
         <h2>JLPT Study</h2>
         <ul>
             <li><a href="index.html">Home</a></li>
+            <li><a class="active" href="n5_kanji_cards.html">N5 Kanji List</a></li>
+            <li><a href="n5_sentences.html">N5 Sentences</a></li>
+            <li><a href="n4_sentences.html">N4 Sentences</a></li>
         </ul>
     </nav>
 
@@ -1608,154 +1611,12 @@
     to Top
 </div>
 
+<script src="js/common.js"></script>
+<script src="js/kanji_cards.js"></script>
 <script>
-	// Dark mode toggle
-	function toggleDarkMode(container)
-	{
-		const checkbox = container.querySelector('input[type="checkbox"]');
-		checkbox.checked = !checkbox.checked;
-		const body = document.body;
-		if (checkbox.checked)
-		{
-			body.classList.add('dark-mode');
-		}
-		else
-		{
-			body.classList.remove('dark-mode');
-		}
-	}
-
-	// Card expansion functionality
-	function initializeCards()
-	{
-		document.querySelectorAll('.kanji-card').forEach(card => {
-			card.addEventListener('click', function () {
-				const readings = this.querySelector('.readings');
-				const hint = this.querySelector('.expand-hint');
-				if (readings.classList.contains('show'))
-				{
-					readings.classList.remove('show');
-					hint.textContent = 'Tap to see readings';
-					this.classList.remove('expanded');
-				}
-				else
-				{
-					// Close other expanded cards
-					document.querySelectorAll('.kanji-card.expanded').forEach(otherCard => {
-						if (otherCard !== this)
-						{
-							otherCard.querySelector('.readings').classList.remove('show');
-							otherCard.querySelector('.expand-hint').textContent = 'Tap to see readings';
-							otherCard.classList.remove('expanded');
-						}
-					});
-					readings.classList.add('show');
-					hint.textContent = 'Tap to hide readings';
-					this.classList.add('expanded');
-				}
-			});
-		});
-	}
-
-	// Search functionality
-	function initializeSearch()
-	{
-		const searchInput = document.getElementById('searchInput');
-		const cardsGrid = document.getElementById('cardsGrid');
-		const noResults = document.getElementById('noResults');
-		searchInput.addEventListener('input', function () {
-			const searchTerm = this.value.toLowerCase().trim();
-			const cards = document.querySelectorAll('.kanji-card');
-			let visibleCount = 0;
-			cards.forEach(card => {
-				const searchData = card.getAttribute('data-search').toLowerCase();
-				if (searchTerm === '' || searchData.includes(searchTerm))
-				{
-					card.style.display = 'block';
-					visibleCount++;
-				}
-				else
-				{
-					card.style.display = 'none';
-				}
-			});
-			if (visibleCount === 0 && searchTerm !== '')
-			{
-				noResults.style.display = 'block';
-			}
-			else
-			{
-				noResults.style.display = 'none';
-			}
-		});
-	}
-
-	// Back to top functionality
-	function scrollToTop()
-	{
-		window.scrollTo({top: 0, behavior: 'smooth'});
-	}
-
-	function backToTopVisibilityHandlers()
-	{
-		const backToTopButton = document.getElementById('backToTop');
-		const scrollPosition = window.scrollY;
-		const windowHeight = window.innerHeight;
-		// Show after scrolling 4 screen heights
-		const percentageThreshold = windowHeight * 4.0;
-		if (scrollPosition > percentageThreshold)
-		{
-			backToTopButton.classList.add('show');
-		}
-		else
-		{
-			backToTopButton.classList.remove('show');
-		}
-	}
-
-	function initializeBackToTop()
-	{
-		const backToTopButton = document.getElementById('backToTop');
-		// Use touchstart for immediate response on mobile
-		backToTopButton.addEventListener('touchstart', function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-			scrollToTop();
-		}, {passive: false});
-		// Fallback for desktop
-		backToTopButton.addEventListener('click', function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-			scrollToTop();
-		});
-	}
-
-	// Progress bar functionality
-	function updateProgressBar()
-	{
-		const scrollTop = window.scrollY;
-		const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-		const scrollPercent = (scrollTop / docHeight) * 100;
-		const progressBar = document.getElementById('progress-bar');
-		progressBar.style.width = `${scrollPercent}%`;
-	}
-
-	// Initialize everything when DOM is ready
 	document.addEventListener('DOMContentLoaded', () => {
-		// Set dark mode as default
-		const darkModeCheckbox = document.getElementById('dark-mode-toggle');
-		darkModeCheckbox.checked = true;
-		document.body.classList.add('dark-mode');
-		// Initialize all functionality
 		initializeCards();
 		initializeSearch();
-		initializeBackToTop();
-		backToTopVisibilityHandlers();
-		// Scroll event listeners
-		window.addEventListener('scroll', () => {
-			updateProgressBar();
-			backToTopVisibilityHandlers();
-		});
 	});
 </script>
 </body>
