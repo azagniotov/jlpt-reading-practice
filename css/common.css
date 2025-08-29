@@ -6,6 +6,7 @@ body {
 	background-color: #fafafa;
 	color: #2d2a2e;
 	line-height: 2.2;
+	overflow-x: hidden;
 }
 
 .main-container {
