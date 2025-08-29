@@ -723,15 +723,24 @@
 </div>
 <div class="main-container">
     <nav class="sidebar">
-        <h2>JLPT Levels</h2>
+        <h2>JLPT Study</h2>
         <ul>
-            <li><a href="#n5-sentences">N5 Sentences</a></li>
-            <li><a href="#n4-sentences">N4 Sentences</a></li>
+            <li><a class="kanji-sentences" href="#n5-sentences">N5 Sentences</a></li>
+            <li><a class="kanji-sentences" href="#n4-sentences">N4 Sentences</a></li>
+            <li><a href="n5_kanji_cards.html">N5 Kanji List</a></li>
         </ul>
     </nav>
 
     <div class="content-wrapper">
         <div class="controls">
+            <div class="checkbox-container" onclick="toggleDarkMode(this)">
+                <input type="checkbox" id="dark-mode-toggle">
+                <span class="custom-checkbox"></span>
+                <label for="dark-mode-toggle" class="checkbox-label">
+                    Dark Mode
+                </label>
+            </div>
+
             <div class="checkbox-container n4-checkbox" onclick="toggleHighlight('kanji', this)">
                 <input type="checkbox" id="n4-toggle">
                 <span class="custom-checkbox"></span>
@@ -748,13 +757,6 @@
                 </label>
             </div>
 
-            <div class="checkbox-container" onclick="toggleDarkMode(this)">
-                <input type="checkbox" id="dark-mode-toggle">
-                <span class="custom-checkbox"></span>
-                <label for="dark-mode-toggle" class="checkbox-label">
-                    Dark Mode
-                </label>
-            </div>
         </div>
 
         <div class="story-container">
@@ -1215,11 +1217,15 @@
     Back
     to Top</div>
 <script>
+	// function scrollToTop() {
+	// 	// Force immediate scroll to top
+	// 	window.scrollTo(0, 0);
+	// 	document.documentElement.scrollTop = 0;
+	// 	document.body.scrollTop = 0;
+	// }
+
 	function scrollToTop() {
-		// Force immediate scroll to top
-		window.scrollTo(0, 0);
-		document.documentElement.scrollTop = 0;
-		document.body.scrollTop = 0;
+		window.scrollTo({top: 0, behavior: 'smooth'});
 	}
 
 	function backToTopVisibilityHandlers() {
@@ -1523,7 +1529,7 @@
 	}
 
 	function leftHandSideMenuNavigation()  {
-		const navLinks = document.querySelectorAll('.sidebar a');
+		const navLinks = document.querySelectorAll('.sidebar a.kanji-sentences');
 		const stories = document.querySelectorAll('.story-container > div');
 		navLinks.forEach(link => {
 			link.addEventListener('click', (event) => {
