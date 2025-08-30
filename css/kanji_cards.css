@@ -246,6 +246,16 @@
 }
 
 @media (max-width: 480px) {
+	/* Force no zoom on entire page */
+	* {
+		touch-action: pan-x pan-y;
+	}
+
+	.search-input {
+		font-size: 18px !important;
+		-webkit-appearance: none;
+	}
+
 	.kanji-character {
 		font-size: 2.5rem;
 	}
