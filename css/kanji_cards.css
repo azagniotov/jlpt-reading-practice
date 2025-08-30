@@ -207,7 +207,7 @@
 }
 
 .dark-mode .expand-hint {
-	color: #6272a4;
+	color: #7d8dc1;
 }
 
 .dark-mode .kanji-card:hover .expand-hint {
@@ -221,10 +221,6 @@
 
 /* Page-specific responsive design */
 @media (max-width: 768px) {
-	.content-wrapper {
-		padding: 1.5em 1em;
-	}
-
 	.cards-grid {
 		grid-template-columns: 1fr;
 		gap: 12px;
@@ -269,9 +265,5 @@
 
 	.kanji-character {
 		font-size: 2.5rem;
-	}
-
-	.content-wrapper {
-		padding: 1em;
 	}
 }

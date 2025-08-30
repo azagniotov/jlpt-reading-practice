@@ -230,6 +230,27 @@ body {
 
 /* Responsive Design - Common breakpoints */
 @media (max-width: 480px) {
+	html, body {
+		font-size: 18px !important;
+		line-height: 2.2 !important;
+	}
+
+	.content-wrapper {
+		padding: 1.5em 1.0em 1.0em 1.0em !important;
+	}
+
+	.sidebar {
+		padding: 0.5em;
+	}
+
+	.sidebar ul {
+		flex-direction: column;
+	}
+
+	.sidebar li {
+		min-width: auto;
+	}
+
 	.back-to-top {
 		bottom: 55px;
 		right: 15px;
@@ -237,8 +258,13 @@ body {
 }
 
 @media (max-width: 768px) {
-	.main-container {
-		flex-direction: column;
+	html, body {
+		font-size: 18px !important;
+		line-height: 2.2 !important;
+	}
+
+	.content-wrapper {
+		padding: 1.5em 1.0em 1.0em 1.0em !important;
 	}
 
 	.sidebar {
@@ -246,6 +272,22 @@ body {
 		padding: 1em;
 		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 		order: -1;
+	}
+
+	.sidebar ul {
+		display: flex;
+		gap: 0.5em;
+		flex-wrap: wrap;
+	}
+
+	.sidebar li {
+		margin-bottom: 0;
+		flex: 1;
+		min-width: 120px;
+	}
+
+	.main-container {
+		flex-direction: column;
 	}
 
 	.controls {
@@ -257,6 +299,28 @@ body {
 	.back-to-top {
 		bottom: 55px;
 		right: 15px;
+	}
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+	.content-wrapper {
+		padding: 1em;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	html, body {
+		font-size: 20px !important;
+		line-height: 2.2 !important;
+	}
+
+	.content-wrapper {
+		padding: 1.5em !important;
+	}
+
+	.sidebar {
+		width: 200px;
+		padding: 1.5em 1em;
 	}
 }
 
