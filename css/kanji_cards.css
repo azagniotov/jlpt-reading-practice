@@ -280,11 +280,13 @@
 	}
 }
 
-@media (min-width: 769px) and (max-width: 1024px)  and (orientation: landscape) {
+@media (min-width: 769px) and (max-width: 1024px) {
 	.content-wrapper {
-		padding: 4.5em 1.5em 1.5em 1.5em !important;
+		padding: 4.0em 1.5em 1.5em 1.5em !important;
 	}
+}
 
+@media (min-width: 769px) and (max-width: 1024px)  and (orientation: landscape) {
 	.cards-grid {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 12px;
@@ -296,5 +298,11 @@
 
 	.kanji-character {
 		font-size: 2.5rem;
+	}
+}
+
+@media (min-width: 1025px)  {
+	.content-wrapper {
+		padding: 5.0em 1.5em 1.5em 1.5em !important;
 	}
 }
