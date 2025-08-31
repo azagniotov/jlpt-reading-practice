@@ -239,8 +239,9 @@ body {
 	touch-action: manipulation;
 }
 
-/* Disable hover but keep active state for touch devices */
+/* For touch devices only */
 @media (hover: none) and (pointer: coarse) {
+	/* Disable hover completely */
 	.back-to-top:hover,
 	.theme-toggle:hover,
 	.kanji-toggle:hover,
@@ -260,13 +261,13 @@ body {
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 	}
 
-	/* Active state for tap feedback */
+	/* Active state with SCALE instead of translateY */
 	.back-to-top:active,
 	.theme-toggle:active,
 	.kanji-toggle:active,
 	.furigana-toggle:active {
-		transform: translateY(0) !important;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+		transform: scale(0.9) !important;
+		opacity: 0.8 !important;
 	}
 }
 
