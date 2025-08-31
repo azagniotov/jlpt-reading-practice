@@ -228,6 +228,21 @@ body {
 	background-color: #44475a;
 }
 
+.back-to-top:active,
+.theme-toggle:active,
+.kanji-toggle:active,
+.furigana-toggle:active {
+	transform: translateY(0) !important;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark-mode .back-to-top:active,
+.dark-mode .theme-toggle:active,
+.dark-mode .kanji-toggle:active,
+.dark-mode .furigana-toggle:active {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
 .back-to-top,
 .theme-toggle,
 .kanji-toggle,
