@@ -299,13 +299,6 @@ ruby rt {
 		transform: translateY(0.06em) !important;
 		padding: 2px 2px 2px 2px !important;
 	}
-
-	.back-to-top {
-		bottom: 60px;
-		right: 12px;
-		padding: 10px 14px;
-		font-size: 12px;
-	}
 }
 
 @media (max-width: 768px) {

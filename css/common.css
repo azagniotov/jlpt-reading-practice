@@ -299,19 +299,20 @@ body {
 	touch-action: manipulation;
 }
 
-.back-to-top:focus,
-.theme-toggle:focus,
-.kanji-toggle:focus,
-.furigana-toggle:focus {
-	outline: none;
-	border-color: #ccc;  /* Reset to default border */
-}
+@media (hover: none) {
+	.theme-toggle:hover,
+	.kanji-toggle:hover,
+	.furigana-toggle:hover {
+		border-color: #ccc;
+		background-color: #e8e8e8;
+	}
 
-.dark-mode .back-to-top:focus,
-.dark-mode .theme-toggle:focus,
-.dark-mode .kanji-toggle:focus,
-.dark-mode .furigana-toggle:focus {
-	border-color: #6272a4;  /* Reset to default dark mode border */
+	.dark-mode .theme-toggle:hover,
+	.dark-mode .kanji-toggle:hover,
+	.dark-mode .furigana-toggle:hover {
+		border-color: #6272a4;
+		background-color: #3b4052;
+	}
 }
 
 /* Responsive Design - Common breakpoints */
