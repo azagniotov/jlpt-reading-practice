@@ -221,9 +221,11 @@
 
 /* Page-specific responsive design */
 
+/* Small Phones (portrait) */
 @media (max-width: 480px) {
-	.content-wrapper {
-		padding: 4.5em 1.0em 1.0em 1.0em !important;
+	.cards-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
 	}
 
 	.kanji-character {
@@ -231,25 +233,40 @@
 	}
 }
 
-/* Keep single column for small portrait phones */
-@media (max-width: 480px) and (orientation: portrait) {
+/* Small Phones (landscape) - force 2 columns */
+@media (max-width: 480px) and (orientation: landscape) {
 	.cards-grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
-@media (max-width: 768px) {
-	.content-wrapper {
-		padding: 4.5em 1.0em 1.0em 1.0em !important;
-	}
-
+/* Phones / Small Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
 	.cards-grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
 		gap: 12px;
 	}
 
 	.kanji-character {
 		font-size: 3rem;
+	}
+}
+
+/* Phones / Small Tablets (landscape) - optimize spacing */
+@media (min-width: 481px) and (max-width: 768px) and (orientation: landscape) {
+	.kanji-card {
+		padding: 15px;
+	}
+
+	.kanji-character {
+		font-size: 2.5rem;
+	}
+}
+
+/* Mobile and Small Tablets - Shared Base */
+@media (max-width: 768px) {
+	.content-wrapper {
+		padding: 4.5em 1.0em 1.0em 1.0em !important;
 	}
 
 	.search-container {
@@ -261,44 +278,12 @@
 	}
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
-	.content-wrapper {
-		padding: 4.5em 1.0em 1.0em 1.0em !important;
-	}
-
-	.cards-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 12px;
-	}
-}
-
-/* Landscape mode for phones - 2 cards per row */
-@media (max-width: 768px) and (orientation: landscape) {
-	.content-wrapper {
-		padding: 4.5em 1em 1em 1em;
-	}
-
-	.cards-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 12px;
-	}
-
-	.kanji-card {
-		padding: 15px;
-	}
-
-	.kanji-character {
-		font-size: 2.5rem;
-	}
-}
-
+/* Tablets / Small desktops */
 @media (min-width: 769px) and (max-width: 1024px) {
 	.content-wrapper {
 		padding: 4.0em 1.5em 1.5em 1.5em !important;
 	}
-}
 
-@media (min-width: 769px) and (max-width: 1024px)  and (orientation: landscape) {
 	.cards-grid {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 12px;
@@ -313,7 +298,15 @@
 	}
 }
 
-@media (min-width: 1025px)  {
+/* Tablets (landscape) - could go to 4 columns if space allows */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+	.cards-grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+/* Large desktop */
+@media (min-width: 1025px) {
 	.content-wrapper {
 		padding: 5.0em 1.5em 1.5em 1.5em !important;
 	}
