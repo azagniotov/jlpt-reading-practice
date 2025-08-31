@@ -221,6 +221,10 @@
 
 /* Page-specific responsive design */
 @media (max-width: 768px) {
+	.content-wrapper {
+		padding: 4.5em 1.0em 1.0em 1.0em !important;
+	}
+
 	.cards-grid {
 		grid-template-columns: 1fr;
 		gap: 12px;
@@ -240,6 +244,10 @@
 }
 
 @media (max-width: 480px) {
+	.content-wrapper {
+		padding: 4.5em 1.0em 1.0em 1.0em !important;
+	}
+
 	.kanji-character {
 		font-size: 2.5rem;
 	}
@@ -254,6 +262,10 @@
 
 /* Landscape mode for phones - 2 cards per row */
 @media (max-width: 768px) and (orientation: landscape) {
+	.content-wrapper {
+		padding: 4.5em 1em 1em 1em;
+	}
+
 	.cards-grid {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 12px;
@@ -269,6 +281,10 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px)  and (orientation: landscape) {
+	.content-wrapper {
+		padding: 4.5em 1.5em 1.5em 1.5em !important;
+	}
+
 	.cards-grid {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 12px;
