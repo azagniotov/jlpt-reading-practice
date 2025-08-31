@@ -220,6 +220,24 @@
 }
 
 /* Page-specific responsive design */
+
+@media (max-width: 480px) {
+	.content-wrapper {
+		padding: 4.5em 1.0em 1.0em 1.0em !important;
+	}
+
+	.kanji-character {
+		font-size: 2.5rem;
+	}
+}
+
+/* Keep single column for small portrait phones */
+@media (max-width: 480px) and (orientation: portrait) {
+	.cards-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
 @media (max-width: 768px) {
 	.content-wrapper {
 		padding: 4.5em 1.0em 1.0em 1.0em !important;
@@ -243,20 +261,14 @@
 	}
 }
 
-@media (max-width: 480px) {
+@media (min-width: 481px) and (max-width: 768px) {
 	.content-wrapper {
 		padding: 4.5em 1.0em 1.0em 1.0em !important;
 	}
 
-	.kanji-character {
-		font-size: 2.5rem;
-	}
-}
-
-/* Keep single column for small portrait phones */
-@media (max-width: 480px) and (orientation: portrait) {
 	.cards-grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
 	}
 }
 
