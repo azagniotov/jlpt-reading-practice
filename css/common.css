@@ -196,6 +196,7 @@ button.furigana-toggle:active {
 }
 
 button.back-to-top,
+button.hamburger-button,
 button.theme-toggle,
 button.kanji-toggle,
 button.furigana-toggle {
@@ -203,6 +204,265 @@ button.furigana-toggle {
 	-webkit-touch-callout: none;
 	-webkit-appearance: none;
 	-webkit-user-select: none;
+}
+
+/* Hamburger Menu - Hidden Checkbox Controller */
+#menu-toggle {
+	display: none;
+}
+
+/* Hamburger Button - Matches your toggle button style */
+.hamburger-button {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	width: 44px;
+	height: 44px;
+	border-radius: 8px;
+	border: 2px solid #ccc;
+	background-color: #e8e8e8;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	cursor: pointer;
+	z-index: 1002;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 4px;
+}
+
+/* Hamburger Icon Lines */
+.hamburger-button span {
+	display: block;
+	width: 22px;
+	height: 2px;
+	background-color: #333;
+	transition: all 0.3s ease;
+	border-radius: 2px;
+}
+
+/* Dark mode hamburger button */
+.dark-mode .hamburger-button {
+	background-color: #3b4052;
+	border-color: #6272a4;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .hamburger-button span {
+	background-color: #f8f8f2;
+}
+
+/* Hamburger hover effect */
+@media (hover: hover) {
+	.hamburger-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		background-color: #ddd;
+		border-color: #bbb;
+	}
+
+	.dark-mode .hamburger-button:hover {
+		border-color: #50fa7b;
+		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+		background-color: #44475a;
+	}
+}
+
+/* Hamburger active/pressed state */
+.hamburger-button:active {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	background-color: #ddd;
+	border-color: #bbb;
+}
+
+.dark-mode .hamburger-button:active {
+	border-color: #50fa7b;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	background-color: #44475a;
+}
+
+/* Transform hamburger to X when menu is open */
+#menu-toggle:checked ~ .hamburger-button span:nth-child(1) {
+	transform: translateY(6px) rotate(45deg);
+}
+
+#menu-toggle:checked ~ .hamburger-button span:nth-child(2) {
+	opacity: 0;
+}
+
+#menu-toggle:checked ~ .hamburger-button span:nth-child(3) {
+	transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Menu Overlay Background */
+.menu-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0);
+	pointer-events: none;
+	transition: background-color 0.3s ease;
+	z-index: 1000;
+}
+
+#menu-toggle:checked ~ .menu-overlay {
+	background-color: rgba(0, 0, 0, 0.5);
+	pointer-events: auto;
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+}
+
+/* Slide-in Menu Panel */
+.menu-panel {
+	position: fixed;
+	top: 0;
+	left: -170px;
+	width: 160px;
+	height: 100%;
+	background-color: #f4f4f4;
+	box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	z-index: 1001;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.dark-mode .menu-panel {
+	background-color: #2c2f3b;
+	box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#menu-toggle:checked ~ .menu-panel {
+	transform: translateX(170px);
+}
+
+/* Menu Navigation */
+.menu-nav {
+	flex: 1;
+	padding: 5em 0 1em 0;
+}
+
+/* Menu Items */
+.menu-item {
+	position: relative;
+}
+
+.menu-item > a,
+.menu-item > .menu-toggle-label {
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	padding: 0.5em 1.2em;
+	text-decoration: none;
+	color: #333;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	font-size: 1em;
+}
+
+.dark-mode .menu-item > a,
+.dark-mode .menu-item > .menu-toggle-label {
+	color: #f8f8f2;
+}
+
+.menu-item > a:hover,
+.menu-item > .menu-toggle-label:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+	transform: translateX(5px);
+}
+
+.dark-mode .menu-item > a:hover,
+.dark-mode .menu-item > .menu-toggle-label:hover {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Active page indicator */
+.menu-item > a.active {
+	background-color: rgba(76, 175, 80, 0.1);
+	border-left: 3px solid #4CAF50;
+}
+
+.dark-mode .menu-item > a.active {
+	background-color: rgba(76, 175, 80, 0.15);
+}
+
+/* Submenu toggle (CSS-only accordion) */
+.submenu-toggle {
+	display: none;
+}
+
+.menu-toggle-label {
+	position: relative;
+	user-select: none;
+}
+
+/* Chevron for expandable items */
+.menu-toggle-label::after {
+	content: '▼';
+	position: absolute;
+	right: 1.2em;
+	font-size: 0.7em;
+	transition: transform 0.3s ease;
+	color: #666;
+}
+
+.dark-mode .menu-toggle-label::after {
+	color: #999;
+}
+
+.submenu-toggle:checked + .menu-toggle-label::after {
+	transform: rotate(180deg);
+}
+
+/* Submenu */
+.submenu {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+	background-color: rgba(0, 0, 0, 0.02);
+}
+
+.dark-mode .submenu {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.submenu-toggle:checked ~ .submenu {
+	max-height: 300px;
+}
+
+.submenu a {
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	padding: 0.4em 1.2em 0.4em 2.4em;
+	text-decoration: none;
+	color: #555;
+	transition: all 0.2s ease;
+	font-size: 0.95em;
+}
+
+.dark-mode .submenu a {
+	color: #d7d7c7;
+}
+
+.submenu a:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+	transform: translateX(5px);
+}
+
+.dark-mode .submenu a:hover {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+.submenu a.active {
+	background-color: rgba(76, 175, 80, 0.1);
+	border-left: 3px solid #4CAF50;
+	font-weight: bold;
 }
 
 @media (hover: hover) {
@@ -278,6 +538,11 @@ button.furigana-toggle {
 		bottom: 55px;
 		right: 15px;
 	}
+
+	.menu-item > a,
+	.menu-item > .menu-toggle-label {
+		padding: 0.5em 1em;
+	}
 }
 
 @media (max-width: 768px) {
@@ -341,6 +606,26 @@ button.furigana-toggle {
 		height: 40px;
 		bottom: 55px;
 		right: 15px;
+	}
+
+	.hamburger-button {
+		top: 10px;
+		left: 10px;
+		width: 40px;
+		height: 40px;
+	}
+
+	.menu-panel {
+		width: 50%;
+		left: -50%;
+	}
+
+	#menu-toggle:checked ~ .menu-panel {
+		transform: translateX(100%);
+	}
+
+	.menu-nav {
+		padding: 4.5em 0 1em 0;
 	}
 }
 

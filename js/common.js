@@ -17,6 +17,34 @@ function backToTopVisibilityHandlers() {
 	}
 }
 
+function hamburgerMenuHandlers() {
+	const hamburgerBtn = document.getElementById('hamburger-btn');
+	const menuToggle = document.getElementById('menu-toggle');
+
+	hamburgerBtn.addEventListener('click', () => {
+		menuToggle.checked = !menuToggle.checked;
+	});
+
+	// Close menu when clicking on a link
+	document.querySelectorAll('.menu-panel a').forEach(link => {
+		link.addEventListener('click', () => {
+			menuToggle.checked = false;
+		});
+	});
+
+	// Close menu when clicking overlay
+	document.querySelector('.menu-overlay').addEventListener('click', () => {
+		menuToggle.checked = false;
+	});
+
+	// Close menu with Escape key
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') {
+			document.getElementById('menu-toggle').checked = false;
+		}
+	});
+}
+
 function initializeBackToTop() {
 	const backToTopButton = document.getElementById('backToTop');
 	// Use touchstart for immediate response on mobile
@@ -80,10 +108,14 @@ function fixStickyActiveStates() {
 document.addEventListener('DOMContentLoaded', () => {
 	initializeBackToTop();
 	backToTopVisibilityHandlers();
+	hamburgerMenuHandlers();
 	updateThemeIcon();
 	fixStickyActiveStates();
 
-	// Fix for iOS Safari: enable :active styles
+	// Fix for older versions of iOS Safari: enable :active styles
+	// By adding this empty event listener, we are essentially telling
+	// the browser to listen for touch events, which in turn triggers
+	// the :active state to work correctly for CSS.
 	document.addEventListener('touchstart', () => {}, true);
 
 	// Scroll event listeners

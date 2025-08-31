@@ -267,3 +267,18 @@
 		font-size: 2.5rem;
 	}
 }
+
+@media (min-width: 769px) and (max-width: 1024px)  and (orientation: landscape) {
+	.cards-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 12px;
+	}
+
+	.kanji-card {
+		padding: 15px;
+	}
+
+	.kanji-character {
+		font-size: 2.5rem;
+	}
+}
