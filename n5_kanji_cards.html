@@ -37,29 +37,63 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="css/common.css?version=00000034">
-    <link rel="stylesheet" href="css/kanji_cards.css?version=00000034">
+    <link rel="stylesheet" href="css/common.css?version=00000035">
+    <link rel="stylesheet" href="css/kanji_cards.css?version=00000035">
 
 </head>
 <body class="dark-mode">
 <div id="progress-bar-container">
     <div id="progress-bar"></div>
 </div>
+
+<input type="checkbox" id="menu-toggle">
+
+<label for="menu-toggle" class="menu-overlay"></label>
+
+<button type="button" class="hamburger-button" id="hamburger-btn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<nav class="menu-panel">
+    <div class="menu-nav">
+        <!-- Home -->
+        <div class="menu-item">
+            <a href="index.html">🏠 Home</a>
+        </div>
+
+        <!-- N5 Section -->
+        <div class="menu-item">
+            <input type="checkbox" id="n5-toggle" class="submenu-toggle" checked>
+            <label for="n5-toggle" class="menu-toggle-label">
+                📚 N5
+            </label>
+            <div class="submenu">
+                <a href="n5_kanji_cards.html" class="active">Kanji List</a>
+                <a href="n5_sentences.html">Sentences</a>
+            </div>
+        </div>
+
+        <!-- N4 Section -->
+        <div class="menu-item">
+            <input type="checkbox" id="n4-toggle" class="submenu-toggle">
+            <label for="n4-toggle" class="menu-toggle-label">
+                📚 N4
+            </label>
+            <div class="submenu">
+                <a href="n4_sentences.html">Sentences</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <button type="button" aria-label="Toggle dark theme" class="theme-toggle" onclick="toggleDarkMode(this)">
     <input type="checkbox" id="dark-mode-toggle" style="display: none;" checked>
     <span id="theme-icon">🌙</span>
 </button>
-<div class="main-container">
-    <nav class="sidebar">
-        <h2>JLPT Study</h2>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a class="active" href="n5_kanji_cards.html">N5 Kanji List</a></li>
-            <li><a href="n5_sentences.html">N5 Sentences</a></li>
-            <li><a href="n4_sentences.html">N4 Sentences</a></li>
-        </ul>
-    </nav>
 
+<div class="main-container">
     <div class="content-wrapper">
         <div class="search-container">
             <input
@@ -1602,8 +1636,8 @@
 
 <button type="button" aria-label="Back to top" id="backToTop" class="back-to-top">⬆️</button>
 
-<script src="js/common.js?version=00000034"></script>
-<script src="js/kanji_cards.js?version=00000034"></script>
+<script src="js/common.js?version=00000035"></script>
+<script src="js/kanji_cards.js?version=00000035"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		initializeCards();
