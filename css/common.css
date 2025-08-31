@@ -226,6 +226,7 @@ button.furigana-toggle {
 		outline: none !important;
 		transform: none !important;
 		opacity: 1 !important;
+		transition: none !important;
 	}
 }
 
