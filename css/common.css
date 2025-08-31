@@ -234,40 +234,45 @@ body {
 .furigana-toggle {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 	-webkit-touch-callout: none;
+	-webkit-appearance: none;
 	-webkit-user-select: none;
 	user-select: none;
 	touch-action: manipulation;
-	outline: none; /* To remove focus outline */
+	cursor: pointer;
 }
 
 /* For touch devices only */
 @media (hover: none) and (pointer: coarse) {
-	/* Active AND Focus states for better iOS compatibility */
+	/* Use ONLY :active for touch devices, not :focus */
 	.back-to-top:active,
-	.back-to-top:focus,
 	.theme-toggle:active,
-	.theme-toggle:focus,
 	.kanji-toggle:active,
-	.kanji-toggle:focus,
-	.furigana-toggle:active,
-	.furigana-toggle:focus {
+	.furigana-toggle:active {
 		transform: scale(0.9) !important;
 		opacity: 0.8 !important;
 		transition: transform 0.1s ease, opacity 0.1s ease !important;
+		-webkit-transform: scale(0.9) !important; /* Add webkit prefix for older iOS */
 	}
 
-	/* Dark mode active/focus states */
+	/* Dark mode active states */
 	.dark-mode .back-to-top:active,
-	.dark-mode .back-to-top:focus,
 	.dark-mode .theme-toggle:active,
-	.dark-mode .theme-toggle:focus,
 	.dark-mode .kanji-toggle:active,
-	.dark-mode .kanji-toggle:focus,
-	.dark-mode .furigana-toggle:active,
-	.dark-mode .furigana-toggle:focus {
+	.dark-mode .furigana-toggle:active {
 		transform: scale(0.9) !important;
+		-webkit-transform: scale(0.9) !important;
 		opacity: 0.8 !important;
 		border-color: #50fa7b !important;
+	}
+
+	/* Prevent focus styles on touch devices */
+	.back-to-top:focus,
+	.theme-toggle:focus,
+	.kanji-toggle:focus,
+	.furigana-toggle:focus {
+		outline: none !important;
+		transform: none !important;
+		opacity: 1 !important;
 	}
 }
 
