@@ -195,6 +195,16 @@ button.furigana-toggle:active {
 	background-color: #44475a;
 }
 
+button.back-to-top,
+button.theme-toggle,
+button.kanji-toggle,
+button.furigana-toggle {
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-appearance: none;
+	-webkit-user-select: none;
+}
+
 @media (hover: hover) {
 	button.back-to-top:hover,
 	button.theme-toggle:hover,
