@@ -112,34 +112,46 @@ body {
 	transition: width 0.25s ease-out;
 }
 
-/* Back to Top Button */
 .back-to-top {
+	/* Keep existing positioning */
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
-	background-color: #4CAF50;
-	color: white;
-	border: none;
+
+	/* New styling to match toggle buttons */
+	background-color: #e8e8e8;
+	border: 2px solid #ccc;
 	border-radius: 8px;
-	padding: 10px 14px;
-	font-size: 12px;
-	font-weight: 500;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	font-size: 20px;
+	color: #2d2a2e;
 	cursor: pointer;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+	/* Match the toggle button shadows and transitions */
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	transition: all 0.3s ease;
-	z-index: 1000;
-	opacity: 0;
-	visibility: hidden;
-	transform: translateY(10px);
-	font-family: inherit;
+
+	/* Center the icon */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	/* Remove the other styles */
+	font-weight: normal;
 	text-align: center;
-	line-height: 1.2;
-	white-space: pre-line;
+	white-space: normal;
+	line-height: 1;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	user-select: none;
 	touch-action: manipulation;
+
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(10px);
 }
 
 .back-to-top.show {
@@ -149,23 +161,23 @@ body {
 }
 
 .back-to-top:hover {
-	background-color: #45a049;
-	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 	transform: translateY(-2px);
-}
-
-.back-to-top:active {
-	transform: translateY(0);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	background-color: #ddd;
+	border-color: #bbb;
 }
 
 .dark-mode .back-to-top {
-	background-color: #6272a4;
+	background-color: #3b4052;
+	border-color: #6272a4;
 	color: #f8f8f2;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dark-mode .back-to-top:hover {
-	background-color: #5865a3;
+	border-color: #50fa7b;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	background-color: #44475a;
 }
 
 .theme-toggle {
