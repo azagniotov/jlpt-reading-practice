@@ -57,7 +57,7 @@ body {
 
 .content-wrapper {
 	flex-grow: 1;
-	padding: 2em;
+	padding: 4em 2em 2em 2em;
 	overflow-y: auto;
 }
 
@@ -141,15 +141,15 @@ button.theme-toggle {
 
 button.kanji-toggle {
 	position: fixed;
-	top: 74px;  /* 20px (theme toggle top) + 44px (height) + 10px (gap) */
-	right: 20px;
+	top: 20px;
+	right: 74px; /* start with 20px (theme toggle right) + 44px (height) + 10px (gap) */
 }
 
 /* Furigana Toggle Button */
 button.furigana-toggle {
 	position: fixed;
-	top: 128px;  /* 74px (kanji toggle top) + 44px (height) + 10px (gap) */
-	right: 20px;
+	top: 20px;
+	right: 128px; /* 74px (kanji toggle right) + 44px (height) + 10px (gap) */
 }
 
 .dark-mode button.back-to-top,
@@ -494,7 +494,7 @@ button.furigana-toggle {
 	}
 
 	.content-wrapper {
-		padding: 1.5em 1.0em 1.0em 1.0em !important;
+		padding: 3.0em 1.0em 1.0em 1.0em !important;
 	}
 
 	.sidebar {
@@ -517,15 +517,15 @@ button.furigana-toggle {
 	}
 
 	button.kanji-toggle {
-		top: 60px;  /* 10px (theme toggle top) + 40px (height) + 10px (gap) */
-		right: 10px;
+		top: 10px;
+		right: 60px; /* 10px (theme toggle right) + 40px (height) + 10px (gap) */
 		width: 40px;
 		height: 40px;
 	}
 
 	button.furigana-toggle {
-		top: 110px;  /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
-		right: 10px;
+		top: 10px;
+		right: 110px; /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
 		width: 40px;
 		height: 40px;
 	}
@@ -552,7 +552,7 @@ button.furigana-toggle {
 	}
 
 	.content-wrapper {
-		padding: 1.5em 1.0em 1.0em 1.0em !important;
+		padding: 3.0em 1.0em 1.0em 1.0em !important;
 	}
 
 	.sidebar {
@@ -586,15 +586,15 @@ button.furigana-toggle {
 	}
 
 	button.kanji-toggle {
-		top: 60px;  /* 10px (theme toggle top) + 40px (height) + 10px (gap) */
-		right: 10px;
+		top: 10px;
+		right: 60px;  /* 10px (theme toggle right) + 40px (height) + 10px (gap) */
 		width: 40px;
 		height: 40px;
 	}
 
 	button.furigana-toggle {
-		top: 110px;  /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
-		right: 10px;
+		top: 10px;
+		right: 110px; /* 60px (kanji toggle right) + 40px (height) + 10px (gap) */
 		width: 40px;
 		height: 40px;
 	}
@@ -631,7 +631,7 @@ button.furigana-toggle {
 
 @media (max-width: 768px) and (orientation: landscape) {
 	.content-wrapper {
-		padding: 1em;
+		padding: 2em 1em 1em 1em;
 	}
 }
 
@@ -642,7 +642,7 @@ button.furigana-toggle {
 	}
 
 	.content-wrapper {
-		padding: 1.5em !important;
+		padding: 3em 1.5em 1.5em 1.5em !important;
 	}
 
 	.sidebar {
@@ -658,15 +658,15 @@ button.furigana-toggle {
 	}
 
 	button.kanji-toggle {
-		top: 60px;  /* 10px (theme toggle top) + 40px (height) + 10px (gap) */
-		right: 10px;
+		top: 10px;
+		right: 60px; /* 10px (theme toggle right) + 40px (height) + 10px (gap) */
 		width: 44px;
 		height: 44px;
 	}
 
 	button.furigana-toggle {
-		top: 110px;  /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
-		right: 10px;
+		top: 10px;
+		right: 110px; /* 60px (kanji toggle right) + 40px (height) + 10px (gap) */
 		width: 44px;
 		height: 44px;
 	}
@@ -683,7 +683,7 @@ button.furigana-toggle {
 
 @media (min-width: 1025px) {
 	.content-wrapper {
-		padding: 2em;
+		padding: 3em 2em 2em 2em;
 		max-width: 1400px;
 		margin: 0 auto;
 	}
