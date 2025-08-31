@@ -228,6 +228,57 @@ body {
 	background-color: #5865a3;
 }
 
+.theme-toggle {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background-color: #e8e8e8;  /* Slightly darker than #fafafa background */
+	border: 2px solid #ccc;  /* Darker border */
+	border-radius: 8px;
+	width: 44px;
+	height: 44px;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+}
+
+.theme-toggle:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	background-color: #ddd;  /* Even darker on hover */
+	border-color: #bbb;
+}
+
+.theme-toggle:active {
+	transform: translateY(0);
+}
+
+.dark-mode .theme-toggle {
+	background-color: #3b4052;
+	border-color: #6272a4;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .theme-toggle:hover {
+	border-color: #50fa7b;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	background-color: #44475a;
+}
+
+@media (max-width: 768px) {
+	.theme-toggle {
+		top: 10px;
+		right: 10px;
+		width: 40px;
+		height: 40px;
+	}
+}
+
 /* Responsive Design - Common breakpoints */
 @media (max-width: 480px) {
 	html, body {
@@ -338,32 +389,3 @@ body {
 		right: 10px !important;
 	}
 }
-
-/* ================================================
-   CSS CLASSES USED BY JAVASCRIPT
-   These must be preserved exactly as they are:
-   ================================================
-
-   Classes used for JavaScript functionality:
-   - .dark-mode (toggle dark mode)
-   - .show (visibility toggle for popups/buttons)
-   - .expanded (kanji card state)
-   - .active (navigation state)
-   - .highlight (text highlighting)
-   - .popup-highlight (temporary highlight state)
-   - .hidden-furigana (furigana visibility)
-
-   IDs used by JavaScript:
-   - #progress-bar-container
-   - #progress-bar
-   - #backToTop
-   - #dark-mode-toggle
-   - #furigana-toggle
-   - #searchInput
-   - #cardsGrid
-   - #noResults
-   - #n4-toggle
-   - #n5-sentences
-   - #n4-sentences
-
-   ================================================ */

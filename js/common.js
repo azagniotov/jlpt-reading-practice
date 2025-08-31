@@ -33,6 +33,12 @@ function initializeBackToTop() {
 	});
 }
 
+function updateThemeIcon() {
+	const icon = document.getElementById('theme-icon');
+	const isDark = document.body.classList.contains('dark-mode');
+	icon.textContent = isDark ? '🌙' : '☀️';
+}
+
 function toggleDarkMode(container) {
 	const checkbox = container.querySelector('input[type="checkbox"]');
 	checkbox.checked = !checkbox.checked;
@@ -42,6 +48,7 @@ function toggleDarkMode(container) {
 	} else {
 		body.classList.remove('dark-mode');
 	}
+	updateThemeIcon()
 }
 
 function updateProgressBar() {
@@ -60,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	initializeBackToTop();
 	backToTopVisibilityHandlers();
+	updateThemeIcon();
 
 	// Scroll event listeners
 	window.addEventListener('scroll', () => {
