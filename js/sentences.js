@@ -26,16 +26,16 @@ function copyToClipboard(text) {
 	}
 }
 
-function toggleHighlight(level, container) {
+function toggleKanjiHighlight(className, container) {
 	const checkbox = container.querySelector('input[type="checkbox"]');
 	checkbox.checked = !checkbox.checked;
 
-	const elements = document.querySelectorAll('.' + level);
+	const elements = document.querySelectorAll('.' + className);
 	elements.forEach(el => {
 		if (checkbox.checked) {
-			el.classList.add('highlight');
+			el.classList.add('highlighted');
 		} else {
-			el.classList.remove('highlight');
+			el.classList.remove('highlighted');
 		}
 	});
 }
@@ -252,12 +252,6 @@ function speakJapanese(jpSentenceElement, speakerButton) {
 	} else {
 		alert('Speech synthesis not supported in this browser');
 	}
-}
-
-function leftHandSideMenuNavigation() {
-	const furiganaCheckbox = document.getElementById('furigana-toggle');
-	furiganaCheckbox.checked = false;
-	document.body.classList.add('hidden-furigana');
 }
 
 function speakerButtonHandlers() {

@@ -38,16 +38,24 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="css/common.css?version=00000011">
-    <link rel="stylesheet" href="css/sentences.css?version=00000011">
+    <link rel="stylesheet" href="css/common.css?version=00000012">
+    <link rel="stylesheet" href="css/sentences.css?version=00000012">
 </head>
-<body>
+<body class="dark-mode hidden-furigana">
 <div id="progress-bar-container">
     <div id="progress-bar"></div>
 </div>
 <div class="theme-toggle" onclick="toggleDarkMode(this)">
-    <input type="checkbox" id="dark-mode-toggle" style="display: none;">
-    <span id="theme-icon">☀️</span>
+    <input type="checkbox" id="dark-mode-toggle" style="display: none;" checked>
+    <span id="theme-icon">🌙</span>
+</div>
+<div class="kanji-toggle" onclick="toggleKanjiHighlight('kanji', this)">
+    <input type="checkbox" id="kanji-highlight-toggle" style="display: none;">
+    <span id="kanji-icon">漢</span>
+</div>
+<div class="furigana-toggle" onclick="toggleFurigana(this)">
+    <input type="checkbox" id="furigana-toggle" style="display: none;">
+    <span id="furigana-icon">あ</span>
 </div>
 <div class="main-container">
     <nav class="sidebar">
@@ -61,26 +69,6 @@
     </nav>
 
     <div class="content-wrapper">
-        <div class="controls">
-
-            <div class="checkbox-container n4-checkbox" onclick="toggleHighlight('kanji', this)">
-                <input type="checkbox" id="n4-toggle">
-                <span class="custom-checkbox"></span>
-                <label for="n4-toggle" class="checkbox-label">
-                    Highlight 漢字
-                </label>
-            </div>
-
-            <div class="checkbox-container" onclick="toggleFurigana(this)">
-                <input type="checkbox" id="furigana-toggle">
-                <span class="custom-checkbox"></span>
-                <label for="furigana-toggle" class="checkbox-label">
-                    Toggle ふりがな
-                </label>
-            </div>
-
-        </div>
-
         <div class="story-container">
             <div id="n5-sentences">
                 <ol>
@@ -132,14 +120,12 @@
 <div id="backToTop" class="back-to-top">    🔼
     Back
     to Top</div>
-<script src="js/common.js?version=00000011"></script>
-<script src="js/sentences.js?version=00000011"></script>
+<script src="js/common.js?version=00000012"></script>
+<script src="js/sentences.js?version=00000012"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-		// Left-hand side menu navigation
-		leftHandSideMenuNavigation();
 		// Add event listeners for speaker buttons
 		speakerButtonHandlers();
 		// Add event listeners for translate buttons

@@ -61,66 +61,6 @@ body {
 	overflow-y: auto;
 }
 
-/* Controls Section */
-.controls {
-	margin-bottom: 1.5em;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1.5em;
-	align-items: center;
-}
-
-.checkbox-container {
-	display: flex;
-	align-items: center;
-	gap: 0.5em;
-	cursor: pointer;
-	user-select: none;
-}
-
-.checkbox-container input[type="checkbox"] {
-	display: none;
-}
-
-.custom-checkbox {
-	width: 20px;
-	height: 20px;
-	border: 2px solid #ccc;
-	border-radius: 4px;
-	position: relative;
-	transition: all 0.3s ease;
-	background-color: white;
-}
-
-.custom-checkbox::after {
-	content: '✓';
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-family: "sans-serif", serif;
-	font-weight: bold;
-	font-size: 22px;
-	color: white;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-}
-
-.checkbox-container input[type="checkbox"]:checked + .custom-checkbox {
-	background-color: #4CAF50;
-	border-color: #337536;
-}
-
-.checkbox-container input[type="checkbox"]:checked + .custom-checkbox::after {
-	opacity: 1;
-}
-
-.checkbox-label {
-	font-size: 1em;
-	font-weight: 500;
-	cursor: pointer;
-}
-
 /* Dark Mode - Base */
 .dark-mode {
 	background-color: #282a36;
@@ -270,9 +210,108 @@ body {
 	background-color: #44475a;
 }
 
+.kanji-toggle {
+	position: fixed;
+	top: 74px;  /* 20px (theme toggle top) + 44px (height) + 10px (gap) */
+	right: 20px;
+	background-color: #e8e8e8;
+	border: 2px solid #ccc;
+	border-radius: 8px;
+	width: 44px;
+	height: 44px;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+}
+
+.kanji-toggle:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	background-color: #ddd;
+	border-color: #bbb;
+}
+
+.kanji-toggle:active {
+	transform: translateY(0);
+}
+
+.dark-mode .kanji-toggle {
+	background-color: #3b4052;
+	border-color: #6272a4;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .kanji-toggle:hover {
+	border-color: #50fa7b;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	background-color: #44475a;
+}
+
+/* Furigana Toggle Button */
+.furigana-toggle {
+	position: fixed;
+	top: 128px;  /* 74px (kanji toggle top) + 44px (height) + 10px (gap) */
+	right: 20px;
+	background-color: #e8e8e8;
+	border: 2px solid #ccc;
+	border-radius: 8px;
+	width: 44px;
+	height: 44px;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+}
+
+.furigana-toggle:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	background-color: #ddd;
+	border-color: #bbb;
+}
+
+.furigana-toggle:active {
+	transform: translateY(0);
+}
+
+.dark-mode .furigana-toggle {
+	background-color: #3b4052;
+	border-color: #6272a4;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .furigana-toggle:hover {
+	border-color: #50fa7b;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	background-color: #44475a;
+}
+
 @media (max-width: 768px) {
 	.theme-toggle {
 		top: 10px;
+		right: 10px;
+		width: 40px;
+		height: 40px;
+	}
+
+	.kanji-toggle {
+		top: 60px;  /* 10px (theme toggle top) + 40px (height) + 10px (gap) */
+		right: 10px;
+		width: 40px;
+		height: 40px;
+	}
+
+	.furigana-toggle {
+		top: 110px;  /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
 		right: 10px;
 		width: 40px;
 		height: 40px;
@@ -339,12 +378,6 @@ body {
 
 	.main-container {
 		flex-direction: column;
-	}
-
-	.controls {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 1em;
 	}
 
 	.back-to-top {

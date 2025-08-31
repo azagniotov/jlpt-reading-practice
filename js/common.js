@@ -60,11 +60,6 @@ function updateProgressBar() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	// Set dark mode as default
-	const darkModeCheckbox = document.getElementById('dark-mode-toggle');
-	darkModeCheckbox.checked = true;
-	document.body.classList.add('dark-mode');
-
 	initializeBackToTop();
 	backToTopVisibilityHandlers();
 	updateThemeIcon();

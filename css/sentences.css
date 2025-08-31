@@ -76,9 +76,10 @@ ruby rt {
 	display: none;
 }
 
-.kanji.highlight {
+.kanji.highlighted {
 	color: #c74a4a;
 	font-weight: normal;
+	transition: all 0.3s ease;
 }
 
 .kanji.popup-highlight {
@@ -90,8 +91,9 @@ ruby rt {
 	color: #ff79c6;
 }
 
-.dark-mode .kanji.highlight {
+.dark-mode .kanji.highlighted {
 	color: #5492ef;
+	transition: all 0.3s ease;
 }
 
 .dark-mode .kanji.popup-highlight {
