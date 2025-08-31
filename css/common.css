@@ -228,21 +228,6 @@ body {
 	background-color: #44475a;
 }
 
-.back-to-top:active,
-.theme-toggle:active,
-.kanji-toggle:active,
-.furigana-toggle:active {
-	transform: translateY(0) !important;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-}
-
-.dark-mode .back-to-top:active,
-.dark-mode .theme-toggle:active,
-.dark-mode .kanji-toggle:active,
-.dark-mode .furigana-toggle:active {
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-}
-
 .back-to-top,
 .theme-toggle,
 .kanji-toggle,
@@ -254,6 +239,7 @@ body {
 	touch-action: manipulation;
 }
 
+/* Disable hover but keep active state for touch devices */
 @media (hover: none) and (pointer: coarse) {
 	.back-to-top:hover,
 	.theme-toggle:hover,
@@ -272,6 +258,15 @@ body {
 		background-color: #3b4052 !important;
 		border-color: #6272a4 !important;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+	}
+
+	/* Active state for tap feedback */
+	.back-to-top:active,
+	.theme-toggle:active,
+	.kanji-toggle:active,
+	.furigana-toggle:active {
+		transform: translateY(0) !important;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 	}
 }
 
