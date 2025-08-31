@@ -80,20 +80,6 @@ body {
 	background-color: #3b4052;
 }
 
-.dark-mode .custom-checkbox {
-	background-color: #3b4052;
-	border-color: #6272a4;
-}
-
-.dark-mode .checkbox-container input[type="checkbox"]:checked + .custom-checkbox {
-	background-color: #4CAF50;
-	border-color: #337536;
-}
-
-.dark-mode .checkbox-label {
-	color: #f8f8f2;
-}
-
 /* Progress Bar */
 #progress-bar-container {
 	position: fixed;
@@ -313,6 +299,21 @@ body {
 	touch-action: manipulation;
 }
 
+.back-to-top:focus,
+.theme-toggle:focus,
+.kanji-toggle:focus,
+.furigana-toggle:focus {
+	outline: none;
+	border-color: #ccc;  /* Reset to default border */
+}
+
+.dark-mode .back-to-top:focus,
+.dark-mode .theme-toggle:focus,
+.dark-mode .kanji-toggle:focus,
+.dark-mode .furigana-toggle:focus {
+	border-color: #6272a4;  /* Reset to default dark mode border */
+}
+
 /* Responsive Design - Common breakpoints */
 @media (max-width: 480px) {
 	html, body {
@@ -359,6 +360,7 @@ body {
 
 	.back-to-top {
 		padding: 0 !important;
+		font-size: 20px !important;
 		width: 40px;
 		height: 40px;
 		bottom: 55px;
@@ -422,6 +424,7 @@ body {
 
 	.back-to-top {
 		padding: 0 !important;
+		font-size: 20px !important;
 		width: 40px;
 		height: 40px;
 		bottom: 55px;
@@ -473,6 +476,7 @@ body {
 
 	.back-to-top {
 		padding: 0 !important;
+		font-size: 20px !important;
 		width: 44px;
 		height: 44px;
 		bottom: 55px;
@@ -490,6 +494,7 @@ body {
 
 @media screen and (orientation: landscape) and (max-height: 600px) {
 	.back-to-top {
+		font-size: 20px !important;
 		width: 40px;
 		height: 40px;
 		bottom: 20px !important;
