@@ -194,41 +194,41 @@ button.furigana-toggle {
 	cursor: pointer;
 }
 
-/* For touch devices only */
-@media (hover: none) and (pointer: coarse) {
-	/* Use ONLY :active for touch devices, not :focus */
-	button.back-to-top:active,
-	button.theme-toggle:active,
-	button.kanji-toggle:active,
-	button.furigana-toggle:active {
-		transform: scale(0.9) !important;
-		opacity: 0.8 !important;
-		transition: transform 0.1s ease, opacity 0.1s ease !important;
-		-webkit-transform: scale(0.9) !important; /* Add webkit prefix for older iOS */
-	}
+/*!* For touch devices only *!*/
+/*@media (hover: none) and (pointer: coarse) {*/
+/*	!* Use ONLY :active for touch devices, not :focus *!*/
+/*	button.back-to-top:active,*/
+/*	button.theme-toggle:active,*/
+/*	button.kanji-toggle:active,*/
+/*	button.furigana-toggle:active {*/
+/*		transform: scale(0.9) !important;*/
+/*		opacity: 0.8 !important;*/
+/*		transition: transform 0.1s ease, opacity 0.1s ease !important;*/
+/*		-webkit-transform: scale(0.9) !important; !* Add webkit prefix for older iOS *!*/
+/*	}*/
 
-	/* Dark mode active states */
-	.dark-mode button.back-to-top:active,
-	.dark-mode button.theme-toggle:active,
-	.dark-mode button.kanji-toggle:active,
-	.dark-mode button.furigana-toggle:active {
-		transform: scale(0.9) !important;
-		-webkit-transform: scale(0.9) !important;
-		opacity: 0.8 !important;
-		border-color: #50fa7b !important;
-	}
+/*	!* Dark mode active states *!*/
+/*	.dark-mode button.back-to-top:active,*/
+/*	.dark-mode button.theme-toggle:active,*/
+/*	.dark-mode button.kanji-toggle:active,*/
+/*	.dark-mode button.furigana-toggle:active {*/
+/*		transform: scale(0.9) !important;*/
+/*		-webkit-transform: scale(0.9) !important;*/
+/*		opacity: 0.8 !important;*/
+/*		border-color: #50fa7b !important;*/
+/*	}*/
 
-	/* Prevent focus styles on touch devices */
-	button.back-to-top:focus,
-	button.theme-toggle:focus,
-	button.kanji-toggle:focus,
-	button.furigana-toggle:focus {
-		outline: none !important;
-		transform: none !important;
-		opacity: 1 !important;
-		transition: none !important;
-	}
-}
+/*	!* Prevent focus styles on touch devices *!*/
+/*	button.back-to-top:focus,*/
+/*	button.theme-toggle:focus,*/
+/*	button.kanji-toggle:focus,*/
+/*	button.furigana-toggle:focus {*/
+/*		outline: none !important;*/
+/*		transform: none !important;*/
+/*		opacity: 1 !important;*/
+/*		transition: none !important;*/
+/*	}*/
+/*}*/
 
 /* Responsive Design - Common breakpoints */
 @media (max-width: 480px) {

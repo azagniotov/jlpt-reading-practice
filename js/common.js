@@ -61,12 +61,18 @@ function updateProgressBar() {
 
 function fixStickyActiveStates() {
 	const buttons = document.querySelectorAll(
-			'.theme-toggle, .kanji-toggle, .furigana-toggle, .back-to-top'
+			'button.theme-toggle, button.kanji-toggle, button.furigana-toggle, button.back-to-top'
 	);
 
 	buttons.forEach((btn) => {
 		btn.addEventListener('touchend', () => {
-			btn.blur(); // force blur to cancel active state
+			// Remove focus after tap ends
+			btn.blur();
+		});
+
+		// Optional: also remove focus on touchcancel
+		btn.addEventListener('touchcancel', () => {
+			btn.blur();
 		});
 	});
 }
