@@ -232,42 +232,42 @@ body {
 .theme-toggle,
 .kanji-toggle,
 .furigana-toggle {
-	-webkit-tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	user-select: none;
 	touch-action: manipulation;
+	outline: none; /* To remove focus outline */
 }
 
 /* For touch devices only */
 @media (hover: none) and (pointer: coarse) {
-	/* Disable hover completely */
-	.back-to-top:hover,
-	.theme-toggle:hover,
-	.kanji-toggle:hover,
-	.furigana-toggle:hover {
-		transform: none !important;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-		background-color: #e8e8e8 !important;
-		border-color: #ccc !important;
-	}
-
-	.dark-mode .back-to-top:hover,
-	.dark-mode .theme-toggle:hover,
-	.dark-mode .kanji-toggle:hover,
-	.dark-mode .furigana-toggle:hover {
-		background-color: #3b4052 !important;
-		border-color: #6272a4 !important;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-	}
-
-	/* Active state with SCALE instead of translateY */
+	/* Active AND Focus states for better iOS compatibility */
 	.back-to-top:active,
+	.back-to-top:focus,
 	.theme-toggle:active,
+	.theme-toggle:focus,
 	.kanji-toggle:active,
-	.furigana-toggle:active {
+	.kanji-toggle:focus,
+	.furigana-toggle:active,
+	.furigana-toggle:focus {
 		transform: scale(0.9) !important;
 		opacity: 0.8 !important;
+		transition: transform 0.1s ease, opacity 0.1s ease !important;
+	}
+
+	/* Dark mode active/focus states */
+	.dark-mode .back-to-top:active,
+	.dark-mode .back-to-top:focus,
+	.dark-mode .theme-toggle:active,
+	.dark-mode .theme-toggle:focus,
+	.dark-mode .kanji-toggle:active,
+	.dark-mode .kanji-toggle:focus,
+	.dark-mode .furigana-toggle:active,
+	.dark-mode .furigana-toggle:focus {
+		transform: scale(0.9) !important;
+		opacity: 0.8 !important;
+		border-color: #50fa7b !important;
 	}
 }
 
