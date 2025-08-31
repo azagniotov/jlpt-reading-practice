@@ -143,11 +143,6 @@ body {
 	text-align: center;
 	white-space: normal;
 	line-height: 1;
-	-webkit-tap-highlight-color: transparent;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	user-select: none;
-	touch-action: manipulation;
 
 	opacity: 0;
 	visibility: hidden;
@@ -307,6 +302,17 @@ body {
 	background-color: #44475a;
 }
 
+.back-to-top,
+.theme-toggle,
+.kanji-toggle,
+.furigana-toggle {
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
+	touch-action: manipulation;
+}
+
 /* Responsive Design - Common breakpoints */
 @media (max-width: 480px) {
 	html, body {
@@ -352,6 +358,7 @@ body {
 	}
 
 	.back-to-top {
+		padding: 0 !important;
 		width: 40px;
 		height: 40px;
 		bottom: 55px;
@@ -414,6 +421,7 @@ body {
 	}
 
 	.back-to-top {
+		padding: 0 !important;
 		width: 40px;
 		height: 40px;
 		bottom: 55px;
@@ -441,6 +449,35 @@ body {
 		width: 200px;
 		padding: 1.5em 1em;
 	}
+
+	.theme-toggle {
+		top: 10px;
+		right: 10px;
+		width: 44px;
+		height: 44px;
+	}
+
+	.kanji-toggle {
+		top: 60px;  /* 10px (theme toggle top) + 40px (height) + 10px (gap) */
+		right: 10px;
+		width: 44px;
+		height: 44px;
+	}
+
+	.furigana-toggle {
+		top: 110px;  /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
+		right: 10px;
+		width: 44px;
+		height: 44px;
+	}
+
+	.back-to-top {
+		padding: 0 !important;
+		width: 44px;
+		height: 44px;
+		bottom: 55px;
+		right: 15px;
+	}
 }
 
 @media (min-width: 1025px) {
@@ -453,8 +490,8 @@ body {
 
 @media screen and (orientation: landscape) and (max-height: 600px) {
 	.back-to-top {
-		width: 44px;
-		height: 44px;
+		width: 40px;
+		height: 40px;
 		bottom: 20px !important;
 		right: 10px !important;
 	}
