@@ -175,18 +175,24 @@ button.furigana-toggle {
 	cursor: pointer;
 }
 
-/* This provides a brief "press" feedback on all devices */
+/* Styles for the "press" or "tap" state on all devices */
 button.back-to-top:active,
 button.theme-toggle:active,
 button.kanji-toggle:active,
 button.furigana-toggle:active {
-	transform: scale(0.95);
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	background-color: #ddd;
+	border-color: #bbb;
 }
 
-.dark-mode button:active {
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.dark-mode button.back-to-top:active,
+.dark-mode button.theme-toggle:active,
+.dark-mode button.kanji-toggle:active,
+.dark-mode button.furigana-toggle:active {
+	border-color: #50fa7b;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	background-color: #44475a;
 }
 
 @media (hover: hover) {
