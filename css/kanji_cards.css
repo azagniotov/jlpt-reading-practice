@@ -9,9 +9,6 @@
 	width: 100%;
 	padding: 12px 20px;
 	font-size: 16px;
-	transform: translate3d(0,0,0); /* Force GPU layer */
-	-webkit-user-select: text;
-	user-select: text;
 	border: 2px solid #ddd;
 	border-radius: 12px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -268,18 +265,5 @@
 
 	.kanji-character {
 		font-size: 2.5rem;
-	}
-}
-
-/* Prevent resize on focus */
-@supports (-webkit-touch-callout: none) {
-	/* iOS only */
-	.search-input:focus {
-		font-size: 16px;
-	}
-
-	/* Lock the content wrapper */
-	.content-wrapper {
-		overflow-anchor: none;
 	}
 }
