@@ -254,6 +254,27 @@ body {
 	touch-action: manipulation;
 }
 
+@media (hover: none) and (pointer: coarse) {
+	.back-to-top:hover,
+	.theme-toggle:hover,
+	.kanji-toggle:hover,
+	.furigana-toggle:hover {
+		transform: none !important;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+		background-color: #e8e8e8 !important;
+		border-color: #ccc !important;
+	}
+
+	.dark-mode .back-to-top:hover,
+	.dark-mode .theme-toggle:hover,
+	.dark-mode .kanji-toggle:hover,
+	.dark-mode .furigana-toggle:hover {
+		background-color: #3b4052 !important;
+		border-color: #6272a4 !important;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+	}
+}
+
 /* Responsive Design - Common breakpoints */
 @media (max-width: 480px) {
 	html, body {
