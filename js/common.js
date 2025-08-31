@@ -64,6 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	backToTopVisibilityHandlers();
 	updateThemeIcon();
 
+	// Fix for iOS Safari: enable :active styles
+	document.addEventListener('touchstart', () => {}, true);
+
 	// Scroll event listeners
 	window.addEventListener('scroll', () => {
 		updateProgressBar();
