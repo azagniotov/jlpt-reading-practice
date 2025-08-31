@@ -141,26 +141,6 @@ body {
 	transform: translateY(0);
 }
 
-.back-to-top:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	background-color: #ddd;
-	border-color: #bbb;
-}
-
-.dark-mode .back-to-top {
-	background-color: #3b4052;
-	border-color: #6272a4;
-	color: #f8f8f2;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.dark-mode .back-to-top:hover {
-	border-color: #50fa7b;
-	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-	background-color: #44475a;
-}
-
 .theme-toggle {
 	position: fixed;
 	top: 20px;
@@ -180,29 +160,6 @@ body {
 	font-size: 20px;
 }
 
-.theme-toggle:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	background-color: #ddd;  /* Even darker on hover */
-	border-color: #bbb;
-}
-
-.theme-toggle:active {
-	transform: translateY(0);
-}
-
-.dark-mode .theme-toggle {
-	background-color: #3b4052;
-	border-color: #6272a4;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.dark-mode .theme-toggle:hover {
-	border-color: #50fa7b;
-	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-	background-color: #44475a;
-}
-
 .kanji-toggle {
 	position: fixed;
 	top: 74px;  /* 20px (theme toggle top) + 44px (height) + 10px (gap) */
@@ -220,29 +177,6 @@ body {
 	align-items: center;
 	justify-content: center;
 	font-size: 20px;
-}
-
-.kanji-toggle:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	background-color: #ddd;
-	border-color: #bbb;
-}
-
-.kanji-toggle:active {
-	transform: translateY(0);
-}
-
-.dark-mode .kanji-toggle {
-	background-color: #3b4052;
-	border-color: #6272a4;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.dark-mode .kanji-toggle:hover {
-	border-color: #50fa7b;
-	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-	background-color: #44475a;
 }
 
 /* Furigana Toggle Button */
@@ -265,6 +199,9 @@ body {
 	font-size: 20px;
 }
 
+.back-to-top:hover,
+.theme-toggle:hover,
+.kanji-toggle:hover,
 .furigana-toggle:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -272,16 +209,19 @@ body {
 	border-color: #bbb;
 }
 
-.furigana-toggle:active {
-	transform: translateY(0);
-}
-
+.dark-mode .back-to-top,
+.dark-mode .theme-toggle,
+.dark-mode .kanji-toggle,
 .dark-mode .furigana-toggle {
 	background-color: #3b4052;
 	border-color: #6272a4;
+	color: #f8f8f2;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+.dark-mode .back-to-top:hover,
+.dark-mode .theme-toggle:hover,
+.dark-mode .kanji-toggle:hover,
 .dark-mode .furigana-toggle:hover {
 	border-color: #50fa7b;
 	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
@@ -297,22 +237,6 @@ body {
 	-webkit-user-select: none;
 	user-select: none;
 	touch-action: manipulation;
-}
-
-@media (hover: none) {
-	.theme-toggle:hover,
-	.kanji-toggle:hover,
-	.furigana-toggle:hover {
-		border-color: #ccc;
-		background-color: #e8e8e8;
-	}
-
-	.dark-mode .theme-toggle:hover,
-	.dark-mode .kanji-toggle:hover,
-	.dark-mode .furigana-toggle:hover {
-		border-color: #6272a4;
-		background-color: #3b4052;
-	}
 }
 
 /* Responsive Design - Common breakpoints */
