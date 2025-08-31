@@ -38,25 +38,25 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="css/common.css?version=00000025">
-    <link rel="stylesheet" href="css/sentences.css?version=00000025">
+    <link rel="stylesheet" href="css/common.css?version=00000026">
+    <link rel="stylesheet" href="css/sentences.css?version=00000026">
 </head>
 <body class="dark-mode hidden-furigana">
 <div id="progress-bar-container">
     <div id="progress-bar"></div>
 </div>
-<div class="theme-toggle" onclick="toggleDarkMode(this)">
+<button type="button" aria-label="Toggle dark theme" class="theme-toggle" onclick="toggleDarkMode(this)">
     <input type="checkbox" id="dark-mode-toggle" style="display: none;" checked>
     <span id="theme-icon">🌙</span>
-</div>
-<div class="kanji-toggle" onclick="toggleKanjiHighlight('kanji', this)">
+</button>
+<button type="button" aria-label="Highlight all kanji" class="kanji-toggle" onclick="toggleKanjiHighlight('kanji', this)">
     <input type="checkbox" id="kanji-highlight-toggle" style="display: none;">
     <span id="kanji-icon">漢</span>
-</div>
-<div class="furigana-toggle" onclick="toggleFurigana(this)">
+</button>
+<button type="button" aria-label="Toggle all furigana" class="furigana-toggle" onclick="toggleFurigana(this)">
     <input type="checkbox" id="furigana-toggle" style="display: none;">
     <span id="furigana-icon">あ</span>
-</div>
+</button>
 <div class="main-container">
     <nav class="sidebar">
         <h2>JLPT Study</h2>
@@ -479,10 +479,10 @@
         </div>
     </div>
 </div>
-<div id="backToTop" class="back-to-top">⬆️</div>
+<button type="button" aria-label="Back to top" id="backToTop" class="back-to-top">⬆️</button>
 
-<script src="js/common.js?version=00000025"></script>
-<script src="js/sentences.js?version=00000025"></script>
+<script src="js/common.js?version=00000026"></script>
+<script src="js/sentences.js?version=00000026"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;

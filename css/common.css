@@ -98,140 +98,93 @@ body {
 	transition: width 0.25s ease-out;
 }
 
-.back-to-top {
-	/* Keep existing positioning */
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-
-	/* New styling to match toggle buttons */
-	background-color: #e8e8e8;
-	border: 2px solid #ccc;
-	border-radius: 8px;
-	width: 44px;
-	height: 44px;
-	padding: 0;
-	font-size: 20px;
-	color: #2d2a2e;
-	cursor: pointer;
-
-	/* Match the toggle button shadows and transitions */
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	transition: all 0.3s ease;
-
-	/* Center the icon */
+button.theme-toggle,
+button.kanji-toggle,
+button.furigana-toggle,
+button.back-to-top {
+	all: unset; /* Resets native button styles */
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
+	width: 44px;
+	height: 44px;
+	border-radius: 8px;
+	border: 2px solid #ccc;
+	background-color: #e8e8e8;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	font-size: 20px;
+	z-index: 1000;
+}
 
-	/* Remove the other styles */
-	font-weight: normal;
-	text-align: center;
-	white-space: normal;
-	line-height: 1;
-
+button.back-to-top {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
 	opacity: 0;
 	visibility: hidden;
 	transform: translateY(10px);
 }
 
-.back-to-top.show {
+button.back-to-top.show {
 	opacity: 1;
 	visibility: visible;
 	transform: translateY(0);
 }
 
-.theme-toggle {
+button.theme-toggle {
 	position: fixed;
 	top: 20px;
 	right: 20px;
-	background-color: #e8e8e8;  /* Slightly darker than #fafafa background */
-	border: 2px solid #ccc;  /* Darker border */
-	border-radius: 8px;
-	width: 44px;
-	height: 44px;
-	cursor: pointer;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	transition: all 0.3s ease;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 20px;
 }
 
-.kanji-toggle {
+button.kanji-toggle {
 	position: fixed;
 	top: 74px;  /* 20px (theme toggle top) + 44px (height) + 10px (gap) */
 	right: 20px;
-	background-color: #e8e8e8;
-	border: 2px solid #ccc;
-	border-radius: 8px;
-	width: 44px;
-	height: 44px;
-	cursor: pointer;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	transition: all 0.3s ease;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 20px;
 }
 
 /* Furigana Toggle Button */
-.furigana-toggle {
+button.furigana-toggle {
 	position: fixed;
 	top: 128px;  /* 74px (kanji toggle top) + 44px (height) + 10px (gap) */
 	right: 20px;
-	background-color: #e8e8e8;
-	border: 2px solid #ccc;
-	border-radius: 8px;
-	width: 44px;
-	height: 44px;
-	cursor: pointer;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	transition: all 0.3s ease;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 20px;
 }
 
-.back-to-top:hover,
-.theme-toggle:hover,
-.kanji-toggle:hover,
-.furigana-toggle:hover {
+button.back-to-top:hover,
+button.theme-toggle:hover,
+button.kanji-toggle:hover,
+button.furigana-toggle:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	background-color: #ddd;
 	border-color: #bbb;
 }
 
-.dark-mode .back-to-top,
-.dark-mode .theme-toggle,
-.dark-mode .kanji-toggle,
-.dark-mode .furigana-toggle {
+.dark-mode button.back-to-top,
+.dark-mode button.theme-toggle,
+.dark-mode button.kanji-toggle,
+.dark-mode button.furigana-toggle {
 	background-color: #3b4052;
 	border-color: #6272a4;
 	color: #f8f8f2;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.dark-mode .back-to-top:hover,
-.dark-mode .theme-toggle:hover,
-.dark-mode .kanji-toggle:hover,
-.dark-mode .furigana-toggle:hover {
+.dark-mode button.back-to-top:hover,
+.dark-mode button.theme-toggle:hover,
+.dark-mode button.kanji-toggle:hover,
+.dark-mode button.furigana-toggle:hover {
 	border-color: #50fa7b;
 	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 	background-color: #44475a;
 }
 
-.back-to-top,
-.theme-toggle,
-.kanji-toggle,
-.furigana-toggle {
+button.back-to-top,
+button.theme-toggle,
+button.kanji-toggle,
+button.furigana-toggle {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 	-webkit-touch-callout: none;
 	-webkit-appearance: none;
@@ -244,10 +197,10 @@ body {
 /* For touch devices only */
 @media (hover: none) and (pointer: coarse) {
 	/* Use ONLY :active for touch devices, not :focus */
-	.back-to-top:active,
-	.theme-toggle:active,
-	.kanji-toggle:active,
-	.furigana-toggle:active {
+	button.back-to-top:active,
+	button.theme-toggle:active,
+	button.kanji-toggle:active,
+	button.furigana-toggle:active {
 		transform: scale(0.9) !important;
 		opacity: 0.8 !important;
 		transition: transform 0.1s ease, opacity 0.1s ease !important;
@@ -255,10 +208,10 @@ body {
 	}
 
 	/* Dark mode active states */
-	.dark-mode .back-to-top:active,
-	.dark-mode .theme-toggle:active,
-	.dark-mode .kanji-toggle:active,
-	.dark-mode .furigana-toggle:active {
+	.dark-mode button.back-to-top:active,
+	.dark-mode button.theme-toggle:active,
+	.dark-mode button.kanji-toggle:active,
+	.dark-mode button.furigana-toggle:active {
 		transform: scale(0.9) !important;
 		-webkit-transform: scale(0.9) !important;
 		opacity: 0.8 !important;
@@ -266,10 +219,10 @@ body {
 	}
 
 	/* Prevent focus styles on touch devices */
-	.back-to-top:focus,
-	.theme-toggle:focus,
-	.kanji-toggle:focus,
-	.furigana-toggle:focus {
+	button.back-to-top:focus,
+	button.theme-toggle:focus,
+	button.kanji-toggle:focus,
+	button.furigana-toggle:focus {
 		outline: none !important;
 		transform: none !important;
 		opacity: 1 !important;
@@ -299,28 +252,28 @@ body {
 		min-width: auto;
 	}
 
-	.theme-toggle {
+	button.theme-toggle {
 		top: 10px;
 		right: 10px;
 		width: 40px;
 		height: 40px;
 	}
 
-	.kanji-toggle {
+	button.kanji-toggle {
 		top: 60px;  /* 10px (theme toggle top) + 40px (height) + 10px (gap) */
 		right: 10px;
 		width: 40px;
 		height: 40px;
 	}
 
-	.furigana-toggle {
+	button.furigana-toggle {
 		top: 110px;  /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
 		right: 10px;
 		width: 40px;
 		height: 40px;
 	}
 
-	.back-to-top {
+	button.back-to-top {
 		padding: 0 !important;
 		font-size: 20px !important;
 		width: 40px;
@@ -363,28 +316,28 @@ body {
 		flex-direction: column;
 	}
 
-	.theme-toggle {
+	button.theme-toggle {
 		top: 10px;
 		right: 10px;
 		width: 40px;
 		height: 40px;
 	}
 
-	.kanji-toggle {
+	button.kanji-toggle {
 		top: 60px;  /* 10px (theme toggle top) + 40px (height) + 10px (gap) */
 		right: 10px;
 		width: 40px;
 		height: 40px;
 	}
 
-	.furigana-toggle {
+	button.furigana-toggle {
 		top: 110px;  /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
 		right: 10px;
 		width: 40px;
 		height: 40px;
 	}
 
-	.back-to-top {
+	button.back-to-top {
 		padding: 0 !important;
 		font-size: 20px !important;
 		width: 40px;
@@ -415,28 +368,28 @@ body {
 		padding: 1.5em 1em;
 	}
 
-	.theme-toggle {
+	button.theme-toggle {
 		top: 10px;
 		right: 10px;
 		width: 44px;
 		height: 44px;
 	}
 
-	.kanji-toggle {
+	button.kanji-toggle {
 		top: 60px;  /* 10px (theme toggle top) + 40px (height) + 10px (gap) */
 		right: 10px;
 		width: 44px;
 		height: 44px;
 	}
 
-	.furigana-toggle {
+	button.furigana-toggle {
 		top: 110px;  /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
 		right: 10px;
 		width: 44px;
 		height: 44px;
 	}
 
-	.back-to-top {
+	button.back-to-top {
 		padding: 0 !important;
 		font-size: 20px !important;
 		width: 44px;
@@ -455,7 +408,7 @@ body {
 }
 
 @media screen and (orientation: landscape) and (max-height: 600px) {
-	.back-to-top {
+	button.back-to-top {
 		font-size: 20px !important;
 		width: 40px;
 		height: 40px;
