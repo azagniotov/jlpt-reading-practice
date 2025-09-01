@@ -404,7 +404,7 @@ button.furigana-toggle {
 }
 
 .submenu a.active {
-	background-color: rgba(76, 175, 80, 0.1);
+	background-color: rgba(76, 175, 80, 0.2);
 	border-left: 3px solid #4CAF50;
 	font-weight: bold;
 }
