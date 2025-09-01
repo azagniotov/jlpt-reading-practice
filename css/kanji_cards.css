@@ -289,6 +289,10 @@
 		gap: 12px;
 	}
 
+	.meaning {
+		font-size: 0.9rem;
+	}
+
 	.kanji-card {
 		padding: 15px;
 	}
@@ -302,6 +306,14 @@
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
 	.cards-grid {
 		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.meaning {
+		font-size: 0.8rem;
+	}
+
+	.stroke-count {
+		font-size: 0.65rem;
 	}
 }
 

@@ -1,0 +1,3302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>JLPT N4 Kanji Cards</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon-180x180.png" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg" />
+
+    <!-- Safari favorites/bookmarks on iOS -->
+    <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#000000">
+
+    <link rel="manifest" href="assets/favicon/site.webmanifest" />
+
+    <meta charset="UTF-8">
+    <meta name="description" content="JLPT reading passages for levels N5, N4 and N3 with toggleable furigana and translations.">
+    <meta name="author" content="Alexander Zagniotov">
+    <meta name="keywords" content="jlpt,jlpt reading,jlpt n5,jlpt n4,jlpt n3,furigana reading,振り仮名,ふりがな,japanese translation">
+
+    <meta property="og:title" content="JLPT reading practice">
+    <meta property="og:description" content="JLPT reading passages for levels N5, N4 and N3 with toggleable furigana and translations.">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JLPT reading practice">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- iOS Safari meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="JLPTRead" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="css/common.css?version=00000047">
+    <link rel="stylesheet" href="css/kanji_cards.css?version=00000047">
+
+</head>
+<body class="dark-mode">
+<div id="progress-bar-container">
+    <div id="progress-bar"></div>
+</div>
+
+<input type="checkbox" id="menu-toggle">
+
+<label for="menu-toggle" class="menu-overlay"></label>
+
+<button type="button" class="hamburger-button" id="hamburger-btn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<nav class="menu-panel">
+    <div class="menu-nav">
+        <!-- Home -->
+        <div class="menu-item">
+            <a href="index.html">🏠 Home</a>
+        </div>
+
+        <!-- N4 Section -->
+        <div class="menu-item">
+            <input type="checkbox" id="n5-toggle" class="submenu-toggle">
+            <label for="n5-toggle" class="menu-toggle-label">
+                📚 N5
+            </label>
+            <div class="submenu">
+                <a href="n5_kanji_cards.html">Kanji List</a>
+                <a href="n5_sentences.html">Sentences</a>
+            </div>
+        </div>
+
+        <!-- N4 Section -->
+        <div class="menu-item">
+            <input type="checkbox" id="n4-toggle" class="submenu-toggle" checked>
+            <label for="n4-toggle" class="menu-toggle-label">
+                📚 N4
+            </label>
+            <div class="submenu">
+                <a href="n4_kanji_cards.html" class="active">Kanji List</a>
+                <a href="n4_sentences.html">Sentences</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<button type="button" aria-label="Toggle dark theme" class="theme-toggle" onclick="toggleDarkMode(this)">
+    <input type="checkbox" id="dark-mode-toggle" style="display: none;" checked>
+    <span id="theme-icon">🌙</span>
+</button>
+
+<div class="main-container">
+    <div class="content-wrapper">
+        <div class="search-container">
+            <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search by kanji, meaning, or reading..."
+                    id="searchInput"
+            >
+        </div>
+
+        <div class="cards-grid" id="cardsGrid">
+
+            <div class="kanji-card" data-search="力 riki りき ryoku りょく chikara ちから power strength 2">
+                <div class="kanji-header">
+                    <div class="kanji-character">力</div>
+                    <div class="stroke-count">2 strokes</div>
+                </div>
+                <div class="meaning">power, strength</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">riki (リキ), ryoku (リョク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">chikara (ちから)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="口 kou こう kuchi くち mouth 3">
+                <div class="kanji-header">
+                    <div class="kanji-character">口</div>
+                    <div class="stroke-count">3 strokes</div>
+                </div>
+                <div class="meaning">mouth</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kou (コウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kuchi (くち)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="工 kou こう ku く gu ぐ craft construction 3">
+                <div class="kanji-header">
+                    <div class="kanji-character">工</div>
+                    <div class="stroke-count">3 strokes</div>
+                </div>
+                <div class="meaning">craft, construction</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kou (コウ), ku (ク), gu (グ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="夕 seki せき yuu ゆう evening 3">
+                <div class="kanji-header">
+                    <div class="kanji-character">夕</div>
+                    <div class="stroke-count">3 strokes</div>
+                </div>
+                <div class="meaning">evening</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">seki (セキ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">yuu (ゆう)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="方 hou ほう kata かた direction 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">方</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">direction</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">hou (ホウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kata (かた)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="手 shu しゅ te て hand 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">手</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">hand</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shu (シュ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">te (て)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="不 fu ふ bu ぶ negative non un 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">不</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">negative, non- (as in nonstop), -un (as in unreal)</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">fu (フ), bu (ブ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="公 kou こう oyake おおやけ public official formal 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">公</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">public, official, formal</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kou (コウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">oyake (おおやけ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="心 shin しん kokoro こころ heart mind spirit feelings emotions 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">心</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">heart, mind, spirit, feelings, emotions</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shin (シン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kokoro (こころ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="文 bun ぶん mon もん fumi ふみ sentence literature 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">文</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">sentence, literature</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">bun (ブン), mon (モン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">fumi (ふみ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="元 gen げん gan がん moto もと origin beginning 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">元</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">origin, beginning</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">gen (ゲン), gan (ガン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">moto (もと)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="少 shou しょう sukunai すくない sukoshi すこし few little 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">少</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">few, little</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shou (ショウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">suku-nai (すく-ない), suko-shi (すこ-し)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="止 shi し tomaru とまる tomeru とめる stop halt 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">止</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">stop, halt</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">to-maru (と-まる), to-meru (と-める)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="切 setsu せつ sai さい kiru きる kireru きれる cut 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">切</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">cut</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">setsu (セツ), sai (サイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ki-ru (き-る), ki-reru (き-れる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="牛 gyuu ぎゅう ushi うし cow 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">牛</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">cow</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">gyuu (ギュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ushi (うし)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="犬 ken けん inu いぬ dog 4">
+                <div class="kanji-header">
+                    <div class="kanji-character">犬</div>
+                    <div class="stroke-count">4 strokes</div>
+                </div>
+                <div class="meaning">dog</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ken (ケン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">inu (いぬ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="立 ritsu りつ ryu りゅう tatsu たつ tateru たてる stand 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">立</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">to stand, stand up</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ritsu (リツ), ryu (リュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ta-tsu (た-つ), ta-teru (た-てる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="代 dai だい kaeru かえる kawaru かわる shiro しろ yo よ substitute replace generation 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">代</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">substitute, replace, instead, in place of, generation</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">dai (ダイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ka-eru (か-える), ka-waru (か-わる), shiro (しろ), yo (よ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="目 moku もく boku ぼく me め ma ま eye 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">目</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">eye</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">moku (モク), boku (ボク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">me (め), ma (ま)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="田 den でん ta た rice field paddy 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">田</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">rice field, paddy</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">den (デン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ta (た)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="主 shu しゅ su す nushi ぬし omo おも lord master main principal 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">主</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">lord, master, main thing, principal</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shu (シュ), su (ス)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">nushi (ぬし), omo (おも)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="用 you よう mochiiru もちいる utilize use 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">用</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">utilize, use</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">you (ヨウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">mochi-iru (もち-いる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="以 i い than compared means view 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">以</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">than this, compared with, by means of, in view of</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">i (イ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="世 sei せい se せ yo よ world society generation 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">世</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">world, society, generation</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sei (セイ), se (セ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">yo (よ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="正 sei せい shou しょう tadashii ただしい masani まさに correct true righteous 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">正</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">correct, true, righteous</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sei (セイ), shou (ショウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tada-shii (ただ-しい), masa-ni (まさ-に)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="台 dai だい tai たい utena うてな pedestal stand counter 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">台</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">pedestal, a stand, counter for machines and vehicles</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">dai (ダイ), tai (タイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">utena (うてな)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="広 kou こう hiroi ひろい wide broad spacious 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">広</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">wide, broad, spacious</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kou (コウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">hiro-i (ひろ-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="仕 shi し ji じ tsukaeru つかえる serve attend present 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">仕</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">serve, attend, be present at</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ), ji (ジ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tsuka-eru (つか-える)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="去 kyo きょ ko こ saru さる leave go away 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">去</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">leave, go away</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kyo (キョ), ko (コ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">sa-ru (さ-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="写 sha しゃ utsusu うつす utsuru うつる copy transcribe 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">写</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">copy, transcribe</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sha (シャ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">utsu-su (うつ-す), utsu-ru (うつ-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="古 ko こ furui ふるい furusu ふるす old ancient 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">古</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">old, ancient</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ko (コ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">furu-i (ふる-い), furu-su (ふる-す)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="冬 tou とう fuyu ふゆ winter 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">冬</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">winter</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">tou (トウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">fuyu (ふゆ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="兄 kyou きょう kei けい ani あに elder brother 5">
+                <div class="kanji-header">
+                    <div class="kanji-character">兄</div>
+                    <div class="stroke-count">5 strokes</div>
+                </div>
+                <div class="meaning">elder brother</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kyou (キョウ), kei (ケイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ani (あに)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="会 kai かい au あう meet see meeting 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">会</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">meet, see, meeting</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kai (カイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">a-u (あ-う)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="同 dou どう onaji おなじ same equal identical agreement 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">同</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">same, equal, identical, agreement</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">dou (ドウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ona-ji (おな-じ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="自 ji じ shi し mizukara みずから self oneself 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">自</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">self, oneself</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ji (ジ), shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">mizuka-ra (みずから)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="地 chi ち ji じ ground earth 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">地</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">ground, earth</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">chi (チ), ji (ジ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="多 ta た ooi おおい many much 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">多</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">many, much</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ta (タ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">oo-i (おお-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="安 an あん yasui やすい cheap safe relieve 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">安</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">cheap, safe, relieve</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">an (アン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">yasu-i (やす-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="考 kou こう kangaeru かんがえる consider think over 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">考</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">consider, think over</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kou (コウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kanga-eru (かんが-える)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="死 shi し shinu しぬ death die 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">死</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">death, die</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">shi-nu (し-ぬ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="有 yuu ゆう u う aru ある have possess exist 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">有</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">have, possess, exist</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">yuu (ユウ), u (ウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">a-ru (あ-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="早 sou そう sa さっ hayai はやい hayamaru はやまる hayameru はやめる early quick fast speedy 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">早</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">early, quick, fast, speedy</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sou (ソウ), sa' (サッ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">haya-i (はや-い), haya-maru (はや-まる), haya-meru (はや-める)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="字 ji じ aza あざ character letter 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">字</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">character, letter</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ji (ジ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">aza (あざ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="色 shoku しょく shiki しき iro いろ color 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">色</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">color</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shoku (ショク), shiki (シキ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">iro (いろ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="肉 niku にく meat flesh 6">
+                <div class="kanji-header">
+                    <div class="kanji-character">肉</div>
+                    <div class="stroke-count">6 strokes</div>
+                </div>
+                <div class="meaning">meat, flesh</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">niku (ニク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="社 sha しゃ yashiro やしろ company shrine 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">社</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">company, shrine</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sha (シャ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">Yashiro (やしろ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="言 gen げん gon ごん iu いう koto こと say speak word 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">言</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">say, speak, word</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">gen (ゲン), gon (ゴン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">i-u (い-う), koto (こと)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="体 tai たい tei てい karada からだ body object form 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">体</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">body, object, form</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">tai (タイ), tei (テイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">karada (からだ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="作 saku さく sa さ tsukuru つくる make create produce 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">作</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">make, create, produce</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">saku (サク), sa (サ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tsuku-ru (つく-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="近 kin きん chikai ちかい near close proximity 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">近</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">near, close (as in proximity)</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kin (キン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">chika-i (ちか-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="売 bai ばい uru うる sell 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">売</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">sell</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">bai (バイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">u-ru (う-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="別 betsu べつ wakareru わかれる wakeru わける separate different another 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">別</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">separate, different, another</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">betsu (ベツ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">waka-reru (わか-れる), wa-keru (わ-ける)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="私 shi し watashi わたし watakushi わたくし I me private 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">私</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">I, me, private</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">watashi (わたし), watakushi (わたくし)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="住 juu じゅう chuu ちゅう sumu すむ live dwell reside inhabit 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">住</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">live, dwell, reside, inhabit</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">juu (ジュウ), chuu (チュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">su-mu (す-む)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="町 chou ちょう machi まち town city block 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">町</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">town, city, block (as in city block)</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">chou (チョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">machi (まち)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="足 soku そく ashi あし tariru たりる foot leg sufficient 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">足</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">foot, leg, to be sufficient</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">soku (ソク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ashi (あし), ta-riru (た-りる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="究 kyuu きゅう kiwameru きわめる research study delve 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">究</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">research, study, delve into</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kyuu (キュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kiwa-meru (きわ-める)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="医 i い medicine doctor cure 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">医</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">medicine, doctor, cure</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">i (イ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="図 zu ず to と hakaru はかる drawing chart map diagram 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">図</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">drawing, chart, map, diagram</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">zu (ズ), to (ト)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">haka-ru (はか-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="花 ka か ke け hana はな flower 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">花</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">flower</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ka (カ), ke (ケ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">hana (はな)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="赤 seki せき shaku しゃく akai あかい red 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">赤</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">red</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">seki (セキ), shaku (シャク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">aka-i (あか-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="走 sou そう hashiru はしる run 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">走</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">run</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sou (ソウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">hashi-ru (はし-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="弟 tei てい dai だい de で otouto おとうと younger brother 7">
+                <div class="kanji-header">
+                    <div class="kanji-character">弟</div>
+                    <div class="stroke-count">7 strokes</div>
+                </div>
+                <div class="meaning">younger brother, brother</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">tei (テイ), dai (ダイ), de (デ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">otouto (おとうと)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="事 ji じ zu ず koto こと thing matter 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">事</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">thing, matter</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ji (ジ), zu (ズ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">koto (こと)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="者 sha しゃ mono もの person 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">者</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">person</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sha (シャ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">mono (もの)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="明 mei めい myou みょう akasu あかす akarui あかるい akiraka あきらか bright light clear 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">明</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">bright, light, clear</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">mei (メイ), myou (ミョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">a-kasu (あ-かす), aka-rui (あか-るい), aki-raka (あき-らか)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="京 kyou きょう kei けい kin きん miyako みやこ capital city 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">京</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">capital city</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kyou (キョウ), kei (ケイ), kin (キン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">miyako (みやこ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="画 ga が kaku かく picture painting brushstroke 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">画</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">picture, painting, brushstroke</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ga (ガ), kaku (カク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="知 chi ち shiru しる know wisdom 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">知</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">know, wisdom</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">chi (チ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">shi-ru (し-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="物 butsu ぶつ motsu もつ mono もの thing object matter 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">物</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">thing, object, matter</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">butsu (ブツ), motsu (モツ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">mono (もの)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="使 shi し tsukau つかう use spend messenger ambassador 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">使</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">use, spend, messenger, ambassador</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tsuka-u (つか-う)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="始 shi し hajimaru はじまる hajimeru はじめる begin start commence 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">始</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">begin, start, commence</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">haji-maru (はじ-まる), haji-meru (はじ-める)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="空 kuu くう sora そら kara から aku あく suku すく munashii むなしい empty void vacant vacuum sky 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">空</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">empty, void, vacant, vacuum, sky</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kuu (クウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">sora (そら), kara (から), a-ku (あ-く), su-ku (す-く), muna-shii (むな-しい)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="店 ten てん mise みせ store shop 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">店</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">store, shop</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ten (テン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">mise (みせ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="英 ei えい distinguished outstanding english united kingdom 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">英</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">distinguished, outstanding, English, United Kingdom</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ei (エイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="味 mi み aji あじ ajiwau あじわう taste flavor 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">味</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">taste, flavor</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">mi (ミ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">aji (あじ), aji-wau (あじ-わう)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="夜 ya や yo よ yoru よる night evening 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">夜</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">night, evening</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ya (ヤ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">yo (よ), yoru (よる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="注 chuu ちゅう sosogu そそぐ sasu さす tsugu つぐ pour concentrate annotate 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">注</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">pour, concentrate on, annotate</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">chuu (チュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">soso-gu (そそ-ぐ), sa-su (さ-す), tsu-gu (つ-ぐ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="歩 fu ふ ho ほ bu ぶ aruku あるく ayumu あゆむ walk counter steps 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">歩</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">walk, counter for steps</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">fu (フ), ho (ホ), bu (ブ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">aru-ku (ある-く), ayu-mu (あゆ-む)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="青 sei せい shou しょう aoi あおい blue 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">青</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">blue</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sei (セイ), shou (ショウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ao-i (あお-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="服 fuku ふく clothing admit obey 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">服</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">clothing, admit, obey</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">fuku (フク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="妹 mai まい imouto いもうと younger sister 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">妹</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">younger sister</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">mai (マイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">imouto (いもうと)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="姉 shi し ane あね elder sister 8">
+                <div class="kanji-header">
+                    <div class="kanji-character">姉</div>
+                    <div class="stroke-count">8 strokes</div>
+                </div>
+                <div class="meaning">elder sister</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ane (あね)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="発 hatsu はつ hotsu ほつ departure leaving journey emit 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">発</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">departure, the action of leaving, especially to start a journey, emit</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">hatsu (ハツ), hotsu (ホツ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="度 do ど taku たく tabi たび tai たい degrees occasion time counter occurrences 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">度</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">degrees, occasion, time, counter for occurrences</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">do (ド), taku (タク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tabi (たび), ta-i (た-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="持 ji じ motsu もつ hold have 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">持</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">hold, have</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ji (ジ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">mo-tsu (も-つ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="思 shi し omou おもう think 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">思</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">think</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">omo-u (おも-う)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="界 kai かい boundary border 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">界</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">boundary, border</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kai (カイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="重 juu じゅう chou ちょう omoi おもい e え kasaneru かさねる heavy duplicate 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">重</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">heavy, duplicate</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">juu (ジュウ), chou (チョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">omo-i (おも-い), e (え), kasa-neru (かさ-ねる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="海 kai かい umi うみ sea ocean 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">海</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">sea, ocean</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kai (カイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">umi (うみ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="品 hin ひん shina しな goods article 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">品</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">goods, article</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">hin (ヒン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">shina (しな)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="計 kei けい hakaru はかる plot plan count measure 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">計</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">plot, plan, count, measure</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kei (ケイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">haka-ru (はか-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="建 ken けん kon こん tatsu たつ tateru たてる build construct 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">建</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">build, construct</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ken (ケン), kon (コン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ta-tsu (た-つ), ta-teru (た-てる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="急 kyuu きゅう isogu いそぐ hurry sudden urgent 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">急</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">hurry, sudden, urgent</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kyuu (キュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">iso-gu (いそ-ぐ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="送 sou そう okuru おくる send 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">送</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">send</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">sou (ソウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">oku-ru (おく-る)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="研 ken けん togu とぐ polish sharpen 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">研</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">polish, sharpen</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ken (ケン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">to-gu (と-ぐ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="待 tai たい matsu まつ wait 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">待</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">wait</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">tai (タイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ma-tsu (ま-つ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="映 ei えい utsuru うつる haeru はえる reflect projection 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">映</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">reflect, projection</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ei (エイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">utsu-ru (うつ-る), ha-eru (は-える)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="音 in いん on おん oto おと ne ね sound 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">音</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">sound</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">in (イン), on (オン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">oto (おと), ne (ね)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="室 shitsu しつ muro むろ room cellar 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">室</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">room, cellar</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shitsu (シツ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">muro (むろ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="風 fuu ふう fu ふ kaze かぜ kaza かざ wind 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">風</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">wind</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">fuu (フウ), fu (フ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kaze (かぜ), kaza- (かざ-)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="春 shun しゅん haru はる spring 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">春</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">spring</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shun (シュン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">haru (はる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="屋 oku おく ya や roof house shop dealer seller 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">屋</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">roof, house, shop, dealer, seller</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">oku (オク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ya (や)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="秋 shuu しゅう aki あき autumn fall 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">秋</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">autumn, fall</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shuu (シュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">aki (あき)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="洋 you よう ocean sea western style 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">洋</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">ocean, sea, Western style</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">you (ヨウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="昼 chuu ちゅう hiru ひる daytime noon 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">昼</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">daytime, noon</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">chuu (チュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">hiru (ひる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="茶 cha ちゃ sa さ tea brown 9">
+                <div class="kanji-header">
+                    <div class="kanji-character">茶</div>
+                    <div class="stroke-count">9 strokes</div>
+                </div>
+                <div class="meaning">tea, brown</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">cha (チャ), sa (サ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="員 in いん member personnel 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">員</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">member, personnel</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">in (イン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="通 tsu つ tsuu つう tooru とおる kayou かよう pass through passage 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">通</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">pass through, passage</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">tsu (ツ), tsuu (ツウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">too-ru (とお-る), kayo-u (かよ-う)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="家 ka か ke け ie いえ ya や uchi うち house home 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">家</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">house, home</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ka (カ), ke (ケ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ie (いえ), ya (や), uchi (うち)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="院 in いん institution temple 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">院</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">institution, temple</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">in (イン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="特 toku とく special 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">特</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">special</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">toku (トク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="真 shin しん ma ま makoto まこと true truth reality buddhist sect 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">真</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">true, truth, reality, Buddhist sect</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shin (シン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ma (ま), makoto (まこと)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="料 ryou りょう fee materials 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">料</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">fee, materials</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ryou (リョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="起 ki き okiru おきる okosu おこす wake up get up rouse 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">起</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">wake up, get up, rouse</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ki (キ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">o-kiru (お-きる), o-kosu (おこ-す)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="病 byou びょう hei へい yamu やむ yamai やまい ill sick 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">病</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">ill, sick</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">byou (ビョウ), hei (ヘイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ya-mu (や-む), yamai (やまい)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="帰 ki き kaeru かえる kaesu かえす return go back come back 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">帰</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">return, go back, come back</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ki (キ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kae-ru (かえ-る), kae-su (かえ-す)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="紙 shi し kami かみ paper 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">紙</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">paper</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kami (かみ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="夏 ka か ge げ natsu なつ summer 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">夏</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">summer</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ka (カ), ge (ゲ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">natsu (なつ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="旅 ryo りょ tabi たび travel trip journey 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">旅</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">travel, trip, journey</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ryo (リョ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tabi (たび)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="借 shaku しゃく kariru かりる borrow rent 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">借</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">borrow, rent</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shaku (シャク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ka-riru (か-りる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="勉 ben べん tsutomeru つとめる make efforts endeavor study 10">
+                <div class="kanji-header">
+                    <div class="kanji-character">勉</div>
+                    <div class="stroke-count">10 strokes</div>
+                </div>
+                <div class="meaning">make efforts, endeavor, study</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ben (ベン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tsuto-meru (つと-める)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="問 mon もん toi とい tou とう ton とん question ask 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">問</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">question, ask</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">mon (モン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">to-i (と-い), to-u (と-う), ton (とん)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="動 dou どう ugokasu うごかす ugoku うごく move motion operate 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">動</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">move, motion, operate</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">dou (ドウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ugo-kasu (うご-かす), ugo-ku (うご-く)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="理 ri り logic reason 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">理</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">logic, reason</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ri (リ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="強 kyou きょう gou ごう tsuyoi つよい shiiru しいる strong powerful 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">強</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">strong, powerful</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kyou (キョウ), gou (ゴウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tsuyo-i (つよ-い), shi-iru (し-いる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="野 ya や no の field plains 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">野</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">field, plains</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ya (ヤ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">no (の)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="教 kyou きょう oshieru おしえる osowaru おそわる teach instruct faith 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">教</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">teach, instruct, faith</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kyou (キョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">oshi-eru (おし-える), oso-waru (おそ-わる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="終 shuu しゅう owaru おわる end finish 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">終</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">end, finish</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shuu (シュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">o-waru (お-わる)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="転 ten てん korogasu ころがす korogaru ころがる korogeru ころげる korobu ころぶ revolve turn around tumble 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">転</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">revolve, turn around, tumble</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ten (テン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">koro-gasu (ころ-がす), koro-garu (ころ-がる), koro-geru (ころ-げる), koro-bu (ころ-ぶ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="族 zoku ぞく family tribe 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">族</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">family, tribe</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">zoku (ゾク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="悪 aku あく o お warui わるい bad evil 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">悪</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">bad, evil</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">aku (アク), o (オ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">waru-i (わる-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="週 shuu しゅう week 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">週</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">week</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shuu (シュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="黒 koku こく kuro くろ black 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">黒</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">black</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">koku (コク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kuro (くろ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="習 shuu しゅう narau ならう learn 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">習</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">learn</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shuu (シュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">nara-u (なら-う)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="堂 dou どう hall 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">堂</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">hall</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">dou (ドウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="鳥 chou ちょう tori とり bird chicken 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">鳥</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">bird, chicken</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">chou (チョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tori (とり)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="魚 gyo ぎょ uo うお sakana さかな fish 11">
+                <div class="kanji-header">
+                    <div class="kanji-character">魚</div>
+                    <div class="stroke-count">11 strokes</div>
+                </div>
+                <div class="meaning">fish</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">gyo (ギョ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">uo (うお), sakana (さか)な</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="場 jou じょう ba ば location place 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">場</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">location, place</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">jou (ジョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ba (ば)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="開 kai かい aku あく akeru あける hiraku ひらく hirakeru ひらける open unfold unseal 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">開</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">open, unfold, unseal</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kai (カイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">a-ku (あ-く), a-keru (あ-ける), hira-ku (ひら-く), hira-keru (ひら-ける)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="道 dou どう tou とう michi みち road way street 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">道</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">road, way, street</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">dou (ドウ), tou (トウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">michi (みち)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="集 shuu しゅう atsumaru あつまる atsumeru あつめる tsudou つどう gather get together collect 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">集</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">gather, get together, collect</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shuu (シュウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">atsu-maru (あつ-まる) atsu-meru (あつ-める) tsudo-u (つど-う)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="朝 chou ちょう asa あさ morning 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">朝</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">morning</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">chou (チョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">asa (あさ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="運 un うん hakobu はこぶ carry transport luck fortune 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">運</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">carry, transport, luck, fortune</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">un (ウン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">hako-bu (はこ-ぶ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="無 mu む bu ぶ nai ない nothing without 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">無</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">nothing, without</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">mu (ム), bu (ブ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">na-i (な-い)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="着 jaku じゃく chaku ちゃく kiru きる tsuku つく arrive reach put on wear 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">着</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">arrive, reach, put on, wear</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">jaku (ジャク), chaku (チャク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ki-ru (き-る), tsu-ku (つ-く)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="答 tou とう kotaeru こたえる answer 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">答</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">answer</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">tou (トウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kota-eru (こた-える)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="買 bai ばい kau かう buy 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">買</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">buy</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">bai (バイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ka-u (か-う)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="飲 in いん nomu のむ drink 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">飲</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">drink</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">in (イン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">no-mu (の-む)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="貸 tai たい kasu かす kashi かし lend loan 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">貸</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">lend, loan</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">tai (タイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">ka-su (か-す), kashi (かし)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="飯 han はん meshi めし meal boiled rice cooked rice 12">
+                <div class="kanji-header">
+                    <div class="kanji-character">飯</div>
+                    <div class="stroke-count">12 strokes</div>
+                </div>
+                <div class="meaning">meal, boiled rice, cooked rice</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">han (ハン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">meshi (めし)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="業 gyou ぎょう waza わざ skill karma 13">
+                <div class="kanji-header">
+                    <div class="kanji-character">業</div>
+                    <div class="stroke-count">13 strokes</div>
+                </div>
+                <div class="meaning">skill, karma</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">gyou (ギョウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">waza (わざ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="新 shin しん atarashii あたらしい arata あらた nii にい new 13">
+                <div class="kanji-header">
+                    <div class="kanji-character">新</div>
+                    <div class="stroke-count">13 strokes</div>
+                </div>
+                <div class="meaning">new</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shin (シン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">atara-shii (あたら-しい), ara-ta (あら-た), nii (にい)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="意 i い mind meaning intention 13">
+                <div class="kanji-header">
+                    <div class="kanji-character">意</div>
+                    <div class="stroke-count">13 strokes</div>
+                </div>
+                <div class="meaning">mind, meaning, intention</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">i (イ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="楽 gaku がく raku らく tanoshii たのしい tanoshimu たのしむ music pleasure comfort ease enjoyment 13">
+                <div class="kanji-header">
+                    <div class="kanji-character">楽</div>
+                    <div class="stroke-count">13 strokes</div>
+                </div>
+                <div class="meaning">music, pleasure, comfort, ease, enjoyment</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">gaku (ガク), raku (ラク)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tano-shii (たの-しい), tano-shimu (たの-しむ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="試 shi し kokoromiru こころみる tamesu ためす try attempt test experiment 13">
+                <div class="kanji-header">
+                    <div class="kanji-character">試</div>
+                    <div class="stroke-count">13 strokes</div>
+                </div>
+                <div class="meaning">try, attempt, test, experiment</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shi (シ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">kokoro-miru (こころ-みる), tame-su (ため-す)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="漢 kan かん china kanji chinese character 13">
+                <div class="kanji-header">
+                    <div class="kanji-character">漢</div>
+                    <div class="stroke-count">13 strokes</div>
+                </div>
+                <div class="meaning">China, kanji, Chinese character</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kan (カン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="銀 gin ぎん silver 14">
+                <div class="kanji-header">
+                    <div class="kanji-character">銀</div>
+                    <div class="stroke-count">14 strokes</div>
+                </div>
+                <div class="meaning">silver</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">gin (ギン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="歌 ka か uta うた utau うたう song sing 14">
+                <div class="kanji-header">
+                    <div class="kanji-character">歌</div>
+                    <div class="stroke-count">14 strokes</div>
+                </div>
+                <div class="meaning">song, sing</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ka (カ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">uta (うた), uta-u (うた-う)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="駅 eki えき station 14">
+                <div class="kanji-header">
+                    <div class="kanji-character">駅</div>
+                    <div class="stroke-count">14 strokes</div>
+                </div>
+                <div class="meaning">station</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">eki (エキ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="質 shitsu しつ shichi しち chi ち tachi たち tadasu ただす quality 15">
+                <div class="kanji-header">
+                    <div class="kanji-character">質</div>
+                    <div class="stroke-count">15 strokes</div>
+                </div>
+                <div class="meaning">quality</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shitsu (シツ), shichi (シチ), chi (チ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">tachi (たち), tada-su (ただ-す)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="親 shin しん oya おや shitashii したしい shitashimu したしむ parent intimate 16">
+                <div class="kanji-header">
+                    <div class="kanji-character">親</div>
+                    <div class="stroke-count">16 strokes</div>
+                </div>
+                <div class="meaning">parent, intimate</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">shin (シン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">oya (おや), shita-shii (した-しい), shita-shimu (した-しむ)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="館 kan かん yakata やかた building mansion 16">
+                <div class="kanji-header">
+                    <div class="kanji-character">館</div>
+                    <div class="stroke-count">16 strokes</div>
+                </div>
+                <div class="meaning">building, mansion</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">kan (カン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text">yakata (やかた)</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="題 dai だい topic subject title theme 18">
+                <div class="kanji-header">
+                    <div class="kanji-character">題</div>
+                    <div class="stroke-count">18 strokes</div>
+                </div>
+                <div class="meaning">topic, subject, title, theme</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">dai (ダイ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="験 ken けん gen げん effect testing verification experience 18">
+                <div class="kanji-header">
+                    <div class="kanji-character">験</div>
+                    <div class="stroke-count">18 strokes</div>
+                </div>
+                <div class="meaning">effect, testing, verification, experience</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">ken (ケン), gen (ゲン)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="kanji-card" data-search="曜 you よう weekday 18">
+                <div class="kanji-header">
+                    <div class="kanji-character">曜</div>
+                    <div class="stroke-count">18 strokes</div>
+                </div>
+                <div class="meaning">weekday</div>
+                <div class="readings">
+                    <div class="reading-section">
+                        <div class="reading-label">On'yomi</div>
+                        <div class="reading-text">you (ヨウ)</div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="reading-label">Kun'yomi</div>
+                        <div class="reading-text"></div>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see readings</div>
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                No kanji found matching your search. Try searching by kanji character, English meaning, or Japanese
+                reading.
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" aria-label="Back to top" id="backToTop" class="back-to-top">⬆️</button>
+
+<script src="js/common.js?version=00000047"></script>
+<script src="js/kanji_cards.js?version=00000047"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		initializeCards();
+		initializeSearch();
+	});
+</script>
+</body>
+</html>
