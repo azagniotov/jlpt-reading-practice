@@ -430,60 +430,11 @@ button.furigana-toggle {
 	}
 }
 
-/* Responsive Design - Common breakpoints */
-@media (max-width: 480px) {
-	html, body {
-		font-size: 18px !important;
-		line-height: 2.2 !important;
-	}
+/* ========================================
+   RESPONSIVE STYLES - Mobile First Approach
+   ======================================== */
 
-	.content-wrapper {
-		padding: 3.0em 1.0em 1.0em 1.0em !important;
-	}
-
-	button.hamburger-button {
-		top: 10px;
-		left: 10px;
-		width: 44px;
-		height: 44px;
-	}
-
-	button.theme-toggle {
-		top: 10px;
-		right: 10px;
-		width: 40px;
-		height: 40px;
-	}
-
-	button.kanji-toggle {
-		top: 10px;
-		right: 60px; /* 10px (theme toggle right) + 40px (height) + 10px (gap) */
-		width: 40px;
-		height: 40px;
-	}
-
-	button.furigana-toggle {
-		top: 10px;
-		right: 110px; /* 60px (kanji toggle top) + 40px (height) + 10px (gap) */
-		width: 40px;
-		height: 40px;
-	}
-
-	button.back-to-top {
-		padding: 0 !important;
-		font-size: 20px !important;
-		width: 40px;
-		height: 40px;
-		bottom: 55px;
-		right: 15px;
-	}
-
-	.menu-item > a,
-	.menu-item > .menu-toggle-label {
-		padding: 0.5em 1em;
-	}
-}
-
+/* Base mobile styles (all mobile devices) */
 @media (max-width: 768px) {
 	html, body {
 		font-size: 18px !important;
@@ -498,6 +449,7 @@ button.furigana-toggle {
 		flex-direction: column;
 	}
 
+	/* Common button styles for mobile */
 	button.hamburger-button {
 		top: 10px;
 		left: 10px;
@@ -514,14 +466,14 @@ button.furigana-toggle {
 
 	button.kanji-toggle {
 		top: 10px;
-		right: 60px;  /* 10px (theme toggle right) + 40px (height) + 10px (gap) */
+		right: 60px; /* 10px + 40px + 10px gap */
 		width: 40px;
 		height: 40px;
 	}
 
 	button.furigana-toggle {
 		top: 10px;
-		right: 110px; /* 60px (kanji toggle right) + 40px (height) + 10px (gap) */
+		right: 110px; /* 60px + 40px + 10px gap */
 		width: 40px;
 		height: 40px;
 	}
@@ -535,6 +487,7 @@ button.furigana-toggle {
 		right: 15px;
 	}
 
+	/* Mobile menu panel */
 	.menu-panel {
 		width: 50%;
 		left: -50%;
@@ -549,12 +502,22 @@ button.furigana-toggle {
 	}
 }
 
-@media (max-width: 768px) and (orientation: landscape) {
-	.content-wrapper {
-		padding: 2em 1em 1em 1em;
+/* Small phones specific adjustments */
+@media (max-width: 480px) {
+	.menu-item > a,
+	.menu-item > .menu-toggle-label {
+		padding: 0.5em 1em;
 	}
 }
 
+/* Landscape mode for mobile devices */
+@media (max-width: 768px) and (orientation: landscape) {
+	.content-wrapper {
+		padding: 2em 1em 1em 1em !important;
+	}
+}
+
+/* Tablets / Small Desktops */
 @media (min-width: 769px) and (max-width: 1024px) {
 	html, body {
 		font-size: 20px !important;
@@ -565,44 +528,52 @@ button.furigana-toggle {
 		padding: 3em 1.5em 1.5em 1.5em !important;
 	}
 
+	/* Tablet button sizes - all consistent at 44px */
+	button.hamburger-button,
+	button.theme-toggle,
+	button.kanji-toggle,
+	button.furigana-toggle,
+	button.back-to-top {
+		width: 44px;
+		height: 44px;
+	}
+
 	button.hamburger-button {
 		top: 10px;
 		left: 10px;
-		width: 44px;
-		height: 44px;
 	}
 
 	button.theme-toggle {
 		top: 10px;
 		right: 10px;
-		width: 44px;
-		height: 44px;
 	}
 
 	button.kanji-toggle {
 		top: 10px;
-		right: 60px; /* 10px (theme toggle right) + 40px (height) + 10px (gap) */
-		width: 44px;
-		height: 44px;
+		right: 64px; /* 10px + 44px + 10px gap */
 	}
 
 	button.furigana-toggle {
 		top: 10px;
-		right: 110px; /* 60px (kanji toggle right) + 40px (height) + 10px (gap) */
-		width: 44px;
-		height: 44px;
+		right: 118px; /* 64px + 44px + 10px gap */
 	}
 
 	button.back-to-top {
 		padding: 0 !important;
 		font-size: 20px !important;
-		width: 44px;
-		height: 44px;
 		bottom: 55px;
 		right: 15px;
 	}
 }
 
+/* Tablets / Small Desktops (landscape) */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+	.cards-grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+/* Desktop and larger */
 @media (min-width: 1025px) {
 	.content-wrapper {
 		padding: 3em 2em 2em 2em;
@@ -611,6 +582,14 @@ button.furigana-toggle {
 	}
 }
 
+/* All landscape orientations */
+@media (orientation: landscape) {
+	ol.sentences {
+		padding-top: 1em;
+	}
+}
+
+/* Special case: Landscape with limited height */
 @media screen and (orientation: landscape) and (max-height: 600px) {
 	button.back-to-top {
 		font-size: 20px !important;
