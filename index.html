@@ -30,305 +30,15 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#282a36">
 
-    <style>
-		/* Landing page specific styles */
-		body {
-			font-family: "Hiragino Sans", "Hiragino Mincho", "Noto Sans JP", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-			font-size: 18px;
-			margin: 0;
-			padding: 0;
-			background: linear-gradient(135deg, #282a36 0%, #1e1f29 100%);
-			color: #d7d7c7;
-			line-height: 1.6;
-			min-height: 100vh;
-			overflow-x: hidden;
-		}
-
-		.landing-container {
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 2em;
-			padding-top: 4em;
-			min-height: 100vh;
-			display: flex;
-			flex-direction: column;
-		}
-
-		.hero-section {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-			/*padding: 2em 0;*/
-		}
-
-		.hero-title {
-			font-size: 3.5em;
-			font-weight: bold;
-			color: #f8f8f2;
-			margin-bottom: 0.3em;
-			font-family: "Hiragino Sans", "Noto Sans JP", -apple-system, sans-serif;
-			letter-spacing: -0.02em;
-			animation: fadeInUp 0.8s ease-out;
-		}
-
-		.hero-subtitle {
-			font-size: 1.3em;
-			color: #d7d7c7;
-			margin-bottom: 1em;
-			animation: fadeInUp 0.8s ease-out 0.1s backwards;
-		}
-
-		.hero-description {
-			font-size: 1.1em;
-			color: #a0a0a0;
-			max-width: 600px;
-			line-height: 1.6;
-			margin-bottom: 3em;
-			animation: fadeInUp 0.8s ease-out 0.2s backwards;
-		}
-
-		/* Floating kanji background decoration */
-		.bg-kanji {
-			position: fixed;
-			font-size: 8em;
-			color: rgba(80, 250, 123, 0.03);
-			font-family: "Hiragino Mincho", "Noto Sans JP", serif;
-			pointer-events: none;
-			user-select: none;
-			font-weight: bold;
-			animation: float 8s infinite ease-in-out;
-		}
-
-		.bg-kanji:nth-child(1) {
-			top: 10%;
-			left: 10%;
-			animation-delay: 0s;
-			color: rgba(80, 250, 123, 0.08);
-		}
-
-		.bg-kanji:nth-child(2) {
-			top: 60%;
-			right: 15%;
-			animation-delay: 2.5s;
-			color: rgba(189, 147, 249, 0.08);
-		}
-
-		.bg-kanji:nth-child(3) {
-			bottom: 20%;
-			left: 20%;
-			animation-delay: 5s;
-			color: rgba(255, 121, 198, 0.08);
-		}
-
-		@keyframes float {
-			0%, 100% { transform: translateY(0) rotate(0deg); }
-			33% { transform: translateY(-20px) rotate(2deg); }
-			66% { transform: translateY(20px) rotate(-2deg); }
-		}
-
-		/* Feature cards */
-		.feature-cards {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-			gap: 2em;
-			margin-bottom: 0.2em;
-			animation: fadeInUp 0.8s ease-out 0.3s backwards;
-		}
-
-		.feature-card {
-			background: rgba(59, 64, 82, 0.6);
-			backdrop-filter: blur(10px);
-			border: 1px solid rgba(98, 114, 164, 0.3);
-			border-radius: 16px;
-			padding: 2em;
-			text-decoration: none;
-			color: inherit;
-			transition: all 0.3s ease;
-			position: relative;
-			overflow: hidden;
-		}
-
-		.feature-card::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: linear-gradient(135deg, transparent, rgba(80, 250, 123, 0.1));
-			opacity: 0;
-			transition: opacity 0.3s ease;
-		}
-
-		.feature-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-			border-color: #50fa7b;
-		}
-
-		.feature-card:hover::before {
-			opacity: 1;
-		}
-
-		.card-icon {
-			font-size: 3em;
-			color: #50fa7b;
-			margin-bottom: 0.3em;
-			font-family: "Hiragino Mincho", "Noto Sans JP", serif;
-			font-weight: bold;
-		}
-
-		.feature-card:nth-child(2) .card-icon {
-			color: #bd93f9;
-		}
-
-		.feature-card:nth-child(3) .card-icon {
-			color: #ff79c6;
-		}
-
-		.card-title {
-			font-size: 1.5em;
-			font-weight: bold;
-			color: #f8f8f2;
-			margin-bottom: 0.5em;
-		}
-
-		.card-description {
-			font-size: 1em;
-			color: #d7d7c7;
-			line-height: 1.5;
-			margin-bottom: 1em;
-		}
-
-		.card-features {
-			font-size: 0.9em;
-			color: #a0a0a0;
-		}
-
-		.tap-to-see-hint {
-			color: #79d8ca !important;
-		}
-
-		/* Features strip */
-		.features-strip {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 0.8em;
-			margin-top: 1em;
-			padding: 1em 0;
-			animation: fadeInUp 0.8s ease-out 0.4s backwards;
-		}
-
-		.features-row {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			gap: 2.5em;
-		}
-
-		.feature-badge {
-			display: flex;
-			align-items: center;
-			gap: 0.4em;
-			color: #a0a0a0;
-			font-size: 1em;
-			white-space: nowrap;
-		}
-
-		.feature-badge-icon {
-			color: #50fa7b;
-			font-size: 1.1em;
-		}
-
-		/* Animations */
-		@keyframes fadeInUp {
-			from {
-				opacity: 0;
-				transform: translateY(30px);
-			}
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-
-		/* Responsive design */
-		@media (max-width: 768px) {
-			.landing-container {
-				padding: 1em;
-				padding-top: 2em;
-			}
-
-			.hero-title {
-				font-size: 2.5em;
-			}
-
-			.hero-subtitle {
-				font-size: 1.1em;
-			}
-
-			.hero-description {
-				font-size: 1em;
-			}
-
-			.feature-cards {
-				grid-template-columns: 1fr;
-				gap: 1.5em;
-			}
-
-			.bg-kanji {
-				font-size: 5em;
-			}
-
-			.features-row {
-				gap: 1.3em;
-			}
-
-			.feature-badge {
-				font-size: 1em;
-			}
-		}
-
-		@media (max-width: 480px) {
-			.landing-container {
-				padding-top: 1.5em;
-			}
-
-			.hero-title {
-				font-size: 2em;
-			}
-
-			.hero-subtitle {
-				font-size: 1em;
-			}
-
-			.card-title {
-				font-size: 1.3em;
-			}
-
-			.features-row {
-				gap: 1.0em;
-			}
-
-			.feature-badge {
-				font-size: 1em;
-			}
-
-			.feature-badge-icon {
-				font-size: 1em;
-			}
-		}
-    </style>
+    <link rel="stylesheet" href="css/common.css?version=00000046">
+    <link rel="stylesheet" href="css/index.css?version=00000046">
 </head>
 <body class="dark-mode">
 <!-- Subtle background kanji decorations -->
-<div class="bg-kanji">学</div>
 <div class="bg-kanji">日</div>
 <div class="bg-kanji">本</div>
+<div class="bg-kanji">語</div>
+<div class="bg-kanji">学</div>
 
 <div class="landing-container">
     <!-- Hero Section -->
@@ -345,7 +55,7 @@
                 <div class="card-icon">N5 漢字</div>
                 <h2 class="card-title">N5 Kanji Cards</h2>
                 <p class="card-description">
-                    80 essential kanji
+                    Start with the most common 80 kanji used in basic words and phrases
                 </p>
                 <p class="card-features">On'yomi and Kun'yomi readings • Instant search • Stroke counts • English meanings</p>
                 <p class="card-features tap-to-see-hint">TAP TO REVEAL</p>
@@ -355,9 +65,19 @@
                 <div class="card-icon">N5 文章</div>
                 <h2 class="card-title">N5 Sentences</h2>
                 <p class="card-description">
-                    Beginner-friendly sentences
+                    Practice those N5 80 kanji in real beginner-level sentences
                 </p>
                 <p class="card-features">Text-to-speech • One-click translations • Toggle furigana • Kanji meaning</p>
+                <p class="card-features tap-to-see-hint">TAP TO REVEAL</p>
+            </a>
+
+            <a href="n4_kanji_cards.html" class="feature-card">
+                <div class="card-icon">N4 漢字</div>
+                <h2 class="card-title">N4 Kanji Cards</h2>
+                <p class="card-description">
+                    Add range to your vocabulary with the next 167 most-used kanji
+                </p>
+                <p class="card-features">On'yomi and Kun'yomi readings • Instant search • Stroke counts • English meanings</p>
                 <p class="card-features tap-to-see-hint">TAP TO REVEAL</p>
             </a>
 
@@ -365,7 +85,7 @@
                 <div class="card-icon">N4 文章</div>
                 <h2 class="card-title">N4 Sentences</h2>
                 <p class="card-description">
-                    200 intermediate practice sentences
+                    See all 167 N4 kanji in action with intermediate-level sentences
                 </p>
                 <p class="card-features">Text-to-speech • One-click translations • Toggle furigana • Kanji meaning</p>
                 <p class="card-features tap-to-see-hint">TAP TO REVEAL</p>
