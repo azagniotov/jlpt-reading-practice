@@ -91,7 +91,7 @@
 	color: #2e7d32;
 	padding: 6px 12px;
 	border-radius: 20px;
-	font-size: 0.85rem;
+	font-size: 0.90rem;
 	font-weight: 600;
 }
 
@@ -221,11 +221,54 @@
 
 /* Page-specific responsive design */
 
+/* ========================================
+   Base rules for tablets and up (769px+)
+   ======================================== */
+@media (min-width: 769px) {
+	/* Default grid for all devices 769px and wider */
+	.cards-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 12px;
+	}
+
+	.stroke-count {
+		font-size: 1.25rem;
+	}
+
+	.expand-hint {
+		font-size: 1.20rem;
+	}
+}
+
+/* ========================================
+   Mobile and Small Tablets - Base Rules
+   ======================================== */
+@media (max-width: 768px) {
+	.content-wrapper {
+		padding: 4.5em 1.0em 1.0em 1.0em !important;
+	}
+
+	.search-container {
+		max-width: 100%;
+	}
+
+	.back-to-top {
+		bottom: 60px;
+	}
+
+	.cards-grid {
+		gap: 12px;
+	}
+
+	.expand-hint {
+		font-size: 1.25rem;
+	}
+}
+
 /* Small Phones (portrait) */
 @media (max-width: 480px) {
 	.cards-grid {
 		grid-template-columns: 1fr;
-		gap: 12px;
 	}
 
 	.kanji-character {
@@ -233,18 +276,17 @@
 	}
 }
 
-/* Small Phones (landscape) - force 2 columns */
+/* Small Phones (landscape) - 2 columns */
 @media (max-width: 480px) and (orientation: landscape) {
 	.cards-grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
-/* Phones / Small Tablets */
+/* Larger Phones / Small Tablets (481-768px) */
 @media (min-width: 481px) and (max-width: 768px) {
 	.cards-grid {
 		grid-template-columns: repeat(2, 1fr);
-		gap: 12px;
 	}
 
 	.kanji-character {
@@ -263,34 +305,12 @@
 	}
 }
 
-/* Mobile and Small Tablets - Shared Base */
-@media (max-width: 768px) {
-	.content-wrapper {
-		padding: 4.5em 1.0em 1.0em 1.0em !important;
-	}
-
-	.search-container {
-		max-width: 100%;
-	}
-
-	.back-to-top {
-		bottom: 60px;
-	}
-}
-
-/* Tablets / Small desktops */
+/* ========================================
+   Tablets / Small Desktops - Specific overrides
+   ======================================== */
 @media (min-width: 769px) and (max-width: 1024px) {
 	.content-wrapper {
 		padding: 4.0em 1.5em 1.5em 1.5em !important;
-	}
-
-	.cards-grid {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 12px;
-	}
-
-	.meaning {
-		font-size: 0.9rem;
 	}
 
 	.kanji-card {
@@ -300,9 +320,21 @@
 	.kanji-character {
 		font-size: 2.5rem;
 	}
+
+	.meaning {
+		font-size: 0.9rem;
+	}
+
+	.stroke-count {
+		font-size: 0.60rem;  /* Override the base 1.25rem */
+	}
+
+	.expand-hint {
+		font-size: 0.8rem;   /* Override the base 1.20rem */
+	}
 }
 
-/* Tablets (landscape) - could go to 4 columns if space allows */
+/* Tablets (landscape) - 4 columns */
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
 	.cards-grid {
 		grid-template-columns: repeat(4, 1fr);
@@ -311,15 +343,20 @@
 	.meaning {
 		font-size: 0.8rem;
 	}
-
-	.stroke-count {
-		font-size: 0.65rem;
-	}
 }
 
-/* Large desktop */
+/* ========================================
+   Large Desktop
+   ======================================== */
 @media (min-width: 1025px) {
 	.content-wrapper {
 		padding: 5.0em 1.5em 1.5em 1.5em !important;
 	}
+
+	.cards-grid {
+		grid-template-columns: repeat(4, 1fr);  /* Override to 4 columns for desktop */
+		gap: 16px;  /* Slightly larger gap for desktop */
+	}
+
+	/* stroke-count and expand-hint inherit the 1.25rem and 1.20rem from base 769px+ rule */
 }
