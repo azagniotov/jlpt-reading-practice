@@ -224,8 +224,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;  /* Centers the content horizontally */
-	width: 50% !important;
-	height: 50% !important;
+	width: 150px !important;
+	height: 150px !important;
 	margin: 0 auto;  /* Centers the container itself horizontally within its parent */
 }
 
