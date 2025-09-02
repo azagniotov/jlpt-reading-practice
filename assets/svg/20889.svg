@@ -18,7 +18,7 @@ If not, see http://ftp.gnu.org/non-gnu/chinese-fonts-truetype/LICENSE.
 	}
 }
 svg.acjk path[clip-path] {
-	--t:0.8s;
+	--t:0.7s;
 	animation:zk var(--t) linear forwards var(--d);
 	stroke-dasharray:3337;
 	stroke-dashoffset:3339;
@@ -47,4 +47,17 @@ svg.acjk path[id] {fill:#ccc;}
 <path style="--d:3s;" pathLength="3333" clip-path="url(#z20889c3)" d="M385 400L618 350"/>
 <path style="--d:4s;" pathLength="3333" clip-path="url(#z20889c4)" d="M335 259L370 305L314 543L327 560L607 504L677 551L589 866L543 889L453 814"/>
 <path style="--d:5s;" pathLength="3333" clip-path="url(#z20889c5)" d="M144 723L213 732L777 631L861 652"/>
+<script>
+// <![CDATA[
+function infinite()
+{
+	let e,s,n;
+	e=document.querySelector('svg.acjk');
+	s=e.innerHTML;
+	n=(s.match(/--d:[0-9]+s/g)||[]).length;
+	setInterval(()=>{e.innerHTML="";e.innerHTML=s;},(n+1)*1000);
+}
+infinite();
+// ]]>
+</script>
 </svg>

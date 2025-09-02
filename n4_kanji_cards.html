@@ -37,8 +37,8 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="css/common.css?version=00000054">
-    <link rel="stylesheet" href="css/kanji_cards.css?version=00000054">
+    <link rel="stylesheet" href="css/common.css?version=00000055">
+    <link rel="stylesheet" href="css/kanji_cards.css?version=00000055">
 
 </head>
 <body class="dark-mode">
@@ -3791,12 +3791,37 @@
 
 <button type="button" aria-label="Back to top" id="backToTop" class="back-to-top">⬆️</button>
 
-<script src="js/common.js?version=00000054"></script>
-<script src="js/kanji_cards.js?version=00000054"></script>
+<script src="js/common.js?version=00000055"></script>
+<script src="js/kanji_cards.js?version=00000055"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		initializeCards();
 		initializeSearch();
+
+		// // Access the SVG document inside the object
+		// const svgDoc = objectElement.contentDocument;
+        //
+		// // Now you can query elements inside the SVG
+		// const svgElement = svgDoc.querySelector('svg.acjk');
+        //
+		// // Or get specific paths
+		// const paths = svgDoc.querySelectorAll('path[clip-path]');
+        //
+		// // You can manipulate the SVG
+		// console.log(svgElement);
+        //
+		// function infinite() {
+		// 	let e, s, n;
+		// 	e = document.querySelector('object svg.acjk');
+		// 	s = e.innerHTML;
+		// 	n = (s.match(/--d:[0-9]+s/g) || []).length;
+		// 	setInterval(() => {
+		// 		e.innerHTML = "";
+		// 		e.innerHTML = s;
+		// 	}, (n + 1) * 1000);
+		// }
+        //
+		// infinite();
 	});
 </script>
 </body>
