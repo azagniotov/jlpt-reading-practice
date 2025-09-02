@@ -224,9 +224,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;  /* Centers the content horizontally */
+	margin: 0 auto;  /* Centers the container itself horizontally within its parent */
+}
+
+.kanji-svg-container object {
 	width: 150px !important;
 	height: 150px !important;
-	margin: 0 auto;  /* Centers the container itself horizontally within its parent */
 }
 
 /* Page-specific responsive design */
