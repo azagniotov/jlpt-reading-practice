@@ -219,6 +219,16 @@
 	color: #f8f8f2;
 }
 
+.kanji-svg-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;  /* Centers the content horizontally */
+	width: 50% !important;
+	height: 50% !important;
+	margin: 0 auto;  /* Centers the container itself horizontally within its parent */
+}
+
 /* Page-specific responsive design */
 
 /* ========================================
@@ -342,6 +352,14 @@
 
 	.meaning {
 		font-size: 0.8rem;
+	}
+
+	.reading-label {
+		font-size: 0.6rem;
+	}
+
+	.reading-text {
+		font-size: 0.7rem;
 	}
 }
 

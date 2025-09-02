@@ -52,3 +52,7 @@ for language learning through features like pronunciation guides, translations, 
 - Performance optimized with efficient event handling
 - Cross-browser compatibility including fallbacks for older browsers
 - No external dependencies - everything is self-contained
+
+## Licences
+
+- Animated kanji SVGs were adopted from https://github.com/parsimonhi/animCJK. Please refer to the relevant licensing information at https://github.com/parsimonhi/animCJK.
