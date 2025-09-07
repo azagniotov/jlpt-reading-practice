@@ -64,7 +64,7 @@ function initializeBackToTop() {
 function updateThemeIcon() {
 	const icon = document.getElementById('theme-icon');
 	const isDark = document.body.classList.contains('dark-mode');
-	icon.textContent = isDark ? '🌙' : '☀️';
+	icon.textContent = isDark ? '☀️' : '🌙';
 }
 
 function toggleDarkMode(container) {

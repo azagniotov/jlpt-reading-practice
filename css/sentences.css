@@ -70,6 +70,7 @@ ruby rt {
 /* Kanji highlighting */
 .kanji {
 	cursor: pointer;
+	font-weight: normal;
 }
 
 .kanji_meaning {
@@ -79,7 +80,7 @@ ruby rt {
 .kanji.highlighted {
 	color: #c74a4a;
 	font-weight: normal;
-	transition: all 0.3s ease;
+	transition: color 0.3s ease;
 }
 
 .kanji.popup-highlight {
@@ -93,7 +94,7 @@ ruby rt {
 
 .dark-mode .kanji.highlighted {
 	color: #5492ef;
-	transition: all 0.3s ease;
+	transition: color 0.3s ease;
 }
 
 .dark-mode .kanji.popup-highlight {
