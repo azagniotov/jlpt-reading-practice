@@ -1,6 +1,12 @@
 html {
 	overflow-x: hidden;
 	max-width: 100%;
+	position: relative; /* This helps with positioning contexts */
+}
+
+body {
+	position: relative; /* This helps with positioning contexts */
+	-webkit-text-size-adjust: 100%; /* This prevents text size adjustments */
 }
 
 body {
