@@ -111,36 +111,29 @@ function showFuriganaPopup(isTouchDevice, ruby) {
 
 	document.body.appendChild(popup);
 
-	let element = ruby;
-	let offsetLeft = 0;
-	let offsetTop = 0;
-
-	// Calculate absolute position by walking up the DOM tree using the
-	// following properties which are more zoom-stable than ruby.getBoundingClientRect()
-	// on mobile / touch devices.
-	while (element) {
-		offsetLeft += element.offsetLeft;
-		offsetTop += element.offsetTop;
-		element = element.offsetParent;
-	}
-
-	// Get popup dimensions after it's in the DOM
+	// Get zoom-aware positioning using getBoundingClientRect
+	const rubyRect = ruby.getBoundingClientRect();
 	const popupRect = popup.getBoundingClientRect();
 	const viewportWidth = window.innerWidth;
 
-	// Calculate ideal centered position
-	let leftPosition = offsetLeft + ruby.offsetWidth / 2;
+	// Get scroll offsets to convert viewport coords to document coords
+	const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+	const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+	// Convert viewport coordinates to document coordinates for absolute positioning
+	const absoluteLeft = rubyRect.left + scrollLeft;
+	const absoluteTop = rubyRect.top + scrollTop;
+
+	// Calculate horizontal position with viewport edge detection
+	let leftPosition = absoluteLeft + rubyRect.width / 2;
 	const viewportEdgeOffset = 10;
 
-	if (leftPosition + popupRect.width / 2 > viewportWidth - viewportEdgeOffset) {
-		// Check if popup would go off the right edge
-		// Position so right edge is from viewport edge
-		leftPosition = viewportWidth - popupRect.width - viewportEdgeOffset;
+	// Check if popup would go off screen edges (using viewport coords for comparison)
+	if (rubyRect.left + rubyRect.width / 2 + popupRect.width / 2 > viewportWidth - viewportEdgeOffset) {
+		leftPosition = scrollLeft + viewportWidth - popupRect.width - viewportEdgeOffset;
 		popup.style.transform = 'none';
-	} else if (leftPosition - popupRect.width / 2 < viewportEdgeOffset) {
-		// Check if popup would go off the left edge
-		// Position so left edge is from viewport edge
-		leftPosition = viewportEdgeOffset;
+	} else if (rubyRect.left + rubyRect.width / 2 - popupRect.width / 2 < viewportEdgeOffset) {
+		leftPosition = scrollLeft + viewportEdgeOffset;
 		popup.style.transform = 'none';
 	} else {
 		// Use centered positioning
@@ -148,9 +141,11 @@ function showFuriganaPopup(isTouchDevice, ruby) {
 	}
 
 	const offset = isTouchDevice ? 10 : 5;
+
+	// Use absolute positioning (relative to document)
 	popup.style.position = 'absolute';
 	popup.style.left = leftPosition + 'px';
-	popup.style.top = (offsetTop - popupRect.height - offset) + 'px';
+	popup.style.top = (absoluteTop - popupRect.height - offset) + 'px';
 
 	// Show popup
 	popup.classList.add('show');
