@@ -68,7 +68,7 @@ button.back-to-top {
 	width: 44px;
 	height: 44px;
 	border-radius: 8px;
-	border: 2px solid #ccc;
+	border: 2px solid #bbb;
 	background-color: #e8e8e8;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	transition: all 0.3s ease;
@@ -141,7 +141,7 @@ button.furigana-toggle:active {
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	background-color: #ddd;
-	border-color: #bbb;
+	border-color: #aaa;
 }
 
 .dark-mode button.back-to-top:active,
@@ -215,7 +215,7 @@ button.furigana-toggle {
 		transform: translateY(-2px);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		background-color: #ddd;
-		border-color: #bbb;
+		border-color: #aaa;
 	}
 
 	.dark-mode .hamburger-button:hover {
@@ -429,7 +429,7 @@ button.furigana-toggle {
 		transform: translateY(-2px);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		background-color: #ddd;
-		border-color: #bbb;
+		border-color: #aaa;
 	}
 
 	.dark-mode button.back-to-top:hover,

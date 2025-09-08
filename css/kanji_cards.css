@@ -57,7 +57,7 @@
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 	transition: all 0.3s ease;
 	cursor: pointer;
-	border: 2px solid transparent;
+	border: 2px solid #ddd;
 }
 
 .kanji-card:hover {
@@ -167,6 +167,7 @@
 }
 
 .dark-mode .kanji-card {
+	border-color: #6272a4;
 	background-color: #3b4052;
 	color: #f8f8f2;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
